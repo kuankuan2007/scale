@@ -1,0 +1,16 @@
+@use './theme.scss' as *;
+
+@use '@/assets/fontello/font-defines.scss' as *;
+body {
+  margin: 0;
+  padding: 0;
+  @include useTheme {
+    background: getTheme('background');
+    color: getTheme('color');
+  }
+}
+a {
+  @include useTheme {
+    color: getTheme('active-color');
+  }
+}

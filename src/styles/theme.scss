@@ -1,0 +1,33 @@
+@use 'sass:map';
+
+$theme: (
+  light: (
+    color: #111111,
+    background: #eeeeee,
+    active-color: #0006c1,
+    em-bg-color: #ffdbca,
+    strong-color: #868600,
+    name: 'light',
+  ),
+  dark: (
+    color: #eeeeee,
+    background: #1e1e1e,
+    active-color: #9fa3ff,
+    em-bg-color: #131600,
+    strong-color: #dddd00,
+    name: 'dark',
+  ),
+);
+$curTheme: 'light';
+@mixin useTheme($anythingElse: '') {
+  @each $key, $value in $theme {
+    $curTheme: $key !global;
+
+    html[data-theme='#{$key}']#{$anythingElse} & {
+      @content;
+    }
+  }
+}
+@function getTheme($paramName) {
+  @return map.get($map: map.get($theme, $curTheme), $key: $paramName);
+}

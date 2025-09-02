@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 267.3623 239.9589">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#_未命名的渐变_47);
+        stroke-width: 0px;
+      }
+    </style>
+    <linearGradient id="_未命名的渐变_47" data-name="未命名的渐变 47" x1="0" y1="119.9795" x2="267.3623" y2="119.9795" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e61f73"/>
+      <stop offset=".0366" stop-color="#e61e6d"/>
+      <stop offset=".1398" stop-color="#e61d61"/>
+      <stop offset=".25" stop-color="#e61d5e"/>
+      <stop offset=".5" stop-color="#e61c49"/>
+      <stop offset=".75" stop-color="#e61d32"/>
+      <stop offset="1" stop-color="#e71f19"/>
+    </linearGradient>
+  </defs>
+  <g id="old">
+    <path class="cls-1" d="m196.8282,0c-45.7518,0-63.147,32.6459-63.147,32.6459,0,0-17.3953-32.6459-63.1471-32.6459S0,40.5095,0,72.2022s10.2528,54.885,44.5604,94.3632c32.4832,37.3786,89.1209,73.3936,89.1209,73.3936,0,0,56.6376-36.015,89.1207-73.3936,34.3076-39.4782,44.5604-62.6705,44.5604-94.3632S242.5801,0,196.8282,0Z"/>
+  </g>
+</svg>
