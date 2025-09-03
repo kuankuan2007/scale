@@ -185,16 +185,18 @@ export const sds: Scale = {
       ok: true,
       title: r <= 52 ? '正常' : `有(${r <= 62 ? '轻度' : r <= 72 ? '中度' : '重度'})抑郁倾向`,
       description: `粗分：${n}，标准分值：${r}。`,
-      score: {
-        type: 'pointer',
-        value: r,
-        part: [
-          { start: 25, end: 53, color: '#009400' },
-          { start: 52.5, end: 63, color: '#ACAC00' },
-          { start: 62.5, end: 73, color: '#FF7500' },
-          { start: 72.5, end: 100, color: '#FF0000' },
-        ],
-      },
+      score: [
+        {
+          type: 'pointer',
+          value: r,
+          part: [
+            { start: 25, end: 53, color: '#009400' },
+            { start: 52.5, end: 63, color: '#ACAC00' },
+            { start: 62.5, end: 73, color: '#FF7500' },
+            { start: 72.5, end: 100, color: '#FF0000' },
+          ],
+        },
+      ],
     };
   },
   tags: ['自评', '抑郁'],

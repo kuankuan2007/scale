@@ -1,12 +1,18 @@
-export type ChoiceFormConfig = Readonly<{
+type DeepReadonly<T> = T extends object
+  ? {
+      readonly [K in keyof T]: DeepReadonly<T[K]>;
+    }
+  : T;
+
+export type ChoiceFormConfig = DeepReadonly<{
   type: 'choice';
   question: string;
-  choices: Readonly<string[]>;
+  choices: string[];
 }>;
-export type ChkeckBoxFormConfig = Readonly<{
+export type ChkeckBoxFormConfig = DeepReadonly<{
   type: 'checkbox';
   question: string;
-  choices: Readonly<string[]>;
+  choices: string[];
 }>;
 
 export type FormConfig = ChoiceFormConfig | ChkeckBoxFormConfig;
@@ -15,30 +21,41 @@ export type Question = Readonly<{
   id: string;
   form: FormConfig;
 }>;
-export type PointerScore = Readonly<{
+export type PointerScore = DeepReadonly<{
   type: 'pointer';
   value: number;
-  part: Readonly<{
+  part: {
     start: number;
     end: number;
     color: string;
-  }>[];
+  }[];
 }>;
-export type RadarMapScore = Readonly<{
+export type RadarMapScore = DeepReadonly<{
   type: 'radar';
-  values: Readonly<
-    Readonly<{
-      value: number;
-      name: string;
-    }>[]
-  >;
+  values: {
+    value: number;
+    name: string;
+  }[];
 }>;
-export type ScoreShower = PointerScore | RadarMapScore;
+export type LinesScore = DeepReadonly<{
+  type: 'lines';
+  min: number;
+  max: number;
+  step?: number; // default 1
+  splitLines?: number; // default  values
+  splitLinesData?: string[];
+  values: {
+    fill?: string;
+    stroke?: string;
+    values: number[];
+  }[];
+}>;
+export type ScoreShower = PointerScore | RadarMapScore | LinesScore;
 export type ScaleOKResult = Readonly<{
   ok: true;
   title: string;
   description: string;
-  score?: ScoreShower;
+  score?: Readonly<Readonly<ScoreShower>[]>;
 }>;
 export type ScaleErrorResult = Readonly<{
   ok: false;

@@ -86,16 +86,18 @@ export const sds: Scale = {
       ok: true,
       title: r <= 49 ? '正常' : `有(${r <= 59 ? '轻度' : r <= 69 ? '中度' : '重度'})焦虑倾向`,
       description: `粗分：${n}，标准分值：${r}。`,
-      score: {
-        type: 'pointer',
-        value: r,
-        part: [
-          { start: 25, end: 50, color: '#009400' },
-          { start: 49.5, end: 60, color: '#ACAC00' },
-          { start: 59.5, end: 70, color: '#FF7500' },
-          { start: 69.5, end: 100, color: '#FF0000' },
-        ],
-      },
+      score: [
+        {
+          type: 'pointer',
+          value: r,
+          part: [
+            { start: 25, end: 50, color: '#009400' },
+            { start: 49.5, end: 60, color: '#ACAC00' },
+            { start: 59.5, end: 70, color: '#FF7500' },
+            { start: 69.5, end: 100, color: '#FF0000' },
+          ],
+        },
+      ],
     };
   },
   tags: ['自评', '焦虑'],

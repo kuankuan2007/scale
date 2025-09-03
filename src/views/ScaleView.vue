@@ -38,7 +38,9 @@
           <k-icon id="warn" inline />
           量表结果仅供参考，如有需要请线下就医。一般线下就医时，会要求重新在医院进行测试，故本结果不具备临床意义。
         </div>
-        <result-scores v-if="result.score" :config="result.score!" />
+        <div class="chart" v-if="result.score">
+          <result-scores v-for="(item, index) in result.score" :key="index" :config="item" />
+        </div>
         <div class="result-content">
           <p class="title">{{ result.title }}</p>
           <p class="description">{{ result.description }}</p>
@@ -92,6 +94,16 @@ const requiredId = ref<string>();
 const readonly = ref(false);
 const resultElement = useTemplateRef('resultElement');
 const resultIntersectionData = ref<intersectionData>({});
+
+if (import.meta.env.DEV) {
+  // @ts-expect-error DEV
+  window.loadTestData = (data: string) => {
+    fetch(`/temp/test-datas/${data}.json`)
+      .then((res) => res.json())
+      .then((data) => (formResult.value = data))
+      .then(() => console.log('test data loaded:', data), console.error);
+  };
+}
 function showRequired(id: string) {
   requiredId.value = id;
   const dom = questionList.value?.querySelector(`.question[data-id='${id}']`);

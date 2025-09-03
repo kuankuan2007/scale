@@ -779,7 +779,6 @@ export const sds: Scale = {
       results[key] =
         value.map((i) => datas[i] as number).reduce((a, b) => a + b + 1, 0) / value.length;
     }
-    console.log(results);
     return {
       ok: true,
       title: '',
@@ -788,13 +787,22 @@ export const sds: Scale = {
       )
         .map((key) => `${nameMap[key as never]}：${results[key].toFixed(2) || 0}`)
         .join('，')}`,
-      score: {
-        type: 'radar',
-        values: Object.keys(nameMap).map((key) => ({
-          name: nameMap[key as never],
-          value: results[key] || 0,
-        })),
-      },
+      score: [
+        {
+          type: 'lines',
+          min: 0,
+          max: 5,
+          splitLinesData: Object.keys(nameMap).map(
+            (key) => `${nameMap[key as never]}\n${results[key].toFixed(2) || 0}`
+          ),
+          values: [
+            {
+              fill: 'rgba(255,255,255,0.2)',
+              values: Object.keys(nameMap).map((key) => results[key] || 0),
+            },
+          ],
+        },
+      ],
     };
   },
   tags: ['自评', '焦虑', '抑郁', '躯体化', '强迫', '敌对', '恐怖', '偏执'],

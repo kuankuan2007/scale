@@ -16,7 +16,8 @@ watch(
   },
   { immediate: true }
 );
-export function sizeRef(dom: HTMLElement, refValue?: Ref<{ width: number; height: number }>) {
+export type SizeRef = Ref<{ width: number; height: number }>;
+export function sizeRef(dom: HTMLElement, refValue?: SizeRef) {
   const size = refValue || ref<{ width: number; height: number }>({ width: 0, height: 0 });
   const resizeObserver = new ResizeObserver((entries) => {
     for (const entry of entries) {
@@ -25,6 +26,15 @@ export function sizeRef(dom: HTMLElement, refValue?: Ref<{ width: number; height
     }
   });
   resizeObserver.observe(dom);
+  return size;
+}
+export function computedSizeRef(domRef: Ref<HTMLElement | null>): SizeRef {
+  const size = ref({ width: 0, height: 0 });
+  watch(domRef, (dom) => {
+    if (dom) {
+      sizeRef(dom, size);
+    }
+  });
   return size;
 }
 export const windowSize = ref({

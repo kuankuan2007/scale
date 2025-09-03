@@ -9,15 +9,12 @@
 </template>
 <script setup lang="ts">
 import type { RadarMapScore } from '@/types/form';
-import { sizeRef, devicePixelRatioRef } from '@/scripts/sizeRef';
+import { devicePixelRatioRef, computedSizeRef } from '@/scripts/sizeRef';
 const canvas = useTemplateRef('canvas');
 const props = defineProps<{
   config: RadarMapScore;
 }>();
-const size = ref<{
-  width: number;
-  height: number;
-}>({ width: 0, height: 0 });
+const size = computedSizeRef(canvas);
 function getPoint(
   center: { x: number; y: number },
   size: number,
@@ -75,7 +72,6 @@ function drawLines(
   });
 }
 onMounted(() => {
-  sizeRef(canvas.value!, size);
   watchEffect(() => {
     const ctx = canvas.value?.getContext('2d');
     const datas = props.config.values;
