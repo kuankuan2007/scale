@@ -1,7 +1,7 @@
 import type { Scale } from '@/types/form';
 
 const globalChoices = ['没有或很少时间', '小部分时间', '相当多时间', '绝大部分或全部时间'] as const;
-
+const reverse = [5, 9, 13, 17, 19] as const;
 export const sds: Scale = {
   id: 'sas',
   name: '焦虑自评量表 (SAS)',
@@ -79,7 +79,11 @@ export const sds: Scale = {
           require: String(i),
         };
       }
-      n += Number(datas[i]) + 1;
+      if (reverse.includes(i as never)) {
+        n += 4 - Number(datas[i]);
+      } else {
+        n += Number(datas[i]) + 1;
+      }
     }
     const r = Math.floor(n * 1.25);
     return {
