@@ -790,20 +790,32 @@ export const sds: Scale = {
       score: [
         {
           type: 'lines',
-          min: 0,
+          min: 1,
           max: 5,
           splitLinesData: Object.keys(nameMap).map(
             (key) => `${nameMap[key as never]}\n${results[key].toFixed(2) || 0}`
           ),
           values: [
             {
-              fill: 'rgba(255,255,255,0.2)',
               values: Object.keys(nameMap).map((key) => results[key] || 0),
             },
           ],
         },
       ],
     };
+  },
+  dataIsValid: (data) => {
+    for (let i = 1; i <= 90; i++) {
+      if (
+        !(i in data) ||
+        typeof data[i as never] !== 'number' ||
+        data[i as never] < 1 ||
+        data[i as never] > 5 ||
+        Math.floor(data[i as never]) !== data[i as never]
+      )
+        return false;
+    }
+    return true;
   },
   tags: ['自评', '焦虑', '抑郁', '躯体化', '强迫', '敌对', '恐怖', '偏执'],
 };

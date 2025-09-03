@@ -6,6 +6,10 @@
         <router-link class="scale-link" :to="`/scale/${scale.id}`">
           <p class="scale-name">{{ scale.name }}</p>
           <p class="scale-desc">{{ scale.description }}</p>
+          <div class="tage-list" v-if="scale.tags.length">
+            <div class="tag" v-for="i in scale.tags" :key="i">{{ i }}</div>
+          </div>
+          <div class="id">{{ scale.id }}</div>
         </router-link>
       </div>
     </div>
@@ -33,13 +37,14 @@ import { RouterLink } from 'vue-router';
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
 }
 .scale-item {
   padding: 1em;
   border-radius: 1em;
   transition: background 0.3s;
+  flex: 1 1 auto;
   @include useTheme {
     background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
   }
@@ -57,6 +62,7 @@ import { RouterLink } from 'vue-router';
 .scale-link {
   text-decoration: none;
   outline: none;
+  position: relative;
   @include useTheme {
     color: getTheme('color');
   }
@@ -71,6 +77,27 @@ import { RouterLink } from 'vue-router';
   }
   p {
     margin: 0;
+  }
+  .tage-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 1em;
+    gap: 1em;
+    .tag {
+      padding: 0.2em 0.5em;
+      border-radius: 0.4em;
+
+      @include useTheme {
+        background: color.mix(getTheme('active-color'), getTheme('background'), 50%);
+      }
+    }
+  }
+  .id {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    opacity: 0.3;
   }
 }
 </style>

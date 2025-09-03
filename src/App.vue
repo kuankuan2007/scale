@@ -22,4 +22,9 @@ import PageHeader from '@/components/PageHeader.vue';
   }
   position: relative;
 }
+@media print {
+  .app-root {
+    padding-top: 0;
+  }
+}
 </style>

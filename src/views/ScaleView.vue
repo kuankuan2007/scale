@@ -30,13 +30,13 @@
           </div>
         </div>
 
-        <k-button type="submit" class="submit-button" :disabled="readonly">提交</k-button>
+        <k-button type="submit" class="submit-button" v-show="!result">提交</k-button>
       </form>
       <div class="result" v-if="result" ref="resultElement">
         <h2>结果：</h2>
         <div class="tip">
           <k-icon id="warn" inline />
-          量表结果仅供参考，如有需要请线下就医。一般线下就医时，会要求重新在医院进行测试，故本结果不具备临床意义。
+          量表结果仅供参考，如有需要请线下就医。一般线下就医时，会要求重新在指定平台进行测试，故本结果不具备临床意义。
         </div>
         <div class="chart" v-if="result.score">
           <result-scores v-for="(item, index) in result.score" :key="index" :config="item" />
@@ -45,6 +45,7 @@
           <p class="title">{{ result.title }}</p>
           <p class="description">{{ result.description }}</p>
         </div>
+        <k-button type="button" class="print-button" @click="printPage">打印</k-button>
       </div>
       <k-button
         v-show="result"
@@ -148,6 +149,10 @@ async function submit() {
     }
   }
 }
+function printPage() {
+  window.print();
+}
+
 onMounted(() => {
   watch(() => props.id, updateData, { immediate: true });
   watch(
@@ -178,11 +183,7 @@ onMounted(() => {
 }
 
 .question-list {
-  display: flex;
-  flex-direction: column;
   font-size: 1.2em;
-  gap: 0.5em;
-  justify-content: center;
   .question {
     border-radius: 0.8em;
     padding: 1em;
@@ -211,8 +212,10 @@ onMounted(() => {
   margin: 2em auto;
 }
 .result {
+  margin-top: 2em;
   padding: 2em;
   border-radius: 1em;
+  break-inside: avoid;
   @include useTheme {
     background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
   }
@@ -232,6 +235,16 @@ onMounted(() => {
         font-size: 1.5em;
       }
     }
+  }
+  .print-button {
+    margin-left: auto;
+  }
+}
+@media print {
+  .print-button,
+  .to-result-button,
+  .submit-button {
+    display: none;
   }
 }
 .loading,

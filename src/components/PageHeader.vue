@@ -13,6 +13,13 @@ defineProps<{
 @use '@/styles/theme.scss' as *;
 @use 'sass:color';
 
+@media print {
+  header {
+    display: none;
+    opacity: 0;
+  }
+}
+
 header {
   position: fixed;
   top: 0;

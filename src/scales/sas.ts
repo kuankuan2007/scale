@@ -104,6 +104,19 @@ export const sds: Scale = {
       ],
     };
   },
+  dataIsValid: (data) => {
+    for (let i = 1; i <= 20; i++) {
+      if (
+        !(i in data) ||
+        typeof data[i as never] !== 'number' ||
+        data[i as never] < 1 ||
+        data[i as never] > 4 ||
+        Math.floor(data[i as never]) !== data[i as never]
+      )
+        return false;
+    }
+    return true;
+  },
   tags: ['自评', '焦虑'],
 };
 export default sds;

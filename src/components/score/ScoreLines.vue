@@ -1,5 +1,5 @@
 <template>
-  <div class="score-pointer">
+  <div class="score-lines">
     <div class="draw-box">
       <canvas ref="canvas"></canvas>
     </div>
@@ -65,37 +65,40 @@ onMounted(() => {
     }
 
     for (const i of datas.values) {
-      ctx.fillStyle = i.fill || 'transparent';
-      ctx.strokeStyle = i.stroke || '#fff';
+      ctx.fillStyle = i.fill || 'rgba(0,0,255,0.2)';
+      ctx.strokeStyle = i.stroke || '#00f';
       ctx.beginPath();
       ctx.moveTo(0, canvasSize.height);
-      if (i.values.length === 1) {
+
+      for (let j = 0; j < i.values.length; j++) {
         ctx.lineTo(
-          0,
-          canvasSize.height - (i.values[0] / (datas.max - datas.min)) * canvasSize.height
+          (j / (i.values.length - 1)) * canvasSize.width,
+          ((datas.max - i.values[j]) / (datas.max - datas.min)) * canvasSize.height
         );
-        ctx.lineTo(
-          canvasSize.width,
-          canvasSize.height - (i.values[0] / (datas.max - datas.min)) * canvasSize.height
-        );
-      } else {
-        for (let j = 0; j < i.values.length; j++) {
-          ctx.lineTo(
-            (j / (i.values.length - 1)) * canvasSize.width,
-            ((datas.max - i.values[j]) / (datas.max - datas.min)) * canvasSize.height
-          );
-        }
       }
       ctx.stroke();
       ctx.lineTo(canvasSize.width, canvasSize.height);
       ctx.closePath();
       ctx.fill();
+
+      ctx.beginPath();
+      ctx.fillStyle = ctx.strokeStyle;
+      for (let j = 0; j < i.values.length; j++) {
+        ctx.arc(
+          (j / (i.values.length - 1)) * canvasSize.width,
+          ((datas.max - i.values[j]) / (datas.max - datas.min)) * canvasSize.height,
+          3 * lineWidth,
+          0,
+          Math.PI * 2
+        );
+        ctx.fill();
+      }
     }
   });
 });
 </script>
 <style scoped lang="scss">
-.score-pointer {
+.score-lines {
   padding: 2em;
 }
 .draw-box {
@@ -104,6 +107,7 @@ onMounted(() => {
   canvas {
     flex: 1 1 0;
     height: 15em;
+    width: 100%;
   }
 }
 .names {

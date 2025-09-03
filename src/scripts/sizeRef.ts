@@ -5,7 +5,6 @@ const dprMatcher = computed(() =>
   window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
 );
 function updateDPR() {
-  console.log('DPR changed', window.devicePixelRatio);
   devicePixelRatioRef.value = window.devicePixelRatio;
 }
 watch(
