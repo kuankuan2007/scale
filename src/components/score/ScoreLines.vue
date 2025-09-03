@@ -81,9 +81,10 @@ onMounted(() => {
       ctx.closePath();
       ctx.fill();
 
-      ctx.beginPath();
       ctx.fillStyle = ctx.strokeStyle;
       for (let j = 0; j < i.values.length; j++) {
+        ctx.beginPath();
+
         ctx.arc(
           (j / (i.values.length - 1)) * canvasSize.width,
           ((datas.max - i.values[j]) / (datas.max - datas.min)) * canvasSize.height,
