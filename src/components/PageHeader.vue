@@ -31,6 +31,8 @@ header {
   justify-content: center;
   z-index: 1;
   transition: transform 0.3s ease-in-out;
+  overflow: scroll;
+  scrollbar-width: none;
 
   @include useTheme {
     background: rgba(color.mix(getTheme('background'), getTheme('active-color'), 85%), 0.95);
@@ -47,6 +49,8 @@ header {
   .title {
     font-size: 2em;
     font-weight: bold;
+    white-space: nowrap;
+    word-break: keep-all;
   }
   &.hidden {
     transform: translate(0, -100%);
