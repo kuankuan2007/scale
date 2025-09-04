@@ -26,6 +26,9 @@
           <h1 class="title">这是一个由宽宽编写的页面<br />用于提供简单的心理量表</h1>
           <p class="description">我们不创造量表，我们只是量表的搬运工</p>
           <p class="warn"><k-icon id="warn" inline /> 本页面所有量表仅供参考，不具有临床意义</p>
+          <p class="start">
+            <a href="/scale">Start <k-icon id="right" inline /></a>
+          </p>
         </div>
       </div>
     </div>
@@ -190,6 +193,9 @@ onMounted(() => {
   justify-content: space-evenly;
   .text {
     font-size: min(2.5vw, 2rem);
+    .start > a {
+      text-decoration: none;
+    }
   }
 }
 </style>

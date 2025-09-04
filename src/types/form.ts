@@ -71,5 +71,4 @@ export type Scale = Readonly<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   result: (datas: { [key: string]: any }) => ScaleOKResult | ScaleErrorResult;
   tags: string[];
-  dataIsValid: (data: object) => boolean;
 }>;

@@ -32,6 +32,11 @@
 
         <k-button type="submit" class="submit-button" v-show="!result">提交</k-button>
       </form>
+      <div
+        class="progress"
+        v-if="progress !== void 0 && !readonly"
+        :style="{ width: `${progress * 100}%` }"
+      ></div>
       <div class="result" v-if="result" ref="resultElement">
         <h2>结果：</h2>
         <div class="tip">
@@ -45,6 +50,7 @@
           <p class="title">{{ result.title }}</p>
           <p class="description">{{ result.description }}</p>
         </div>
+        <div class="completion-time" v-show="completionTime">用时： {{ completionTime }}</div>
         <k-button type="button" class="print-button" @click="printPage">打印</k-button>
       </div>
       <k-button
@@ -82,6 +88,7 @@ import KButton from '@/components/KButton.vue';
 import KIcon from '@/components/KIcon.vue';
 import { RouterLink } from 'vue-router';
 import intersectionRef, { type intersectionData } from '@/scripts/intersectionRef';
+import { formatTimeDiff } from '@/scripts/util';
 const props = defineProps<{
   id: string;
 }>();
@@ -89,12 +96,51 @@ const questionList = useTemplateRef('questionList');
 const title = defineModel<string>('titleValue');
 const data = ref<Scale>();
 const state = ref<'loading' | 'error' | 'success'>('loading');
-const formResult = ref({});
+const formResult = ref<Record<string, unknown>>({});
 const result = ref<ScaleOKResult>();
 const requiredId = ref<string>();
 const readonly = ref(false);
 const resultElement = useTemplateRef('resultElement');
 const resultIntersectionData = ref<intersectionData>({});
+
+watch(data, (newValue) => {
+  if (newValue !== void 0) {
+    formResult.value = {};
+  }
+});
+
+const progress = computed(() => {
+  const formData = formResult.value;
+  if (!data.value?.questions) return;
+  let now = 0,
+    total = 0;
+  for (const i of data.value.questions) {
+    if (formData[i.id] !== void 0) {
+      now++;
+    }
+    total++;
+  }
+  return now / total;
+});
+
+const startTime = ref<number>(0);
+watch(progress, (newValue) => {
+  if (newValue && !startTime.value) {
+    startTime.value = Date.now();
+  }
+});
+const finishTime = ref<number>(0);
+watch(result, (newValue) => {
+  if (newValue?.ok && !finishTime.value) {
+    finishTime.value = Date.now();
+  }
+});
+
+const completionTime = computed(() => {
+  if (startTime.value && finishTime.value) {
+    return formatTimeDiff(finishTime.value - startTime.value);
+  }
+});
 
 if (import.meta.env.DEV) {
   // @ts-expect-error DEV
@@ -108,7 +154,6 @@ if (import.meta.env.DEV) {
 function showRequired(id: string) {
   requiredId.value = id;
   const dom = questionList.value?.querySelector(`.question[data-id='${id}']`);
-  console.log(dom);
   if (dom) {
     dom.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -181,11 +226,19 @@ onMounted(() => {
     opacity: 0.5;
   }
 }
-
+.progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 1em;
+  background-color: green;
+  transition: width 0.3s;
+}
 .question-list {
   font-size: 1.2em;
   .question {
     border-radius: 0.8em;
+    margin: 1em 0;
     padding: 1em;
     transition: background 0.3s;
     &:focus-within {
@@ -212,6 +265,7 @@ onMounted(() => {
   margin: 2em auto;
 }
 .result {
+  position: relative;
   margin-top: 2em;
   padding: 2em;
   border-radius: 1em;
@@ -239,11 +293,20 @@ onMounted(() => {
   .print-button {
     margin-left: auto;
   }
+  .completion-time {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1em;
+    opacity: 0.3;
+    margin-bottom: 1em;
+  }
 }
 @media print {
   .print-button,
   .to-result-button,
-  .submit-button {
+  .submit-button,
+  .progress {
     display: none;
   }
 }

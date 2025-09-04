@@ -1,19 +1,18 @@
 import type { Scale } from '@/types/form';
 
-const globalChoices = ['没有或很少时间', '小部分时间', '相当多时间', '绝大部分或全部时间'] as const;
-const reverse = [2, 5, 6, 11, 12, 14, 16, 17, 18, 20] as const;
+const globalChoices = ['无', '轻度', '中度，尚能忍受', '重度，勉强忍受'] as const;
 
 export const sds: Scale = {
-  id: 'sds',
-  name: '抑郁自评量表 (SDS)',
+  id: 'bai',
+  name: '贝克焦虑量表 (BAI)',
   description:
-    '抑郁自评量表（Self-rating depression scale，SDS），又称Zung宗氏抑郁自评量表，是含有20个项目，分为4级评分的自评量表，原型是W.K.Zung编制的抑郁量表（1965）。其特点是使用简便，并能相当直观地反映抑郁患者的主观感受及其在治疗中的变化。主要适用于具有抑郁症状的成年人，包括门诊及住院患者。只是对严重迟缓症状的抑郁，评定有困难。同时，SDS对于文化程度较低或智力水平稍差的人使用效果不佳。',
+    '贝克焦虑量表(BAI)评分标准详解：贝克焦虑量表（BeckAnxietyInventory，BAI）是一种常用的焦虑症状自评量表，用于评估个体焦虑程度的严重程度。它由心理学家阿伦·贝克（AaronT.Beck）开发，并经过多次修订和改进。',
   questions: [
     {
       id: '1',
       form: {
         type: 'choice',
-        question: '我觉得闷闷不乐，情绪低沉',
+        question: '身体麻木或刺痛',
         choices: globalChoices,
       },
     },
@@ -21,7 +20,7 @@ export const sds: Scale = {
       id: '2',
       form: {
         type: 'choice',
-        question: '我觉得一天之中早晨心情最好',
+        question: '感到发热',
         choices: globalChoices,
       },
     },
@@ -29,7 +28,7 @@ export const sds: Scale = {
       id: '3',
       form: {
         type: 'choice',
-        question: '我一阵阵哭出来或者觉得想哭',
+        question: '腿部颤抖',
         choices: globalChoices,
       },
     },
@@ -37,7 +36,7 @@ export const sds: Scale = {
       id: '4',
       form: {
         type: 'choice',
-        question: '我晚上睡眠不好',
+        question: '不能放松',
         choices: globalChoices,
       },
     },
@@ -45,7 +44,7 @@ export const sds: Scale = {
       id: '5',
       form: {
         type: 'choice',
-        question: '我吃得跟平常一样多',
+        question: '害怕发生不好的事情',
         choices: globalChoices,
       },
     },
@@ -53,7 +52,7 @@ export const sds: Scale = {
       id: '6',
       form: {
         type: 'choice',
-        question: '我与异性亲密接触时和以往一样感到愉快',
+        question: '感到头晕目眩',
         choices: globalChoices,
       },
     },
@@ -61,7 +60,7 @@ export const sds: Scale = {
       id: '7',
       form: {
         type: 'choice',
-        question: '我发觉我的体重在下降',
+        question: '心悸或心率加快',
         choices: globalChoices,
       },
     },
@@ -69,7 +68,7 @@ export const sds: Scale = {
       id: '8',
       form: {
         type: 'choice',
-        question: '我有便秘的苦恼',
+        question: '心神不宁',
         choices: globalChoices,
       },
     },
@@ -77,7 +76,7 @@ export const sds: Scale = {
       id: '9',
       form: {
         type: 'choice',
-        question: '我心跳比平时快',
+        question: '感到惊吓',
         choices: globalChoices,
       },
     },
@@ -85,7 +84,7 @@ export const sds: Scale = {
       id: '10',
       form: {
         type: 'choice',
-        question: '我无缘无故感到疲乏',
+        question: '紧张',
         choices: globalChoices,
       },
     },
@@ -93,7 +92,7 @@ export const sds: Scale = {
       id: '11',
       form: {
         type: 'choice',
-        question: '我的头脑跟平常一样清楚',
+        question: '有窒息感',
         choices: globalChoices,
       },
     },
@@ -101,7 +100,7 @@ export const sds: Scale = {
       id: '12',
       form: {
         type: 'choice',
-        question: '我觉得做以前经常做的事并没有困难',
+        question: '手发抖',
         choices: globalChoices,
       },
     },
@@ -109,7 +108,7 @@ export const sds: Scale = {
       id: '13',
       form: {
         type: 'choice',
-        question: '我坐立不安，难以保持平静',
+        question: '摇晃',
         choices: globalChoices,
       },
     },
@@ -117,7 +116,7 @@ export const sds: Scale = {
       id: '14',
       form: {
         type: 'choice',
-        question: '我对将来抱有希望',
+        question: '害怕失控',
         choices: globalChoices,
       },
     },
@@ -125,7 +124,7 @@ export const sds: Scale = {
       id: '15',
       form: {
         type: 'choice',
-        question: '我比平常容易激动',
+        question: '呼吸困难',
         choices: globalChoices,
       },
     },
@@ -133,7 +132,7 @@ export const sds: Scale = {
       id: '16',
       form: {
         type: 'choice',
-        question: '我容易做出决定',
+        question: '害怕快要死去',
         choices: globalChoices,
       },
     },
@@ -141,7 +140,7 @@ export const sds: Scale = {
       id: '17',
       form: {
         type: 'choice',
-        question: '我觉得自己是个有用的人，有人需要我',
+        question: '感到恐慌',
         choices: globalChoices,
       },
     },
@@ -149,7 +148,7 @@ export const sds: Scale = {
       id: '18',
       form: {
         type: 'choice',
-        question: '我的生活过得很有意思',
+        question: '消化不良或腹部不适',
         choices: globalChoices,
       },
     },
@@ -157,7 +156,7 @@ export const sds: Scale = {
       id: '19',
       form: {
         type: 'choice',
-        question: '我认为如果我死了别人会生活得好些',
+        question: '昏厥',
         choices: globalChoices,
       },
     },
@@ -165,46 +164,51 @@ export const sds: Scale = {
       id: '20',
       form: {
         type: 'choice',
-        question: '平常感兴趣的事我仍然照样感兴趣',
+        question: '脸发红',
+        choices: globalChoices,
+      },
+    },
+    {
+      id: '21',
+      form: {
+        type: 'choice',
+        question: '出汗（不是因为天气）',
         choices: globalChoices,
       },
     },
   ],
   result: (datas) => {
     let n = 0;
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 21; i++) {
       if (!(i in datas)) {
         return {
           ok: false,
           require: String(i),
         };
       }
-      if (reverse.includes(i as never)) {
-        n += 4 - Number(datas[i]);
-      } else {
-        n += Number(datas[i]) + 1;
-      }
+      n += Number(datas[i]);
     }
-    const r = Math.floor(n * 1.25);
     return {
       ok: true,
-      title: r <= 52 ? '正常' : `有(${r <= 62 ? '轻度' : r <= 72 ? '中度' : '重度'})抑郁倾向`,
-      description: `粗分：${n}，标准分值：${r}。`,
+      title:
+        n <= 7 ? '几乎没有焦虑' : `有(${n <= 15 ? '轻度' : n <= 25 ? '中度' : '重度'})焦虑倾向`,
+      description: `总分${n}`,
       score: [
         {
           type: 'pointer',
-          value: r,
+          value: n,
           part: [
-            { start: 25, end: 53, color: '#009400' },
-            { start: 52.5, end: 63, color: '#ACAC00' },
-            { start: 62.5, end: 73, color: '#FF7500' },
-            { start: 72.5, end: 100, color: '#FF0000' },
+            { start: 0, end: 7, color: '#009400' },
+            { start: 6.5, end: 16, color: '#ACAC00' },
+
+            { start: 15.5, end: 26, color: '#ff7b00' },
+            { start: 25.5, end: 63, color: '#FF0000' },
           ],
         },
       ],
     };
   },
 
-  tags: ['自评', '抑郁'],
+  tags: ['自评', '焦虑'],
 };
 export default sds;
