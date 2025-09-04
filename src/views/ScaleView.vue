@@ -309,6 +309,12 @@ onMounted(() => {
   .progress {
     display: none;
   }
+  .result {
+    border: 0.2em solid;
+    @include useTheme {
+      background: rgba(getTheme('color'), 0.5);
+    }
+  }
 }
 .loading,
 .error {

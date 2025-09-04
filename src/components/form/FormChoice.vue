@@ -72,12 +72,11 @@ input[type='radio'] {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    width: 0.6em;
-    height: 0.6em;
+    border: 0.3em solid;
     opacity: 0;
     transition: 0.3s;
     @include useTheme {
-      background: getTheme('active-color');
+      border-color: getTheme('active-color');
     }
   }
   &:checked {

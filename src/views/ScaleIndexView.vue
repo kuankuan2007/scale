@@ -35,15 +35,16 @@ import { RouterLink } from 'vue-router';
 .list {
   margin-top: 2em;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1em;
   justify-content: start;
-  align-items: start;
+  align-items: stretch;
 }
 .scale-item {
   padding: 1em;
   border-radius: 1em;
   transition: background 0.3s;
+  break-inside: avoid;
   flex: 1 1 auto;
   @include useTheme {
     background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
@@ -56,6 +57,20 @@ import { RouterLink } from 'vue-router';
   &:hover {
     @include useTheme {
       background: color.mix(getTheme('active-color'), getTheme('background'), 30%);
+    }
+  }
+}
+@media print {
+  .scale-item {
+    border: 0.2em solid;
+    @include useTheme {
+      border-color: rgba(getTheme('color'), 1);
+    }
+    .tag {
+      border: 0.1em solid;
+      @include useTheme {
+        border-color: rgba(getTheme('color'), 1);
+      }
     }
   }
 }
