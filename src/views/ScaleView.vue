@@ -44,11 +44,14 @@
           量表结果仅供参考，如有需要请线下就医。一般线下就医时，会要求重新在指定平台进行测试，故本结果不具备临床意义。
         </div>
         <div class="chart" v-if="result.score">
-          <result-scores v-for="(item, index) in result.score" :key="index" :config="item" />
+          <div class="chart-item" v-for="(item, index) in result.score" :key="index">
+            <p v-if="item.title" class="title">{{ item.title }}</p>
+            <result-scores :config="item" />
+          </div>
         </div>
         <div class="result-content">
-          <p class="title">{{ result.title }}</p>
-          <p class="description">{{ result.description }}</p>
+          <p class="title" v-if="result.title">{{ result.title }}</p>
+          <p class="description" v-if="result.description">{{ result.description }}</p>
         </div>
         <div class="completion-time" v-show="completionTime">用时： {{ completionTime }}</div>
         <k-button type="button" class="print-button" @click="printPage">打印</k-button>
@@ -241,6 +244,8 @@ onMounted(() => {
     margin: 1em 0;
     padding: 1em;
     transition: background 0.3s;
+    break-inside: avoid;
+
     &:focus-within {
       @include useTheme {
         background: color.mix(getTheme('color'), getTheme('background'), 15%);
@@ -271,7 +276,22 @@ onMounted(() => {
   border-radius: 1em;
   break-inside: avoid;
   @include useTheme {
-    background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+    background: color.mix(getTheme('strong-color'), getTheme('background'), 6%);
+  }
+  .chart {
+    .chart-item {
+      border-radius: 1em;
+      padding: 1em 0;
+      margin: 1em 0;
+      @include useTheme {
+        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      }
+      .title {
+        margin: 0;
+        font-size: 1.2em;
+        padding-inline-start: 1em;
+      }
+    }
   }
   .tip {
     margin: 1em;
@@ -311,6 +331,12 @@ onMounted(() => {
   }
   .result {
     border: 0.2em solid;
+    @include useTheme {
+      background: rgba(getTheme('color'), 0.5);
+    }
+  }
+  .chart-item {
+    border: 0.1em solid;
     @include useTheme {
       background: rgba(getTheme('color'), 0.5);
     }

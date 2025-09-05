@@ -145,8 +145,8 @@ export const ptsdss: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 50, color: '#009400' },
-            { start: 49.5, end: 60, color: '#ACAC00' },
+            { start: 0, end: 49.5, color: '#009400' },
+            { start: 49.5, end: 59.5, color: '#ACAC00' },
             { start: 59.5, end: 120, color: '#FF0000' },
           ],
         },

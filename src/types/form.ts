@@ -50,7 +50,9 @@ export type LinesScore = DeepReadonly<{
     values: number[];
   }[];
 }>;
-export type ScoreShower = PointerScore | RadarMapScore | LinesScore;
+export type ScoreShower = (PointerScore | RadarMapScore | LinesScore) & {
+  title?: string;
+};
 export type ScaleOKResult = Readonly<{
   ok: true;
   title: string;

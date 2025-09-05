@@ -28,7 +28,7 @@ const nameMap = {
   other: '其他',
 };
 
-export const sds: Scale = {
+export const scl90: Scale = {
   id: 'scl90',
   name: '症状自评量表 (SCL-90)',
   description:
@@ -807,4 +807,4 @@ export const sds: Scale = {
 
   tags: ['自评', '焦虑', '抑郁', '躯体化', '强迫', '敌对', '恐怖', '偏执'],
 };
-export default sds;
+export default scl90;

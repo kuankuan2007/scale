@@ -2,7 +2,7 @@ import type { Scale } from '@/types/form';
 
 const globalChoices = ['没有或很少时间', '小部分时间', '相当多时间', '绝大部分或全部时间'] as const;
 const reverse = [5, 9, 13, 17, 19] as const;
-export const sds: Scale = {
+export const sas: Scale = {
   id: 'sas',
   name: '焦虑自评量表 (SAS)',
   description:
@@ -95,9 +95,9 @@ export const sds: Scale = {
           type: 'pointer',
           value: r,
           part: [
-            { start: 25, end: 50, color: '#009400' },
-            { start: 49.5, end: 60, color: '#ACAC00' },
-            { start: 59.5, end: 70, color: '#FF7500' },
+            { start: 25, end: 49.5, color: '#009400' },
+            { start: 49.5, end: 59.5, color: '#ACAC00' },
+            { start: 59.5, end: 69.5, color: '#FF7500' },
             { start: 69.5, end: 100, color: '#FF0000' },
           ],
         },
@@ -107,4 +107,4 @@ export const sds: Scale = {
 
   tags: ['自评', '焦虑'],
 };
-export default sds;
+export default sas;

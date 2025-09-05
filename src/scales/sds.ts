@@ -195,9 +195,9 @@ export const sds: Scale = {
           type: 'pointer',
           value: r,
           part: [
-            { start: 25, end: 53, color: '#009400' },
-            { start: 52.5, end: 63, color: '#ACAC00' },
-            { start: 62.5, end: 73, color: '#FF7500' },
+            { start: 25, end: 52.5, color: '#009400' },
+            { start: 52.5, end: 62.5, color: '#ACAC00' },
+            { start: 62.5, end: 72.5, color: '#FF7500' },
             { start: 72.5, end: 100, color: '#FF0000' },
           ],
         },

@@ -1,6 +1,6 @@
 import type { Scale } from '@/types/form';
 
-export const sds: Scale = {
+export const bdi: Scale = {
   id: 'bdi',
   name: '贝克抑郁量表 (BDI)',
   description:
@@ -295,9 +295,9 @@ export const sds: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 10, color: '#009400' },
-            { start: 9.5, end: 16, color: '#ACAC00' },
-            { start: 15.5, end: 26, color: '#FF7500' },
+            { start: 0, end: 9.5, color: '#009400' },
+            { start: 9.5, end: 15.5, color: '#ACAC00' },
+            { start: 15.5, end: 25.5, color: '#FF7500' },
             { start: 25.5, end: 63, color: '#FF0000' },
           ],
         },
@@ -307,4 +307,4 @@ export const sds: Scale = {
 
   tags: ['自评', '抑郁'],
 };
-export default sds;
+export default bdi;

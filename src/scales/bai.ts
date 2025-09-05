@@ -2,7 +2,7 @@ import type { Scale } from '@/types/form';
 
 const globalChoices = ['无', '轻度', '中度，尚能忍受', '重度，勉强忍受'] as const;
 
-export const sds: Scale = {
+export const bai: Scale = {
   id: 'bai',
   name: '贝克焦虑量表 (BAI)',
   description:
@@ -198,10 +198,10 @@ export const sds: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 7, color: '#009400' },
-            { start: 6.5, end: 16, color: '#ACAC00' },
+            { start: 0, end: 6.5, color: '#009400' },
+            { start: 6.5, end: 15.5, color: '#ACAC00' },
 
-            { start: 15.5, end: 26, color: '#ff7b00' },
+            { start: 15.5, end: 25.5, color: '#ff7b00' },
             { start: 25.5, end: 63, color: '#FF0000' },
           ],
         },
@@ -211,4 +211,4 @@ export const sds: Scale = {
 
   tags: ['自评', '焦虑'],
 };
-export default sds;
+export default bai;

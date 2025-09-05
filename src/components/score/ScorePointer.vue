@@ -65,7 +65,11 @@ onMounted(() => {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     ctx.font = `${boxHeight * 0.8}px sans-serif`;
-    ctx.fillText(datas.value.toString(), now, boxHeight * 2.1);
+    ctx.fillText(
+      datas.value % 1 === 0 ? datas.value.toFixed(0) : datas.value.toFixed(2),
+      now,
+      boxHeight * 2.1
+    );
   });
 });
 </script>
