@@ -1,0 +1,15 @@
+@use './theme.scss' as *;
+
+.strong {
+  @include useTheme {
+    color: getTheme('strong-color');
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}

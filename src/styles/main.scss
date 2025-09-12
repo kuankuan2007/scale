@@ -1,5 +1,5 @@
 @use './theme.scss' as *;
-
+@use './preset.scss' as *;
 @use '@/assets/fontello/font-defines.scss' as *;
 body {
   margin: 0;

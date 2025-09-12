@@ -2,15 +2,24 @@
   <div class="scale-view">
     <div class="scale" v-if="state === 'success'">
       <h1>{{ data?.name }}</h1>
-      <div class="privacy-protection">
-        <k-icon id="info" inline />
-        测试全程离线进行，页面不会上报任何数据，请放心填写
-      </div>
-      <div class="disclaimer">
-        <k-icon id="warn" inline />
-        本网站免费提供量表测试仅供参考，不具有临床意义，如有需要请线下就医
-      </div>
 
+      <div class="warns">
+        <div>
+          <k-icon id="info" inline />
+          测试全程离线进行，页面不会上报任何数据，请放心填写
+        </div>
+        <div>
+          <k-icon id="warn" inline />
+          本网站免费提供量表测试仅供参考，不具有临床意义，如有需要请线下就医
+        </div>
+        <div v-if="!data?.tags.includes('自评')">
+          <k-icon id="warn" inline />
+          本量表为他评量表，<span class="bold strong">不适合自评</span>，请在专业人士指导下完成测试
+        </div>
+      </div>
+      <ul class="tags">
+        <li v-for="tag in data?.tags" :key="tag">{{ tag }}</li>
+      </ul>
       <p>{{ data?.description }}</p>
       <form class="form" @submit.prevent="submit">
         <div class="question-list" ref="questionList">
@@ -224,9 +233,24 @@ onMounted(() => {
 
 .scale {
   padding: 1em;
-  .disclaimer,
-  .privacy-protection {
+  .warns > * {
     opacity: 0.5;
+  }
+  .tags {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.5em;
+    margin: 0.5em 1em;
+    li {
+      padding: 0.2em 0.5em;
+      border-radius: 0.5em;
+      font-size: 0.8em;
+      @include useTheme {
+        background: color.mix(getTheme('strong-color'), getTheme('background'), 20%);
+      }
+    }
   }
 }
 .progress {
