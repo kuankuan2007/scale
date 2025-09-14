@@ -321,6 +321,6 @@ export const saq: Scale = {
     };
   },
 
-  tags: ['自评', '自评'],
+  tags: ['自评', '自杀'],
 };
 export default saq;

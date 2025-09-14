@@ -70,6 +70,12 @@ export type Scale = Readonly<{
   name: string;
   description: string;
   questions: Question[];
+  refer?: [
+    {
+      title: string;
+      url: string;
+    },
+  ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   result: (datas: { [key: string]: any }) => ScaleOKResult | ScaleErrorResult;
   tags: string[];

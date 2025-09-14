@@ -20,7 +20,19 @@
       <ul class="tags">
         <li v-for="tag in data?.tags" :key="tag">{{ tag }}</li>
       </ul>
-      <p>{{ data?.description }}</p>
+      <p class="description">{{ data?.description }}</p>
+      <div class="refers" v-if="data?.refer?.length">
+        <link-like-button @click="showRefer = !showRefer" invisible :underline="false">
+          {{ data?.refer.length }} 条引用 <k-icon :id="showRefer ? 'down' : 'right'" inline />
+        </link-like-button>
+        <ul v-show="showRefer">
+          <li v-for="item in data?.refer" :key="item.url">
+            <a :href="item.url" target="_blank"
+              >{{ item.title }} <span class="url-host">({{ getUrlHost(item.url) }})</span></a
+            >
+          </li>
+        </ul>
+      </div>
       <form class="form" @submit.prevent="submit">
         <div class="question-list" ref="questionList">
           <div
@@ -101,6 +113,8 @@ import KIcon from '@/components/KIcon.vue';
 import { RouterLink } from 'vue-router';
 import intersectionRef, { type intersectionData } from '@/scripts/intersectionRef';
 import { formatTimeDiff } from '@/scripts/util';
+import LinkLikeButton from '@/components/LinkLikeButton.vue';
+
 const props = defineProps<{
   id: string;
 }>();
@@ -114,6 +128,7 @@ const requiredId = ref<string>();
 const readonly = ref(false);
 const resultElement = useTemplateRef('resultElement');
 const resultIntersectionData = ref<intersectionData>({});
+const showRefer = ref(false);
 
 watch(data, (newValue) => {
   if (newValue !== void 0) {
@@ -134,6 +149,13 @@ const progress = computed(() => {
   }
   return now / total;
 });
+function getUrlHost(url: string) {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return 'unknown';
+  }
+}
 
 const startTime = ref<number>(0);
 watch(progress, (newValue) => {
@@ -172,7 +194,7 @@ function showRequired(id: string) {
 }
 function updateData() {
   state.value = 'loading';
-  import(`../scales/${props.id}.ts`).then(
+  import(`../scales/${props.id.toLowerCase()}.ts`).then(
     (scale) => {
       data.value = scale.default;
       state.value = 'success';
@@ -250,6 +272,19 @@ onMounted(() => {
       @include useTheme {
         background: color.mix(getTheme('strong-color'), getTheme('background'), 20%);
       }
+    }
+  }
+  .description {
+    white-space: pre-wrap;
+  }
+  .refers {
+    font-size: 0.8em;
+    ul {
+      opacity: 0.5;
+      margin: 0;
+      padding: 0;
+      padding-left: 2em;
+      list-style: none;
     }
   }
 }
@@ -360,6 +395,12 @@ onMounted(() => {
     }
   }
   .chart-item {
+    border: 0.1em solid;
+    @include useTheme {
+      background: rgba(getTheme('color'), 0.5);
+    }
+  }
+  .tags > li {
     border: 0.1em solid;
     @include useTheme {
       background: rgba(getTheme('color'), 0.5);
