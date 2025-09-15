@@ -249,9 +249,9 @@ export const sioss: Scale = {
         };
       }
       if (reverse.includes(i as never)) {
-        dataArray[i] = 1 - Number(datas[i]);
-      } else {
         dataArray[i] = Number(datas[i]);
+      } else {
+        dataArray[i] = 1 - Number(datas[i]);
       }
     }
     const result = {} as Record<keyof typeof resultMap, number>;
