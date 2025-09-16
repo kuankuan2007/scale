@@ -27,7 +27,7 @@
 
 ## 图标
 
-本网站图标部分使用[Font Awesome](https://fontawesome.com/)，另外一部分是宽宽手绘（挠头）
+现在全部是宽宽手绘了，之前版本使用过[Font Awesome](https://fontawesome.com/)
 
 ## 贡献新量表
 
@@ -41,7 +41,9 @@
 本项目基于 **Mozilla Public License Version 2.0** 开源协议。
 
 ✔ 商业用途，修改，分发，专利使用，私人使用
+
 ⚠ 注明来源，许可和版权声明，使用相同的许可证
+
 ❌︎ 责任，商标，保证
 
 详见 [LICENSE](LICENSE) 文件。

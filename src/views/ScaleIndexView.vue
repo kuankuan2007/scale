@@ -1,23 +1,85 @@
 <template>
   <div class="scale-index">
-    <div class="title-line">量表</div>
-    <div class="list">
-      <div class="scale-item" v-for="scale in scaleIndexData" :key="scale.id">
-        <router-link class="scale-link" :to="`/scale/${scale.id}`">
-          <p class="scale-name">{{ scale.name }}</p>
-          <p class="scale-desc">{{ scale.description }}</p>
-          <div class="tage-list" v-if="scale.tags.length">
-            <div class="tag" v-for="i in scale.tags" :key="i">{{ i }}</div>
-          </div>
-          <div class="id">{{ scale.id }}</div>
-        </router-link>
+    <div class="title-line">
+      <h2 class="title">量表</h2>
+      <div class="tag-filter">
+        <div class="trigger" tabindex="0">标签 <k-icon id="funnel" inline /></div>
+        <div class="tag-list-box" ref="tagListBox">
+          <ul class="tag-list">
+            <li v-for="i in tagList" :key="i">
+              <check-button v-model="enabledTags[i]">{{ i }}</check-button>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div class="scale-list">
+      <transition-group name="scale-list">
+        <div class="scale-item" v-for="scale in showScale" :key="scale.id">
+          <router-link class="scale-link" :to="`/scale/${scale.id}`">
+            <p class="scale-name">{{ scale.name }}</p>
+            <p class="scale-desc">{{ scale.description }}</p>
+            <div class="tage-list" v-if="scale.tags.length">
+              <div class="tag" v-for="i in scale.tags" :key="i">{{ i }}</div>
+            </div>
+            <div class="id">{{ scale.id }}</div>
+          </router-link>
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import scaleIndexData from 'visual:scales-index';
+import _scaleIndexData from 'visual:scales-index';
+import KIcon from '@/components/KIcon.vue';
+import CheckButton from '@/components/CheckButton.vue';
 import { RouterLink } from 'vue-router';
+import { windowSize } from '@/scripts/sizeRef';
+const tagListBox = useTemplateRef('tagListBox');
+const scaleIndexData = reactive(_scaleIndexData);
+const enabledTags = reactive<Record<string, boolean>>({});
+
+const showScale = computed(() => {
+  const res: ScaleIndexItem[] = [];
+  outer: for (const i of Object.values(scaleIndexData)) {
+    for (const tag of i.tags) {
+      if (!enabledTags[tag]) {
+        continue outer;
+      }
+    }
+    res.push(i);
+  }
+  return res;
+});
+const tagList = [
+  ...new Set(
+    Object.values(scaleIndexData)
+      .map((i) => i.tags)
+      .flat()
+  ),
+];
+
+tagList.forEach((i) => (enabledTags[i] = true));
+
+onMounted(() => {
+  watch(
+    windowSize,
+    () => {
+      if (!tagListBox.value) return;
+
+      tagListBox.value.style.left = 'auto';
+
+      const rects = tagListBox.value.getBoundingClientRect();
+      if (rects.left + rects.width > windowSize.value.width) {
+        tagListBox.value.style.left = `${(windowSize.value.width * 0.9 - rects.left - rects.width).toFixed(2)}px`;
+      }
+    },
+    {
+      immediate: true,
+      deep: true,
+    }
+  );
+});
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;
@@ -27,20 +89,75 @@ import { RouterLink } from 'vue-router';
 }
 .title-line {
   border-bottom: 0.1em solid;
-  font-size: 2em;
-  @include useTheme {
-    border-color: getTheme('color');
+  font-size: 1.5em;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  gap: 1em;
+  & > h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  & > .tag-filter {
+    position: relative;
+
+    & > .trigger {
+      outline: none;
+      padding: 0.2em 0.5em;
+      border-radius: 0.5em 0.5em 0 0;
+      transition: background 0.3s;
+    }
+    &:focus-within > .trigger,
+    &:hover > .trigger {
+      @include useTheme {
+        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      }
+    }
+    &:hover > .tag-list-box,
+    &:focus-within > .tag-list-box {
+      height: auto;
+      @supports (height: calc-size(auto, size)) {
+        height: calc-size(auto, size);
+      }
+    }
+    & > .tag-list-box {
+      font-size: 0.7em;
+      z-index: 1;
+      position: absolute;
+      overflow: hidden;
+
+      transition: height 0.3s;
+
+      border-radius: 0 0.5em 0.5em 0.5em;
+      width: 20em;
+      max-width: 90vw;
+      height: 0px;
+      @include useTheme {
+        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      }
+      & > .tag-list {
+        padding: 0;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
+
+        display: flex;
+        flex-wrap: wrap;
+        & > li {
+          font-size: 0.5em;
+          padding: 0.2em 0.3em;
+        }
+      }
+    }
   }
 }
-.list {
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  justify-content: start;
-  align-items: stretch;
+.scale-list {
+  overflow: hidden;
+  margin-top: 1em;
 }
 .scale-item {
+  margin: 1em 0;
   padding: 1em;
   border-radius: 1em;
   transition: background 0.3s;
@@ -113,5 +230,22 @@ import { RouterLink } from 'vue-router';
     right: -0.5em;
     opacity: 0.3;
   }
+}
+.scale-list-enter-active,
+.scale-list-leave-active,
+.scale-list-move {
+  transition: all 0.5s ease;
+}
+.scale-list-leave-to {
+  z-index: -1;
+  opacity: 0;
+  transform: scale(0.5);
+}
+.scale-list-enter-from {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.scale-list-leave-active {
+  position: absolute;
 }
 </style>
