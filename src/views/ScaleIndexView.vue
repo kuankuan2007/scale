@@ -5,11 +5,31 @@
       <div class="tag-filter">
         <div class="trigger" tabindex="0">标签 <k-icon id="funnel" inline /></div>
         <div class="tag-list-box" ref="tagListBox">
-          <ul class="tag-list">
-            <li v-for="i in tagList" :key="i">
-              <check-button v-model="enabledTags[i]">{{ i }}</check-button>
-            </li>
-          </ul>
+          <div class="required-tags tag-list-outer">
+            <div class="list-name">包含</div>
+            <ul class="tag-list">
+              <li v-for="i in tagList" :key="i">
+                <check-button
+                  :model-value="tagFilter[i] === 'REQUIRED'"
+                  @update:model-value="tagFilter[i] = $event ? 'REQUIRED' : 'OPTIONAL'"
+                  >{{ i }}</check-button
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="gap"></div>
+          <div class="excluded-tags tag-list-outer">
+            <div class="list-name">排除</div>
+            <ul class="tag-list">
+              <li v-for="i in tagList" :key="i">
+                <check-button
+                  :model-value="tagFilter[i] === 'EXCLUDED'"
+                  @update:model-value="tagFilter[i] = $event ? 'EXCLUDED' : 'OPTIONAL'"
+                  >{{ i }}</check-button
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -22,7 +42,7 @@
             <div class="tage-list" v-if="scale.tags.length">
               <div class="tag" v-for="i in scale.tags" :key="i">{{ i }}</div>
             </div>
-            <div class="id">{{ scale.id }}</div>
+            <div class="id">{{ scale.id.toUpperCase() }}</div>
           </router-link>
         </div>
       </transition-group>
@@ -37,13 +57,17 @@ import { RouterLink } from 'vue-router';
 import { windowSize } from '@/scripts/sizeRef';
 const tagListBox = useTemplateRef('tagListBox');
 const scaleIndexData = reactive(_scaleIndexData);
-const enabledTags = reactive<Record<string, boolean>>({});
+
+const tagFilter = reactive<Record<string, 'REQUIRED' | 'OPTIONAL' | 'EXCLUDED'>>({});
 
 const showScale = computed(() => {
   const res: ScaleIndexItem[] = [];
   outer: for (const i of Object.values(scaleIndexData)) {
-    for (const tag of i.tags) {
-      if (!enabledTags[tag]) {
+    for (const tag of Object.keys(tagFilter)) {
+      if (tagFilter[tag] === 'REQUIRED' && !i.tags.includes(tag)) {
+        continue outer;
+      }
+      if (tagFilter[tag] === 'EXCLUDED' && i.tags.includes(tag)) {
         continue outer;
       }
     }
@@ -59,7 +83,7 @@ const tagList = [
   ),
 ];
 
-tagList.forEach((i) => (enabledTags[i] = true));
+tagList.forEach((i) => (tagFilter[i] = 'OPTIONAL'));
 
 onMounted(() => {
   watch(
@@ -126,27 +150,49 @@ onMounted(() => {
       z-index: 1;
       position: absolute;
       overflow: hidden;
+      display: flex;
+
+      flex-direction: column;
 
       transition: height 0.3s;
-
+      justify-content: center;
+      align-items: stretch;
       border-radius: 0 0.5em 0.5em 0.5em;
-      width: 20em;
+      width: 30em;
       max-width: 90vw;
-      height: 0px;
+      height: 0;
       @include useTheme {
         background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
       }
-      & > .tag-list {
-        padding: 0;
-        list-style: none;
-        justify-content: center;
-        align-items: center;
+      .gap {
+        border: none;
+        border-right: 0.1em solid;
+        border-bottom: 0.1em solid;
+        margin: 1em;
+        @include useTheme {
+          border-color: getTheme('color');
+        }
+      }
+      & > .tag-list-outer {
+        padding: 0.5em;
 
-        display: flex;
-        flex-wrap: wrap;
-        & > li {
-          font-size: 0.5em;
-          padding: 0.2em 0.3em;
+        .list-name {
+          text-align: center;
+          margin-bottom: 0.5em;
+        }
+        .tag-list {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          justify-content: center;
+          align-items: center;
+
+          display: flex;
+          flex-wrap: wrap;
+          & > li {
+            font-size: 0.5em;
+            padding: 0.2em 0.3em;
+          }
         }
       }
     }
