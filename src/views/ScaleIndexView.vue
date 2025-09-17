@@ -3,15 +3,20 @@
     <div class="title-line">
       <h2 class="title">量表</h2>
       <div class="tag-filter">
-        <div class="trigger" tabindex="0">标签 <k-icon id="funnel" inline /></div>
+        <div class="trigger">
+          标签 <k-icon id="funnel" inline /><span class="tag-filter-num" v-show="tagFilterNum"
+            >{{ tagFilterNum }}个条件</span
+          >
+        </div>
         <div class="tag-list-box" ref="tagListBox">
           <div class="required-tags tag-list-outer">
             <div class="list-name">包含</div>
-            <ul class="tag-list">
+            <ul class="tag-list" v-tab-group>
               <li v-for="i in tagList" :key="i">
                 <check-button
                   :model-value="tagFilter[i] === 'REQUIRED'"
                   @update:model-value="tagFilter[i] = $event ? 'REQUIRED' : 'OPTIONAL'"
+                  data-tab-group-item
                   >{{ i }}</check-button
                 >
               </li>
@@ -20,17 +25,22 @@
           <div class="gap"></div>
           <div class="excluded-tags tag-list-outer">
             <div class="list-name">排除</div>
-            <ul class="tag-list">
+            <ul class="tag-list" v-tab-group>
               <li v-for="i in tagList" :key="i">
                 <check-button
                   :model-value="tagFilter[i] === 'EXCLUDED'"
                   @update:model-value="tagFilter[i] = $event ? 'EXCLUDED' : 'OPTIONAL'"
+                  data-tab-group-item
                   >{{ i }}</check-button
                 >
               </li>
             </ul>
           </div>
         </div>
+      </div>
+      <div class="search">
+        <k-text-input placeholder="搜索" v-model="searchText" />
+        <k-icon id="search" />
       </div>
     </div>
     <div class="scale-list">
@@ -45,6 +55,7 @@
             <div class="id">{{ scale.id.toUpperCase() }}</div>
           </router-link>
         </div>
+        <div class="no-result" v-show="!showScale.length" :key="'no-result'">暂无结果</div>
       </transition-group>
     </div>
   </div>
@@ -52,18 +63,40 @@
 <script setup lang="ts">
 import _scaleIndexData from 'visual:scales-index';
 import KIcon from '@/components/KIcon.vue';
+import KTextInput from '@/components/KTextInput.vue';
 import CheckButton from '@/components/CheckButton.vue';
 import { RouterLink } from 'vue-router';
 import { windowSize } from '@/scripts/sizeRef';
+import vTabGroup from '@/scripts/vTabGroup';
 const tagListBox = useTemplateRef('tagListBox');
 const scaleIndexData = reactive(_scaleIndexData);
+const searchText = ref('');
 
 const tagFilter = reactive<Record<string, 'REQUIRED' | 'OPTIONAL' | 'EXCLUDED'>>({});
 
+const tagFilterNum = computed(() => {
+  return Object.values(tagFilter).filter((i) => i !== 'OPTIONAL').length;
+});
+
+const tagList = [
+  ...new Set(
+    Object.values(scaleIndexData)
+      .map((i) => i.tags)
+      .flat()
+  ),
+];
+
+tagList.forEach((i) => (tagFilter[i] = 'OPTIONAL'));
 const showScale = computed(() => {
   const res: ScaleIndexItem[] = [];
-  outer: for (const i of Object.values(scaleIndexData)) {
-    for (const tag of Object.keys(tagFilter)) {
+  let fullList = Object.values(scaleIndexData);
+  if (searchText.value) {
+    fullList = fullList.filter((i) =>
+      i.name.toLowerCase().includes(searchText.value.toLowerCase())
+    );
+  }
+  outer: for (const i of fullList) {
+    for (const tag of tagList) {
       if (tagFilter[tag] === 'REQUIRED' && !i.tags.includes(tag)) {
         continue outer;
       }
@@ -75,16 +108,6 @@ const showScale = computed(() => {
   }
   return res;
 });
-const tagList = [
-  ...new Set(
-    Object.values(scaleIndexData)
-      .map((i) => i.tags)
-      .flat()
-  ),
-];
-
-tagList.forEach((i) => (tagFilter[i] = 'OPTIONAL'));
-
 onMounted(() => {
   watch(
     windowSize,
@@ -131,6 +154,15 @@ onMounted(() => {
       padding: 0.2em 0.5em;
       border-radius: 0.5em 0.5em 0 0;
       transition: background 0.3s;
+      span.tag-filter-num {
+        font-size: 0.6em;
+        opacity: 0.5;
+      }
+      &:focus {
+        @include useTheme {
+          color: getTheme('active-color');
+        }
+      }
     }
     &:focus-within > .trigger,
     &:hover > .trigger {
@@ -197,30 +229,90 @@ onMounted(() => {
       }
     }
   }
+  & > .search {
+    margin: auto;
+    margin-right: 0;
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    input {
+      font-size: 0.8em;
+    }
+    @media screen and (max-width: 50em) {
+      input {
+        display: block;
+        position: absolute;
+        box-sizing: border-box;
+        padding: 0 0;
+        left: 100%;
+        top: 50%;
+        transform: translate(-100%, -50%);
+        transition: 0.3s;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        &:focus {
+          opacity: 1;
+          transform: translate(-100%, -50%);
+          padding: 1em 0.5em;
+          left: 100%;
+
+          top: 50%;
+          width: min(80vw, 20em);
+        }
+      }
+    }
+  }
 }
 .scale-list {
   overflow: hidden;
   margin-top: 1em;
-}
-.scale-item {
-  margin: 1em 0;
-  padding: 1em;
-  border-radius: 1em;
-  transition: background 0.3s;
-  break-inside: avoid;
-  flex: 1 1 auto;
-  @include useTheme {
-    background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
-  }
-  &:focus-within {
+
+  & > .scale-item {
+    margin: 1em 0;
+    padding: 1em;
+    border-radius: 1em;
+    transition: background 0.3s;
+    break-inside: avoid;
+    flex: 1 1 auto;
     @include useTheme {
-      background: color.mix(getTheme('active-color'), getTheme('background'), 20%);
+      background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
+    }
+    &:focus-within {
+      @include useTheme {
+        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      }
+    }
+    &:hover {
+      @include useTheme {
+        background: color.mix(getTheme('active-color'), getTheme('background'), 30%);
+      }
     }
   }
-  &:hover {
-    @include useTheme {
-      background: color.mix(getTheme('active-color'), getTheme('background'), 30%);
-    }
+  .no-result {
+    text-align: center;
+    font-size: 1.5em;
+    color: gray;
+    padding: 1em 0;
+  }
+  .scale-list-enter-active,
+  .scale-list-leave-active,
+  .scale-list-move {
+    transition: all 0.5s ease;
+  }
+  .scale-list-leave-to {
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  .scale-list-enter-from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  .scale-list-leave-active {
+    position: absolute;
   }
 }
 @media print {
@@ -276,22 +368,5 @@ onMounted(() => {
     right: -0.5em;
     opacity: 0.3;
   }
-}
-.scale-list-enter-active,
-.scale-list-leave-active,
-.scale-list-move {
-  transition: all 0.5s ease;
-}
-.scale-list-leave-to {
-  z-index: -1;
-  opacity: 0;
-  transform: scale(0.5);
-}
-.scale-list-enter-from {
-  opacity: 0;
-  transform: scale(0.5);
-}
-.scale-list-leave-active {
-  position: absolute;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <button :class="{ capsule, checked }" @click="checked = !checked">
+  <button :class="{ capsule, checked }" @click="checked = !checked" type="button" tabindex="-1">
     <div class="check-item">
       <slot name="check-item"><k-icon id="tick" inline /></slot>
     </div>
