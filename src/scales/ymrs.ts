@@ -6,7 +6,7 @@ export const ymrs: Scale = {
   id: 'ymrs',
   name: '杨氏躁狂评定量表 (YMRS)',
   description:
-    '杨氏躁狂评定量表（Young mania rating scale，YMRS）由Young等人于1978年开发，是一种用于评估躁狂症状严重程度的临床量表，主要适用于双相情感障碍中躁狂发作的评定[1]。该量表旨在为临床医生和研究者提供一种系统、敏感、可靠的工具，以辅助判断躁狂症状的严重程度、疗效变化及病情进展。',
+    '杨氏躁狂评定量表（Young mania rating scale，YMRS）由Young等人于1978年开发，是一种用于评估躁狂症状严重程度的临床量表，主要适用于双相情感障碍中躁狂发作的评定。该量表旨在为临床医生和研究者提供一种系统、敏感、可靠的工具，以辅助判断躁狂症状的严重程度、疗效变化及病情进展。',
   questions: [
     {
       id: '1',
@@ -210,6 +210,6 @@ export const ymrs: Scale = {
     };
   },
 
-  tags: ['躁狂', '自评', '双相'],
+  tags: ['躁狂', '祂评', '双相'],
 };
 export default ymrs;

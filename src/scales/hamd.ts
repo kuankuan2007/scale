@@ -320,6 +320,6 @@ export const hamd: Scale = {
     };
   },
 
-  tags: ['他评', '抑郁'],
+  tags: ['祂评', '抑郁'],
 };
 export default hamd;

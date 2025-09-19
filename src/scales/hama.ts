@@ -186,6 +186,6 @@ export const hama: Scale = {
     };
   },
 
-  tags: ['他评', '焦虑'],
+  tags: ['祂评', '焦虑'],
 };
 export default hama;
