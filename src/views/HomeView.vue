@@ -29,6 +29,10 @@
           <p class="start">
             <a href="/scale">Start <k-icon id="right" inline /></a>
           </p>
+          <p class="links">
+            <a href="/about">关于</a> | <a href="https://github.com/kuankuan2007/scale">仓库</a> |
+            <a href="https://opensource.org/license/mpl-2-0">许可证</a>
+          </p>
         </div>
       </div>
     </div>
@@ -195,6 +199,9 @@ onMounted(() => {
     font-size: min(2.5vw, 2rem);
     .start > a {
       text-decoration: none;
+    }
+    .links {
+      font-size: 0.6em;
     }
   }
 }
