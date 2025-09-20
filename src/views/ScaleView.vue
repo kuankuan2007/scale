@@ -28,7 +28,8 @@
         <ul v-show="showRefer">
           <li v-for="item in data?.refer" :key="item.url">
             <a :href="item.url" target="_blank"
-              >{{ item.title }} <span class="url-host">({{ getUrlHost(item.url) }})</span></a
+              ><k-icon id="link" inline /> {{ item.title }}
+              <span class="url-host">({{ getUrlHost(item.url) }})</span></a
             >
           </li>
         </ul>
