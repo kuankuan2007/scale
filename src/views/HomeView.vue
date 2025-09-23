@@ -196,7 +196,7 @@ onMounted(() => {
   text-align: center;
   justify-content: space-evenly;
   .text {
-    font-size: min(2.5vw, 2rem);
+    font-size: min(3vw, 2rem, 2.5vh);
     .start > a {
       text-decoration: none;
     }
