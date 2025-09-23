@@ -127,13 +127,15 @@ import { theme } from '@/scripts/theme';
     vertical-align: middle;
     transition: 0.3s;
     outline: none;
-    img {
-      height: 1em;
-      display: block;
-    }
+
     @include useTheme {
       color: getTheme('color');
       border-color: getTheme('color');
+    }
+
+    img {
+      height: 1em;
+      display: block;
     }
     &:focus,
     &:active {

@@ -4,8 +4,8 @@ const eleMap = new WeakMap<HTMLElement, NodeListOf<HTMLElement>>();
 
 function updateEleMap(el: HTMLElement) {
   const items = el.querySelectorAll('[data-tab-group-item]');
-  items.forEach((item) => {
-    item.setAttribute('tabindex', '-1');
+  items.forEach((item, index) => {
+    item.setAttribute('tabindex', index === 0 ? '0' : '-1');
   });
   eleMap.set(el, items as never);
 }
@@ -23,11 +23,7 @@ function focusFrom(el: HTMLElement, current: HTMLElement, offset: number) {
 
 const vTabGroup: Directive<HTMLElement> = {
   mounted(el) {
-    el.setAttribute('tabindex', '0');
     updateEleMap(el);
-    el.addEventListener('focus', () => {
-      eleMap.get(el)?.[0]?.focus();
-    });
     el.addEventListener('keydown', (e) => {
       if (
         e.key === 'ArrowDown' ||

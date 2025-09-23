@@ -1,6 +1,7 @@
 import storageRef from './storageRef';
 
-const themeValue = storageRef('auto', 'theme', localStorage);
+export const themeValue = storageRef('auto', 'theme', localStorage);
+export const themeValueList = ['auto', 'light', 'dark'];
 const matcher = window.matchMedia('(prefers-color-scheme: dark)');
 
 export const theme = computed(() => {

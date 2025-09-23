@@ -1,10 +1,30 @@
 <template>
   <header class="header" :class="{ hidden: hide }">
     <p class="title">{{ title }}</p>
+    <button class="theme-button clear" @click="changeToNextTheme">
+      <k-icon
+        :id="
+          {
+            auto: 'os-follow',
+            light: 'light',
+            dark: 'night',
+          }[themeValue]!
+        "
+        class="theme-button-icon"
+      />
+    </button>
   </header>
 </template>
 <script setup lang="ts">
 import { title } from '@/router';
+import KIcon from './KIcon.vue';
+import { themeValue, themeValueList } from '@/scripts/theme';
+
+function changeToNextTheme() {
+  themeValue.value =
+    themeValueList[(themeValueList.indexOf(themeValue.value) + 1) % themeValueList.length];
+}
+
 defineProps<{
   hide?: boolean;
 }>();
@@ -49,9 +69,47 @@ header {
   .title {
     font-size: 2em;
     font-weight: bold;
+    flex: 0 1 auto;
     white-space: nowrap;
     word-break: keep-all;
+    margin: auto;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      background: transparent;
+      height: 0.3em;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 99999999px;
+      @include useTheme {
+        background: color.mix(getTheme('color'), getTheme('background'), 60%);
+      }
+    }
   }
+  button {
+    font-size: 2em;
+    &.clear {
+      appearance: none;
+      all: unset;
+      font-size: 2em;
+      cursor: pointer;
+      transition: 0.3s;
+      padding: 0.1em;
+      border: 0.1em solid transparent;
+      border-radius: 0.3em;
+
+      &:focus {
+        @include useTheme {
+          border-color: getTheme('active-color');
+        }
+      }
+      &:hover {
+        @include useTheme {
+          color: getTheme('active-color');
+        }
+      }
+    }
+  }
+
   &.hidden {
     transform: translate(0, -100%);
   }
