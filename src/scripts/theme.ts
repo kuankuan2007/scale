@@ -13,5 +13,5 @@ export const theme = computed(() => {
 function updateDomTheme() {
   document.documentElement.dataset.theme = theme.value;
 }
-watch(theme, updateDomTheme);
+watch(theme, updateDomTheme, { immediate: true });
 updateDomTheme();
