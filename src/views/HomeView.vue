@@ -16,6 +16,7 @@
                 transform: `scale(${windowSize.min / 2 / 600})`,
               }"
             >
+              <img src="@/assets/logo.svg" alt="icon" />
               <canvas class="wave-1 wave" ref="canvasRef1" width="1200" height="600"></canvas>
               <canvas class="wave-2 wave" ref="canvasRef2" width="1200" height="600"></canvas>
               <canvas class="wave-3 wave" ref="canvasRef3" width="1200" height="600"></canvas>
@@ -150,7 +151,14 @@ onMounted(() => {
       clip-path: path(
         'm441.7111,30.7486c-102.6737,0-141.711,73.2621-141.711,73.2621,0,0-39.0376-73.2621-141.7113-73.2621S0,121.6578,0,192.7808s23.0087,123.1699,100,211.7647c72.8969,83.883,200.0002,164.7059,200.0002,164.7059,0,0,127.103-80.8229,199.9999-164.7059,76.9912-88.5947,100-140.6417,100-211.7647S544.3851,30.7486,441.7111,30.7486Z'
       );
-      background-image: linear-gradient(to right top, #ff007a, #ff0062, #ff0049, #ff002d, #ff0000);
+
+      img {
+        width: 600px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
       @keyframes wave {
         0% {
           transform: translate(0, 0);
