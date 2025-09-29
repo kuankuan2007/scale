@@ -53,7 +53,7 @@ onMounted(() => {
     ctx.lineWidth = lineWidth;
 
     ctx.strokeStyle = '#888';
-    const splitLines = datas.splitLines || datas.values?.[0].values.length;
+    const splitLines = datas.splitLines || datas.values?.[0]?.values.length;
     if (splitLines) {
       for (let i = 0; i < splitLines; i++) {
         const x = (i / (splitLines - 1)) * canvasSize.width;
@@ -73,7 +73,7 @@ onMounted(() => {
       for (let j = 0; j < i.values.length; j++) {
         ctx.lineTo(
           (j / (i.values.length - 1)) * canvasSize.width,
-          ((datas.max - i.values[j]) / (datas.max - datas.min)) * canvasSize.height
+          ((datas.max - i.values[j]!) / (datas.max - datas.min)) * canvasSize.height
         );
       }
       ctx.stroke();
@@ -87,7 +87,7 @@ onMounted(() => {
 
         ctx.arc(
           (j / (i.values.length - 1)) * canvasSize.width,
-          ((datas.max - i.values[j]) / (datas.max - datas.min)) * canvasSize.height,
+          ((datas.max - i.values[j]!) / (datas.max - datas.min)) * canvasSize.height,
           3 * lineWidth,
           0,
           Math.PI * 2

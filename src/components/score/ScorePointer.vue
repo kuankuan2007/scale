@@ -27,16 +27,16 @@ onMounted(() => {
     const nowColor =
       datas.part.find((i) => i.start <= datas.value && i.end >= datas.value)?.color || '#888';
 
-    const min = datas.part[0].start,
-      max = datas.part[datas.part.length - 1].end;
+    const min = datas.part[0]!.start,
+      max = datas.part[datas.part.length - 1]!.end;
 
     ctx.beginPath();
-    ctx.fillStyle = datas.part[0].color;
+    ctx.fillStyle = datas.part[0]!.color;
     ctx.arc(boxHeight / 2, boxHeight * 1.5, boxHeight / 2, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.beginPath();
-    ctx.fillStyle = datas.part[datas.part.length - 1].color;
+    ctx.fillStyle = datas.part[datas.part.length - 1]!.color;
     ctx.arc(canvasSize.width - boxHeight / 2, boxHeight * 1.5, boxHeight / 2, 0, Math.PI * 2);
     ctx.fill();
 

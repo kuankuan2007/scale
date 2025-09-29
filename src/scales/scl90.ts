@@ -793,7 +793,7 @@ export const scl90: Scale = {
           min: 1,
           max: 5,
           splitLinesData: Object.keys(nameMap).map(
-            (key) => `${nameMap[key as never]}\n${results[key].toFixed(2) || 0}`
+            (key) => `${nameMap[key as never]}\n${results[key]!.toFixed(2) || 0}`
           ),
           values: [
             {

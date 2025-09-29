@@ -18,7 +18,7 @@ function focusFrom(el: HTMLElement, current: HTMLElement, offset: number) {
   let nextIndex = index + offset;
   if (nextIndex < 0) nextIndex = (nextIndex % itemsArr.length) + itemsArr.length;
   if (nextIndex >= itemsArr.length) nextIndex = nextIndex % itemsArr.length;
-  itemsArr[nextIndex].focus();
+  itemsArr[nextIndex]!.focus();
 }
 
 const vTabGroup: Directive<HTMLElement> = {
