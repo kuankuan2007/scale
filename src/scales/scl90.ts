@@ -785,7 +785,7 @@ export const scl90: Scale = {
       description: `总分：${sum}，平均分：${average.toFixed(2)}，阳性项目数：${activeNum}，阳性平均分：${activeAverageScore.toFixed(2)}，阴性项目数：${inactiveNum}\n${Object.keys(
         nameMap
       )
-        .map((key) => `${nameMap[key as never]}：${results[key].toFixed(2) || 0}`)
+        .map((key) => `${nameMap[key as never]}：${results[key]!.toFixed(2) || 0}`)
         .join('，')}`,
       score: [
         {
@@ -793,7 +793,7 @@ export const scl90: Scale = {
           min: 1,
           max: 5,
           splitLinesData: Object.keys(nameMap).map(
-            (key) => `${nameMap[key as never]}\n${results[key].toFixed(2) || 0}`
+            (key) => `${nameMap[key as never]}\n${results[key]!.toFixed(2) || 0}`
           ),
           values: [
             {

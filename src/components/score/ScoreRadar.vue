@@ -53,11 +53,11 @@ function drawPolygon(
   valueFull: number
 ) {
   const points = getPoint(center, size, values, valueFull);
-  ctx.moveTo(points[0].x, points[0].y);
+  ctx.moveTo(points[0]!.x, points[0]!.y);
   for (let i = 1; i < points.length; i++) {
-    ctx.lineTo(points[i].x, points[i].y);
+    ctx.lineTo(points[i]!.x, points[i]!.y);
   }
-  ctx.lineTo(points[0].x, points[0].y);
+  ctx.lineTo(points[0]!.x, points[0]!.y);
 }
 function drawLines(
   ctx: CanvasRenderingContext2D,

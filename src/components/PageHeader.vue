@@ -22,7 +22,7 @@ import { themeValue, themeValueList } from '@/scripts/theme';
 
 function changeToNextTheme() {
   themeValue.value =
-    themeValueList[(themeValueList.indexOf(themeValue.value) + 1) % themeValueList.length];
+    themeValueList[(themeValueList.indexOf(themeValue.value) + 1) % themeValueList.length]!;
 }
 
 defineProps<{

@@ -143,7 +143,7 @@ export const hama: Scale = {
         };
       }
       dataArray[i] = Number(datas[i]);
-      n += dataArray[i];
+      n += dataArray[i]!;
     }
     const results = {
       sa: 0,
@@ -151,7 +151,7 @@ export const hama: Scale = {
     };
     for (const key in resultMap) {
       for (const i of resultMap[key as 'sa' | 'pa']) {
-        results[key as 'sa' | 'pa'] += dataArray[i];
+        results[key as 'sa' | 'pa'] += dataArray[i]!;
       }
     }
 

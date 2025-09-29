@@ -279,7 +279,7 @@ export const saq: Scale = {
     for (const key of Object.keys(resultMap)) {
       let res = 0;
       resultMap[key as keyof typeof resultMap].forEach((i) => {
-        res += arrayData[i];
+        res += arrayData[i]!;
       });
       results[key as keyof typeof resultMap] =
         res / resultMap[key as keyof typeof resultMap].length;

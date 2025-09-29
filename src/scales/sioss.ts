@@ -257,7 +257,7 @@ export const sioss: Scale = {
     const result = {} as Record<keyof typeof resultMap, number>;
     for (const key in resultMap) {
       result[key as keyof typeof resultMap] = resultMap[key as keyof typeof resultMap].reduce(
-        (acc, cur) => acc + dataArray[cur],
+        (acc, cur) => acc + dataArray[cur]!,
         0
       );
     }

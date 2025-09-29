@@ -138,7 +138,7 @@ export const ptsdss: Scale = {
       ok: true,
       title: n < 50 ? '正常' : `有(${n < 60 ? '轻度' : '中重度'})PTSD症状`,
       description: `总分：${n}\n${Object.keys(nameMap)
-        .map((key) => `${nameMap[key as never]}：${results[key].toFixed(2) || 0}`)
+        .map((key) => `${nameMap[key as never]}：${results[key]!.toFixed(2) || 0}`)
         .join('，')}`,
       score: [
         {
@@ -155,7 +155,7 @@ export const ptsdss: Scale = {
           min: 1,
           max: 5,
           splitLinesData: Object.keys(resultMap).map(
-            (i) => `${nameMap[i as never]}\n${results[i].toFixed(2)}`
+            (i) => `${nameMap[i as never]}\n${results[i]!.toFixed(2)}`
           ),
           values: [
             {
