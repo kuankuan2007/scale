@@ -9,17 +9,17 @@ function getDefined(storage: Storage, key: string) {
   return definedRefs.get(storage)?.[key];
 }
 
-function defineRef(storage: Storage, key: string, ref: Ref<string>) {
+function defineRef(storage: Storage, key: string, refValue: Ref<string>) {
   const storageDefines = definedRefs.get(storage);
   if (storageDefines) {
-    storageDefines[key] = ref;
+    storageDefines[key] = refValue;
   } else {
     definedRefs.set(storage, {
-      [key]: ref,
+      [key]: refValue,
     });
   }
   watch(
-    ref,
+    refValue,
     (newValue) => {
       storage.setItem(key, newValue);
     },
@@ -27,7 +27,7 @@ function defineRef(storage: Storage, key: string, ref: Ref<string>) {
       immediate: true,
     }
   );
-  return ref;
+  return refValue;
 }
 
 export default function storageRef(
@@ -42,8 +42,8 @@ export default function storageRef(
 }
 window.addEventListener('storage', (e) => {
   if (e.key === null || e.newValue === null || e.storageArea === null) return;
-  const ref = getDefined(e.storageArea, e.key);
-  if (ref && e.newValue !== null) {
-    ref.value = e.newValue;
+  const refValue = getDefined(e.storageArea, e.key);
+  if (refValue && e.newValue !== null) {
+    refValue.value = e.newValue;
   }
 });

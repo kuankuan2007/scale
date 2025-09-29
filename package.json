@@ -28,7 +28,7 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
-    "@vue/tsconfig": "^0.7.0",
+    "@vue/tsconfig": "^0.8.1",
     "autoprefixer": "^10.4.21",
     "compressing": "^2.0.0",
     "cssnano": "^7.1.1",
@@ -42,8 +42,11 @@
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.91.0",
     "typescript": "~5.9.2",
-    "vite": "^7.0.6",
+    "vite": "npm:rolldown-vite@7.1.13",
     "vite-plugin-vue-devtools": "^8.0.0",
-    "vue-tsc": "^3.0.4"
+    "vue-tsc": "^3.0.7"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.13"
   }
 }
