@@ -10,7 +10,7 @@
     <details class="build-info">
       <summary>构建信息</summary>
       <ul class="build-info-list">
-        <li v-for="info in infoToShow" :key="info.title" class="build-info-item">
+        <li v-for="info in showBuildInfo" :key="info.title" class="build-info-item">
           <div class="title">{{ info.title }}</div>
           <div class="content">{{ info.content }}</div>
         </li>
@@ -90,61 +90,7 @@
 <script setup lang="ts">
 import KIcon from '@/components/KIcon.vue';
 import { theme } from '@/scripts/theme';
-import buildInfo from 'visual:k-build-info';
-
-const infoToShow = ref<{ title: string; content: string }[]>([]);
-async function getInfoToShow() {
-  infoToShow.value = await Promise.all(
-    (
-      [
-        {
-          title: '构建时间',
-          content: async () => new Date(buildInfo.buildTime).toLocaleString().replace(/ /g, '\n'),
-        },
-        {
-          title: '环境',
-          content: async () => buildInfo.mode.toUpperCase(),
-        },
-        {
-          title: '分支',
-          content: async () => buildInfo.git.branch,
-        },
-        {
-          title: '上次提交',
-          content: async () => buildInfo.git.lastCommit.id,
-        },
-        {
-          title: 'Vite',
-          content: async () => buildInfo.meta.viteVersion,
-        },
-        {
-          title: 'rolldownVersion' in buildInfo.meta ? 'Rolldown' : 'Rollup',
-          content: async () => buildInfo.meta.rolldownVersion || buildInfo.meta.rollupVersion,
-        },
-        {
-          title: 'Node',
-          content: async () => buildInfo.os.node,
-        },
-        {
-          title: '操作系统',
-          content: async () => `${buildInfo.os.platform}\n${buildInfo.os.arch}`,
-        },
-      ] as {
-        title: string;
-        content: Promise<string> | (() => Promise<string>);
-      }[]
-    ).map((i) =>
-      Promise.resolve(typeof i.content === 'function' ? i.content() : i.content)
-        .then(void 0, () => 'unknown')
-        .then((content) => ({
-          title: i.title,
-          content,
-        }))
-    )
-  );
-}
-console.log(buildInfo);
-onBeforeMount(getInfoToShow);
+import { show as showBuildInfo } from 'visual:k-build-info';
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;

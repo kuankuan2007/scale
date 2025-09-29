@@ -41,7 +41,6 @@ export default function VitePluginScaleIndex(): Plugin {
     },
     async load(id) {
       if (id === '\0' + MODULE_ID) {
-        console.log(this);
         const res = {
           buildTime: Date.now(),
           meta: this.meta,
@@ -54,7 +53,59 @@ export default function VitePluginScaleIndex(): Plugin {
             node: process.version,
           },
         };
-        return `export default ${JSON.stringify(res)}`;
+        const showRes = await Promise.all(
+          (
+            [
+              {
+                title: '构建时间',
+                content: async () => new Date(res.buildTime).toLocaleString().replace(/ /g, '\n'),
+              },
+              {
+                title: '环境',
+                content: async () => res.mode.toUpperCase(),
+              },
+              {
+                title: '分支',
+                content: async () => res.git.branch,
+              },
+              {
+                title: '上次提交',
+                content: async () => res.git.lastCommit.id,
+              },
+              {
+                title: 'Vite',
+                content: async () => res.meta.viteVersion,
+              },
+              {
+                title: 'rolldownVersion' in res.meta ? 'Rolldown' : 'Rollup',
+                content: async () =>
+                  ((res.meta as { rolldownVersion?: string; rollupVersion?: string })
+                    .rolldownVersion as string) || res.meta.rollupVersion,
+              },
+              {
+                title: 'Node',
+                content: async () => res.os.node,
+              },
+              {
+                title: '操作系统',
+                content: async () => `${res.os.platform}\n${res.os.arch}`,
+              },
+            ] as {
+              title: string;
+              content: Promise<string> | (() => Promise<string>);
+            }[]
+          ).map((i) =>
+            Promise.resolve(typeof i.content === 'function' ? i.content() : i.content)
+              .then(void 0, () => 'unknown')
+              .then((content) => ({
+                title: i.title,
+                content,
+              }))
+          )
+        );
+        return `export default ${JSON.stringify(res)};export const show = ${JSON.stringify(
+          showRes
+        )};`;
       }
     },
   };
