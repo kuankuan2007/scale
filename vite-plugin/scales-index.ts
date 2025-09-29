@@ -11,8 +11,6 @@ const SCALES_PATH = path.resolve('./src/scales');
 const MODULE_ID = 'visual:scales-index';
 const TEMP_DIR = path.resolve('./temp/scale-index-temp');
 
-console.log(__dirname);
-
 export default function VitePluginScaleIndex(): Plugin {
   return {
     name: 'vite-plugin-scales-index',

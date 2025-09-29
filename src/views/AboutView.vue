@@ -7,6 +7,15 @@
         >以免TM老子填量表还得先扫码付个费</span
       >
     </p>
+    <details class="build-info">
+      <summary>构建信息</summary>
+      <ul class="build-info-list">
+        <li v-for="info in infoToShow" :key="info.title" class="build-info-item">
+          <div class="title">{{ info.title }}</div>
+          <div class="content">{{ info.content }}</div>
+        </li>
+      </ul>
+    </details>
     <h2>作者的话</h2>
     <div class="content-box">
       <p>
@@ -81,6 +90,61 @@
 <script setup lang="ts">
 import KIcon from '@/components/KIcon.vue';
 import { theme } from '@/scripts/theme';
+import buildInfo from 'visual:k-build-info';
+
+const infoToShow = ref<{ title: string; content: string }[]>([]);
+async function getInfoToShow() {
+  infoToShow.value = await Promise.all(
+    (
+      [
+        {
+          title: '构建时间',
+          content: async () => new Date(buildInfo.buildTime).toLocaleString().replace(/ /g, '\n'),
+        },
+        {
+          title: '环境',
+          content: async () => buildInfo.mode.toUpperCase(),
+        },
+        {
+          title: '分支',
+          content: async () => buildInfo.git.branch,
+        },
+        {
+          title: '上次提交',
+          content: async () => buildInfo.git.lastCommit.id,
+        },
+        {
+          title: 'Vite',
+          content: async () => buildInfo.meta.viteVersion,
+        },
+        {
+          title: 'rolldownVersion' in buildInfo.meta ? 'Rolldown' : 'Rollup',
+          content: async () => buildInfo.meta.rolldownVersion || buildInfo.meta.rollupVersion,
+        },
+        {
+          title: 'Node',
+          content: async () => buildInfo.os.node,
+        },
+        {
+          title: '操作系统',
+          content: async () => `${buildInfo.os.platform}\n${buildInfo.os.arch}`,
+        },
+      ] as {
+        title: string;
+        content: Promise<string> | (() => Promise<string>);
+      }[]
+    ).map((i) =>
+      Promise.resolve(typeof i.content === 'function' ? i.content() : i.content)
+        .then(void 0, () => 'unknown')
+        .then((content) => ({
+          title: i.title,
+          content,
+        }))
+    )
+  );
+}
+console.log(buildInfo);
+onBeforeMount(getInfoToShow);
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;
@@ -107,6 +171,51 @@ import { theme } from '@/scripts/theme';
   .quote-right {
     opacity: 0.5;
     margin-top: auto;
+  }
+}
+.build-info {
+  opacity: 0.5;
+  &[open] {
+    opacity: 1;
+  }
+  summary {
+    cursor: pointer;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    $size: 8em;
+    grid-template-columns: repeat(auto-fit, $size);
+    grid-auto-rows: $size;
+    gap: 1em;
+    padding: 1em;
+    li {
+      border: 0.1em solid transparent;
+      display: flex;
+      border-radius: 1em;
+      padding: 1em;
+      flex-direction: column;
+      row-gap: 1em;
+      @include useTheme {
+        background-color: color.mix(getTheme('active-color'), getTheme('background'), 10%);
+
+        @media print {
+          border-color: getTheme('color');
+        }
+      }
+      .title {
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+      .content {
+        flex: 1 0 auto;
+        white-space: pre;
+        text-align: center;
+      }
+    }
   }
 }
 .content-box {
