@@ -21,11 +21,9 @@
         <li v-for="tag in data?.tags" :key="tag">{{ tag }}</li>
       </ul>
       <p class="description">{{ data?.description }}</p>
-      <div class="refers" v-if="data?.refer?.length">
-        <link-like-button @click="showRefer = !showRefer" invisible :underline="false">
-          {{ data?.refer.length }} 条引用 <k-icon :id="showRefer ? 'down' : 'right'" inline />
-        </link-like-button>
-        <ul v-show="showRefer">
+      <details class="refers" v-if="data?.refer?.length">
+        <summary>{{ data?.refer.length }} 条引用</summary>
+        <ul>
           <li v-for="item in data?.refer" :key="item.url">
             <a :href="item.url" target="_blank"
               ><k-icon id="link" inline /> {{ item.title }}
@@ -33,7 +31,7 @@
             >
           </li>
         </ul>
-      </div>
+      </details>
       <form class="form" @submit.prevent="submit">
         <div class="question-list" ref="questionList">
           <div
@@ -114,7 +112,6 @@ import KIcon from '@/components/KIcon.vue';
 import { RouterLink } from 'vue-router';
 import intersectionRef, { type intersectionData } from '@/scripts/intersectionRef';
 import { formatTimeDiff } from '@/scripts/util';
-import LinkLikeButton from '@/components/LinkLikeButton.vue';
 
 const props = defineProps<{
   id: string;
@@ -129,7 +126,6 @@ const requiredId = ref<string>();
 const readonly = ref(false);
 const resultElement = useTemplateRef('resultElement');
 const resultIntersectionData = ref<intersectionData>({});
-const showRefer = ref(false);
 
 watch(data, (newValue) => {
   if (newValue !== void 0) {
@@ -280,8 +276,12 @@ onMounted(() => {
   }
   .refers {
     font-size: 0.8em;
+    opacity: 0.5;
+
+    summary {
+      cursor: pointer;
+    }
     ul {
-      opacity: 0.5;
       margin: 0;
       padding: 0;
       padding-left: 2em;

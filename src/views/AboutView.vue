@@ -121,7 +121,7 @@ import { show as showBuildInfo } from 'visual:k-build-info';
 }
 .build-info {
   opacity: 0.5;
-  &[open] {
+  &:open {
     opacity: 1;
   }
   summary {
