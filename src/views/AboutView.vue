@@ -9,12 +9,20 @@
     </p>
     <details class="build-info">
       <summary>构建信息</summary>
-      <ul class="build-info-list">
-        <li v-for="info in showBuildInfo" :key="info.title" class="build-info-item">
+      <div class="build-info-list">
+        <component
+          v-for="info in showBuildInfo"
+          :key="info.title"
+          :is="info.url ? 'a' : 'div'"
+          :href="info.url"
+          target="_blank"
+          class="build-info-item"
+        >
           <div class="title">{{ info.title }}</div>
           <div class="content">{{ info.content }}</div>
-        </li>
-      </ul>
+          <k-icon v-if="info.url" id="link" class="link-icon" />
+        </component>
+      </div>
     </details>
     <h2>作者的话</h2>
     <div class="content-box">
@@ -127,7 +135,7 @@ import { show as showBuildInfo } from 'visual:k-build-info';
   summary {
     cursor: pointer;
   }
-  ul {
+  .build-info-list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -137,15 +145,20 @@ import { show as showBuildInfo } from 'visual:k-build-info';
     grid-auto-rows: $size;
     gap: 1em;
     padding: 1em;
-    li {
+    .build-info-item {
+      text-decoration: none;
       border: 0.1em solid transparent;
       display: flex;
       border-radius: 1em;
       padding: 1em;
       flex-direction: column;
       row-gap: 1em;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
       @include useTheme {
         background-color: color.mix(getTheme('active-color'), getTheme('background'), 10%);
+        color: getTheme('color');
 
         @media print {
           border-color: getTheme('color');
@@ -160,6 +173,23 @@ import { show as showBuildInfo } from 'visual:k-build-info';
         flex: 1 0 auto;
         white-space: pre;
         text-align: center;
+      }
+      .link-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.1em 0.5em;
+        border-radius: 0.3em;
+
+        @include useTheme {
+          background: color.mix(getTheme('background'), getTheme('active-color'), 50%);
+        }
+      }
+      &:hover,
+      &:focus {
+        @include useTheme {
+          background: color.mix(getTheme('background'), getTheme('active-color'), 60%);
+        }
       }
     }
   }
