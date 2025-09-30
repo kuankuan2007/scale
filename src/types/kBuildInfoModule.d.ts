@@ -25,5 +25,5 @@ declare module 'visual:k-build-info' {
     };
   };
   export default buildInfo;
-  export const show: { title: string; content: string }[];
+  export const show: { title: string; content: string; url?: string }[];
 }

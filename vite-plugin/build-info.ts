@@ -30,7 +30,7 @@ async function getGitInfo() {
   };
 }
 
-export default function VitePluginScaleIndex(): Plugin {
+export default function VitePluginBuildInfo(): Plugin {
   return {
     name: 'vite-plugin-build-info',
 
@@ -75,16 +75,20 @@ export default function VitePluginScaleIndex(): Plugin {
               {
                 title: 'Vite',
                 content: async () => res.meta.viteVersion,
+                url: 'https://vite.dev/',
               },
               {
                 title: 'rolldownVersion' in res.meta ? 'Rolldown' : 'Rollup',
                 content: async () =>
                   ((res.meta as { rolldownVersion?: string; rollupVersion?: string })
                     .rolldownVersion as string) || res.meta.rollupVersion,
+                url:
+                  'rolldownVersion' in res.meta ? 'https://rolldown.rs/' : 'https://rollupjs.org/',
               },
               {
                 title: 'Node',
                 content: async () => res.os.node,
+                url: 'https://nodejs.org/',
               },
               {
                 title: '操作系统',
@@ -93,12 +97,14 @@ export default function VitePluginScaleIndex(): Plugin {
             ] as {
               title: string;
               content: Promise<string> | (() => Promise<string>);
+              url?: string;
             }[]
           ).map((i) =>
             Promise.resolve(typeof i.content === 'function' ? i.content() : i.content)
               .then(void 0, () => 'unknown')
               .then((content) => ({
                 title: i.title,
+                url: i.url,
                 content,
               }))
           )
