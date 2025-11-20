@@ -42,11 +42,11 @@
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.91.0",
     "typescript": "~5.9.2",
-    "vite": "npm:rolldown-vite@7.1.13",
+    "vite": "npm:rolldown-vite@7.2.7",
     "vite-plugin-vue-devtools": "^8.0.0",
     "vue-tsc": "^3.0.7"
   },
   "overrides": {
-    "vite": "npm:rolldown-vite@7.1.13"
+    "vite": "npm:rolldown-vite@7.2.7"
   }
 }
