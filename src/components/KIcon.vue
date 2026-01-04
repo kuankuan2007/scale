@@ -23,6 +23,7 @@ defineProps({
   width: 1em;
   height: 1em;
   line-height: 1em;
+  font-weight: normal;
   &.inline {
     display: inline;
   }

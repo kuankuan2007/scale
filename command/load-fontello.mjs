@@ -12,7 +12,10 @@ const filePath = path.join(uncompressDirPath, path.basename(zipPath).replace('.z
 
 compressing.zip.uncompress(zipPath, uncompressDirPath).then(
   () => {
+    console.log('load-fontello v0.2.0');
     console.log('uncompress success');
+    const id = Math.floor(Date.now() / 1000); // 防止缓存
+
     const fonts = fs.readdirSync(path.join(filePath, 'font'));
     fonts.forEach((font) => {
       fs.copyFileSync(
@@ -21,11 +24,33 @@ compressing.zip.uncompress(zipPath, uncompressDirPath).then(
       );
       console.log(`Copy ${font} success`);
     });
-    fs.copyFileSync(
-      path.join(filePath, 'config.json'),
-      path.join(process.cwd(), 'src', 'assets', 'fontello', 'config.json')
+    const config = JSON.parse(fs.readFileSync(path.join(filePath, 'config.json'), 'utf-8'));
+    config.glyphs = config.glyphs.filter((glyph) => glyph.selected);
+    config['k-id'] = id;
+    fs.writeFileSync(
+      path.join(process.cwd(), 'src', 'assets', 'fontello', 'config.json'),
+      JSON.stringify(config, null, 2)
     );
-    console.log('Copy config.json success');
+
+    console.log('Load config.json success');
+
+    fs.writeFileSync(
+      path.join(process.cwd(), 'src', 'assets', 'fontello', 'font-defines.scss'),
+      `@font-face {
+  font-family: fontello;
+  src:
+    url('./font/fontello.woff2?${id}') format('woff2'),
+    url('./font/fontello.woff?${id}') format('woff'),
+    url('./font/fontello.ttf?${id}') format('truetype'),
+    url('./font/fontello.svg?${id}#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+`
+    );
+
+    console.log('Write font-defines.scss success');
+
     fs.rmSync(uncompressDirPath, { recursive: true });
     console.log(`Delete ${uncompressDirPath} success`);
   },
