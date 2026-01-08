@@ -42,7 +42,7 @@
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.91.0",
     "typescript": "~5.9.2",
-    "vite": "^8.0.0-beta.5",
+    "vite": "^8.0.0-beta.7",
     "vite-plugin-vue-devtools": "^8.0.0",
     "vue-tsc": "^3.0.7"
   }
