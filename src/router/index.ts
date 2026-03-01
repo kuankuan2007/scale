@@ -62,8 +62,14 @@ export const title = ref(defaultTitle);
 export const fullscreen = ref(false);
 export const hideHeader = ref(false);
 
-watch(title, (newTitle) => {
-  document.title = newTitle;
-});
+watch(
+  title,
+  (newTitle) => {
+    document.title = newTitle;
+  },
+  {
+    immediate: true,
+  }
+);
 
 export default router;

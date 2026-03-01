@@ -4,9 +4,13 @@
       <h1>{{ data?.name }}</h1>
 
       <div class="warns">
-        <div>
+        <div class="warn print-hide">
           <k-icon id="info" inline />
           测试全程离线进行，页面不会上报任何数据，请放心填写
+        </div>
+        <div class="warn print-only">
+          <k-icon id="info" inline />
+          量表来自 scale.kuankuan.site
         </div>
         <div>
           <k-icon id="warn" inline />
@@ -58,10 +62,10 @@
           </div>
         </div>
 
-        <k-button type="submit" class="submit-button" v-show="!result">提交</k-button>
+        <k-button type="submit" class="submit-button print-hide" v-show="!result">提交</k-button>
       </form>
       <div
-        class="progress"
+        class="progress print-hide"
         v-if="progress !== void 0 && !readonly"
         :style="{ width: `${progress * 100}%` }"
       ></div>
@@ -82,11 +86,11 @@
           <p class="description" v-if="result.description">{{ result.description }}</p>
         </div>
         <div class="completion-time" v-show="completionTime">用时： {{ completionTime }}</div>
-        <k-button type="button" class="print-button" @click="printPage">打印</k-button>
+        <k-button type="button" class="print-button print-hide" @click="printPage">打印</k-button>
       </div>
       <k-button
         v-show="result"
-        class="to-result-button"
+        class="to-result-button print-hide"
         :class="{
           hide: resultIntersectionData?.isIntersecting,
         }"
@@ -390,11 +394,13 @@ onMounted(() => {
     margin-bottom: 1em;
   }
 }
+@media screen {
+  .print-only {
+    display: none;
+  }
+}
 @media print {
-  .print-button,
-  .to-result-button,
-  .submit-button,
-  .progress {
+  .print-hide {
     display: none;
   }
   .result {
