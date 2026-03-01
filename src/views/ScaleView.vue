@@ -45,7 +45,15 @@
               :config="question.form"
               :id="question.id"
               :readonly="readonly"
-              v-model="formResult[question.id as never]"
+              :model-value="formResult[question.id as never]"
+              @update:model-value="
+                (value: unknown) => {
+                  if (question.id === requiredId) {
+                    requiredId = void 0;
+                  }
+                  formResult[question.id as never] = value;
+                }
+              "
             />
           </div>
         </div>
