@@ -31,13 +31,13 @@ function defineRef(storage: Storage, key: string, ref: Ref<string>) {
 }
 
 export default function storageRef(
-  defaultValue: string,
   key: string,
+  defaultValue: string,
   storage: Storage = localStorage
 ) {
   return (
-    getDefined(storage, key) ||
-    defineRef(storage, key, ref<string>(localStorage.getItem(key) || defaultValue))
+    getDefined(storage, key),
+    defineRef(storage, key, ref<string>(storage.getItem(key) ?? defaultValue))
   );
 }
 window.addEventListener('storage', (e) => {
