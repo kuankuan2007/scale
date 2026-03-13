@@ -102,7 +102,6 @@ import { show as showBuildInfo } from 'visual:k-build-info';
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;
-@use 'sass:color';
 
 .about-view {
   padding: 1em;
@@ -114,9 +113,9 @@ import { show as showBuildInfo } from 'visual:k-build-info';
   border-radius: 0.5em;
   display: flex;
   align-items: center;
-  @include useTheme {
-    background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
-    border-color: color.mix(getTheme('active-color'), getTheme('background'), 20%);
+  @include theme.use {
+    background: color.mix(theme.get('active-color'), theme.get('background'), 10%);
+    border-color: color.mix(theme.get('active-color'), theme.get('background'), 20%);
   }
   .quote-left {
     opacity: 0.5;
@@ -156,12 +155,12 @@ import { show as showBuildInfo } from 'visual:k-build-info';
       position: relative;
       overflow: hidden;
       transition: background 0.3s;
-      @include useTheme {
-        background-color: color.mix(getTheme('active-color'), getTheme('background'), 10%);
-        color: getTheme('color');
+      @include theme.use {
+        background-color: color.mix(theme.get('active-color'), theme.get('background'), 10%);
+        color: theme.get('color');
 
         @media print {
-          border-color: getTheme('color');
+          border-color: theme.get('color');
         }
       }
       .title {
@@ -181,14 +180,14 @@ import { show as showBuildInfo } from 'visual:k-build-info';
         padding: 0.1em 0.5em;
         border-radius: 0.3em;
 
-        @include useTheme {
-          background: color.mix(getTheme('background'), getTheme('active-color'), 50%);
+        @include theme.use {
+          background: color.mix(theme.get('background'), theme.get('active-color'), 50%);
         }
       }
       &:hover,
       &:focus {
-        @include useTheme {
-          background: color.mix(getTheme('background'), getTheme('active-color'), 60%);
+        @include theme.use {
+          background: color.mix(theme.get('background'), theme.get('active-color'), 60%);
         }
       }
     }
@@ -213,9 +212,9 @@ import { show as showBuildInfo } from 'visual:k-build-info';
     transition: 0.3s;
     outline: none;
 
-    @include useTheme {
-      color: getTheme('color');
-      border-color: getTheme('color');
+    @include theme.use {
+      color: theme.get('color');
+      border-color: theme.get('color');
     }
 
     img {
@@ -224,16 +223,16 @@ import { show as showBuildInfo } from 'visual:k-build-info';
     }
     &:focus,
     &:active {
-      @include useTheme {
-        border-color: getTheme('active-color');
-        color: getTheme('active-color');
+      @include theme.use {
+        border-color: theme.get('active-color');
+        color: theme.get('active-color');
       }
     }
     &:hover {
-      @include useTheme {
-        background: getTheme('active-color');
-        color: getTheme('background');
-        border-color: getTheme('active-color');
+      @include theme.use {
+        background: theme.get('active-color');
+        color: theme.get('background');
+        border-color: theme.get('active-color');
       }
     }
   }

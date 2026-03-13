@@ -1,16 +1,14 @@
-@use './theme.scss' as *;
-@use './preset.scss' as *;
 @use '@/assets/fontello/font-defines.scss' as *;
 body {
   margin: 0;
   padding: 0;
-  @include useTheme {
-    background: getTheme('background');
-    color: getTheme('color');
+  @include theme.use {
+    background: theme.get('background');
+    color: theme.get('color');
   }
 }
 a {
-  @include useTheme {
-    color: getTheme('active-color');
+  @include theme.use {
+    color: theme.get('active-color');
   }
 }

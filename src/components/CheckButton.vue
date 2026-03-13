@@ -17,7 +17,6 @@ withDefaults(defineProps<{ capsule?: boolean }>(), {
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme' as *;
-@use 'sass:color';
 
 button {
   appearance: none;
@@ -44,30 +43,30 @@ button {
   &.checked > .check-item {
     opacity: 1;
   }
-  @include useTheme {
-    border-color: getTheme('color');
+  @include theme.use {
+    border-color: theme.get('color');
     background: transparent;
-    color: getTheme('color');
+    color: theme.get('color');
   }
   &.checked {
-    @include useTheme {
-      background: color.mix(getTheme('active-color'), getTheme('background'), 40%);
-      border-color: color.mix(getTheme('active-color'), getTheme('background'), 40%);
+    @include theme.use {
+      background: color.mix(theme.get('active-color'), theme.get('background'), 40%);
+      border-color: color.mix(theme.get('active-color'), theme.get('background'), 40%);
     }
   }
   &:focus,
   &:hover {
-    @include useTheme {
-      border-color: rgba(getTheme('strong-color'), 80%);
+    @include theme.use {
+      border-color: rgba(theme.get('strong-color'), 80%);
     }
   }
 
   &:disabled {
     pointer-events: none;
     user-select: none;
-    @include useTheme {
-      border-color: color.mix(getTheme('color'), getTheme('background'), 40%);
-      color: color.mix(getTheme('color'), getTheme('background'), 40%);
+    @include theme.use {
+      border-color: color.mix(theme.get('color'), theme.get('background'), 40%);
+      color: color.mix(theme.get('color'), theme.get('background'), 40%);
     }
   }
 }

@@ -15,7 +15,6 @@ withDefaults(
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme' as *;
-@use 'sass:color';
 
 .link-like-button {
   appearance: none;
@@ -25,23 +24,23 @@ withDefaults(
   text-decoration: none;
   cursor: pointer;
   font-size: 1em;
-  @include useTheme {
-    color: getTheme('active-color');
+  @include theme.use {
+    color: theme.get('active-color');
   }
   &.underline {
     text-decoration: underline;
   }
   &.invisible {
     opacity: 0.5;
-    @include useTheme {
-      color: getTheme('color');
+    @include theme.use {
+      color: theme.get('color');
     }
   }
   &:hover,
   &:active,
   &:focus {
-    @include useTheme {
-      color: color.mix(getTheme('active-color'), getTheme('color'), 60%);
+    @include theme.use {
+      color: color.mix(theme.get('active-color'), theme.get('color'), 60%);
     }
   }
 }

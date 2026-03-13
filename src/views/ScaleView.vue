@@ -122,7 +122,7 @@ import ResultScores from '@/components/ResultScores.vue';
 import KButton from '@/components/KButton.vue';
 import KIcon from '@/components/KIcon.vue';
 import { RouterLink } from 'vue-router';
-import intersectionRef, { type intersectionData } from '@/scripts/intersectionRef';
+import intersectionRef, { type intersectionData } from '@kuankuan/assist-2026/ref/intersectionRef';
 import { formatTimeDiff } from '@/scripts/util';
 
 const props = defineProps<{
@@ -260,7 +260,6 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme' as *;
-@use 'sass:color';
 
 .scale {
   padding: 1em;
@@ -278,8 +277,8 @@ onMounted(() => {
       padding: 0.2em 0.5em;
       border-radius: 0.5em;
       font-size: 0.8em;
-      @include useTheme {
-        background: color.mix(getTheme('strong-color'), getTheme('background'), 20%);
+      @include theme.use {
+        background: color.mix(theme.get('strong-color'), theme.get('background'), 20%);
       }
     }
   }
@@ -319,18 +318,18 @@ onMounted(() => {
     break-inside: avoid;
 
     &:focus-within {
-      @include useTheme {
-        background: color.mix(getTheme('color'), getTheme('background'), 15%);
+      @include theme.use {
+        background: color.mix(theme.get('color'), theme.get('background'), 15%);
       }
     }
     &:hover {
-      @include useTheme {
-        background: color.mix(getTheme('active-color'), getTheme('background'), 15%);
+      @include theme.use {
+        background: color.mix(theme.get('active-color'), theme.get('background'), 15%);
       }
     }
     &.required {
-      @include useTheme {
-        background: color.mix(getTheme('strong-color'), getTheme('background'), 15%);
+      @include theme.use {
+        background: color.mix(theme.get('strong-color'), theme.get('background'), 15%);
       }
     }
   }
@@ -347,16 +346,16 @@ onMounted(() => {
   padding: 2em;
   border-radius: 1em;
   break-inside: avoid;
-  @include useTheme {
-    background: color.mix(getTheme('strong-color'), getTheme('background'), 6%);
+  @include theme.use {
+    background: color.mix(theme.get('strong-color'), theme.get('background'), 6%);
   }
   .chart {
     .chart-item {
       border-radius: 1em;
       padding: 1em 0;
       margin: 1em 0;
-      @include useTheme {
-        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      @include theme.use {
+        background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
       }
       .title {
         margin: 0;
@@ -405,20 +404,20 @@ onMounted(() => {
   }
   .result {
     border: 0.2em solid;
-    @include useTheme {
-      background: rgba(getTheme('color'), 0.5);
+    @include theme.use {
+      background: rgba(theme.get('color'), 0.5);
     }
   }
   .chart-item {
     border: 0.1em solid;
-    @include useTheme {
-      background: rgba(getTheme('color'), 0.5);
+    @include theme.use {
+      background: rgba(theme.get('color'), 0.5);
     }
   }
   .tags > li {
     border: 0.1em solid;
-    @include useTheme {
-      background: rgba(getTheme('color'), 0.5);
+    @include theme.use {
+      background: rgba(theme.get('color'), 0.5);
     }
   }
 }
@@ -442,13 +441,13 @@ onMounted(() => {
   }
 }
 .loading > .content-box {
-  @include useTheme {
-    background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
+  @include theme.use {
+    background: color.mix(theme.get('active-color'), theme.get('background'), 10%);
   }
 }
 .error > .content-box {
-  @include useTheme {
-    background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+  @include theme.use {
+    background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
   }
 }
 .to-result-button {

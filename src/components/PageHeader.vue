@@ -31,7 +31,6 @@ defineProps<{
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;
-@use 'sass:color';
 
 @media print {
   header {
@@ -54,13 +53,13 @@ header {
   overflow: scroll;
   scrollbar-width: none;
 
-  @include useTheme {
-    background: rgba(color.mix(getTheme('background'), getTheme('active-color'), 85%), 0.95);
+  @include theme.use {
+    background: rgba(color.mix(theme.get('background'), theme.get('active-color'), 85%), 0.95);
   }
   @supports (backdrop-filter: blur(1em)) {
     backdrop-filter: blur(1em);
-    @include useTheme {
-      background: rgba(color.mix(getTheme('background'), getTheme('active-color'), 85%), 0.7);
+    @include theme.use {
+      background: rgba(color.mix(theme.get('background'), theme.get('active-color'), 85%), 0.7);
     }
   }
   * {
@@ -80,8 +79,8 @@ header {
     }
     &::-webkit-scrollbar-thumb {
       border-radius: 99999999px;
-      @include useTheme {
-        background: color.mix(getTheme('color'), getTheme('background'), 60%);
+      @include theme.use {
+        background: color.mix(theme.get('color'), theme.get('background'), 60%);
       }
     }
   }
@@ -98,13 +97,13 @@ header {
       border-radius: 0.3em;
 
       &:focus {
-        @include useTheme {
-          border-color: getTheme('active-color');
+        @include theme.use {
+          border-color: theme.get('active-color');
         }
       }
       &:hover {
-        @include useTheme {
-          color: getTheme('active-color');
+        @include theme.use {
+          color: theme.get('active-color');
         }
       }
     }

@@ -17,7 +17,6 @@ const url = ref(location.href);
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;
-@use 'sass:color';
 
 .not-found {
   display: flex;
@@ -30,8 +29,8 @@ const url = ref(location.href);
   padding: 2em;
   text-align: center;
   border-radius: 1em;
-  @include useTheme {
-    background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+  @include theme.use {
+    background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
   }
   p {
     margin: 0.5em 0;

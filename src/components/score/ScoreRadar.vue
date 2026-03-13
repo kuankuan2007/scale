@@ -9,7 +9,7 @@
 </template>
 <script setup lang="ts">
 import type { RadarMapScore } from '@/types/form';
-import { devicePixelRatioRef, computedSizeRef } from '@/scripts/sizeRef';
+import { devicePixelRatioRef, computedSizeRef } from '@kuankuan/assist-2026/ref/sizeRef';
 const canvas = useTemplateRef('canvas');
 const props = defineProps<{
   config: RadarMapScore;

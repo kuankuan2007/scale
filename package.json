@@ -14,9 +14,10 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "load-fontello": "node command/load-fontello.mjs"
+    "load-fontello": "load-fontello"
   },
   "dependencies": {
+    "@kuankuan/assist-2026": "^0.1.7",
     "color": "^5.0.0",
     "unplugin-auto-import": "^20.1.0",
     "vue": "^3.5.18",

@@ -6,7 +6,7 @@ const value = defineModel<string>();
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme' as *;
-@use 'sass:color';
+
 .k-text {
   outline: none;
   padding: 0.5em 1em;
@@ -16,18 +16,18 @@ const value = defineModel<string>();
   border-radius: 0.5em;
 
   font-size: 1em;
-  @include useTheme {
-    color: getTheme('color');
-    background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
+  @include theme.use {
+    color: theme.get('color');
+    background: color.mix(theme.get('active-color'), theme.get('background'), 10%);
   }
   &:focus {
-    @include useTheme {
-      background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+    @include theme.use {
+      background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
     }
   }
   &:hover {
-    @include useTheme {
-      background: color.mix(getTheme('active-color'), getTheme('background'), 30%);
+    @include theme.use {
+      background: color.mix(theme.get('active-color'), theme.get('background'), 30%);
     }
   }
 }

@@ -6,7 +6,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computedSizeRef } from '@/scripts/sizeRef';
+import { computedSizeRef } from '@kuankuan/assist-2026/ref/sizeRef';
 import type { PointerScore } from '@/types/form';
 
 const props = defineProps<{
@@ -74,7 +74,6 @@ onMounted(() => {
 });
 </script>
 <style scoped lang="scss">
-@use 'sass:color';
 @use '@/styles/theme' as *;
 
 .score-pointer {
