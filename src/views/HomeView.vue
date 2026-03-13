@@ -40,7 +40,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { windowSize } from '@/scripts/sizeRef';
+import { windowSize } from '@kuankuan/assist-2026/ref/sizeRef';
 import KIcon from '@/components/KIcon.vue';
 
 const hideHeader = defineModel<boolean>('hideHeader');

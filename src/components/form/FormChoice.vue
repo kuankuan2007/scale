@@ -32,7 +32,6 @@ defineProps<{
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme' as *;
-@use 'sass:color';
 
 .question {
   margin: 0;
@@ -62,8 +61,8 @@ input[type='radio'] {
   border: 0.2em solid;
   border-radius: 50%;
   outline: none;
-  @include useTheme {
-    border-color: getTheme('color');
+  @include theme.use {
+    border-color: theme.get('color');
   }
   &::before {
     content: '';
@@ -75,21 +74,21 @@ input[type='radio'] {
     border: 0.3em solid;
     opacity: 0;
     transition: 0.3s;
-    @include useTheme {
-      border-color: getTheme('active-color');
+    @include theme.use {
+      border-color: theme.get('active-color');
     }
   }
   &:checked {
-    @include useTheme {
-      border-color: getTheme('active-color');
+    @include theme.use {
+      border-color: theme.get('active-color');
     }
     &::before {
       opacity: 1;
     }
   }
   &:focus {
-    @include useTheme {
-      border-color: getTheme('active-color');
+    @include theme.use {
+      border-color: theme.get('active-color');
     }
   }
 }

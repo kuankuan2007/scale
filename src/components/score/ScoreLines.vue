@@ -11,7 +11,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computedSizeRef, devicePixelRatioRef } from '@/scripts/sizeRef';
+import { computedSizeRef, devicePixelRatioRef } from '@kuankuan/assist-2026/ref/sizeRef';
 import type { LinesScore } from '@/types/form';
 
 const props = defineProps<{

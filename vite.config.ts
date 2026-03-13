@@ -12,6 +12,12 @@ import cssnano from 'cssnano';
 import VitePluginScaleIndex from './vite-plugin/scales-index';
 import VitePluginBuildInfo from './vite-plugin/build-info';
 
+const sassAddition = `
+@use '@/styles/theme.scss';
+@use 'sass:math';
+@use 'sass:color';
+`;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -42,6 +48,14 @@ export default defineConfig({
         }),
         cssnano(),
       ],
+    },
+    preprocessorOptions: {
+      scss: {
+        additionalData: sassAddition,
+      },
+      sass: {
+        additionalData: sassAddition,
+      },
     },
   },
   resolve: {

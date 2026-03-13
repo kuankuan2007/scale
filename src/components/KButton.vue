@@ -10,7 +10,6 @@ withDefaults(defineProps<{ capsule?: boolean }>(), {
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme' as *;
-@use 'sass:color';
 
 button {
   appearance: none;
@@ -32,32 +31,32 @@ button {
     border-radius: 999999px;
   }
 
-  @include useTheme {
-    border-color: getTheme('color');
+  @include theme.use {
+    border-color: theme.get('color');
     background: transparent;
-    color: getTheme('color');
+    color: theme.get('color');
   }
   &:focus,
   &:active {
-    @include useTheme {
-      border-color: getTheme('active-color');
-      background: getTheme('background');
-      color: getTheme('active-color');
+    @include theme.use {
+      border-color: theme.get('active-color');
+      background: theme.get('background');
+      color: theme.get('active-color');
     }
   }
   &:hover {
-    @include useTheme {
-      border-color: getTheme('active-color');
-      background: getTheme('active-color');
-      color: getTheme('background');
+    @include theme.use {
+      border-color: theme.get('active-color');
+      background: theme.get('active-color');
+      color: theme.get('background');
     }
   }
   &:disabled {
     pointer-events: none;
     user-select: none;
-    @include useTheme {
-      border-color: color.mix(getTheme('color'), getTheme('background'), 40%);
-      color: color.mix(getTheme('color'), getTheme('background'), 40%);
+    @include theme.use {
+      border-color: color.mix(theme.get('color'), theme.get('background'), 40%);
+      color: color.mix(theme.get('color'), theme.get('background'), 40%);
     }
   }
 }

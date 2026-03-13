@@ -66,7 +66,7 @@ import KIcon from '@/components/KIcon.vue';
 import KTextInput from '@/components/KTextInput.vue';
 import CheckButton from '@/components/CheckButton.vue';
 import { RouterLink } from 'vue-router';
-import { windowSize } from '@/scripts/sizeRef';
+import { windowSize } from '@kuankuan/assist-2026/ref/sizeRef';
 import vTabGroup from '@/scripts/vTabGroup';
 const tagListBox = useTemplateRef('tagListBox');
 const scaleIndexData = reactive(_scaleIndexData);
@@ -130,7 +130,7 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;
-@use 'sass:color';
+
 .scale-index {
   padding: 2em;
 }
@@ -159,15 +159,15 @@ onMounted(() => {
         opacity: 0.5;
       }
       &:focus {
-        @include useTheme {
-          color: getTheme('active-color');
+        @include theme.use {
+          color: theme.get('active-color');
         }
       }
     }
     &:focus-within > .trigger,
     &:hover > .trigger {
-      @include useTheme {
-        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      @include theme.use {
+        background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
       }
     }
     &:hover > .tag-list-box,
@@ -193,16 +193,16 @@ onMounted(() => {
       width: 30em;
       max-width: 90vw;
       height: 0;
-      @include useTheme {
-        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      @include theme.use {
+        background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
       }
       .gap {
         border: none;
         border-right: 0.1em solid;
         border-bottom: 0.1em solid;
         margin: 1em;
-        @include useTheme {
-          border-color: getTheme('color');
+        @include theme.use {
+          border-color: theme.get('color');
         }
       }
       & > .tag-list-outer {
@@ -277,17 +277,17 @@ onMounted(() => {
     transition: background 0.3s;
     break-inside: avoid;
     flex: 1 1 auto;
-    @include useTheme {
-      background: color.mix(getTheme('active-color'), getTheme('background'), 10%);
+    @include theme.use {
+      background: color.mix(theme.get('active-color'), theme.get('background'), 10%);
     }
     &:focus-within {
-      @include useTheme {
-        background: color.mix(getTheme('strong-color'), getTheme('background'), 10%);
+      @include theme.use {
+        background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
       }
     }
     &:hover {
-      @include useTheme {
-        background: color.mix(getTheme('active-color'), getTheme('background'), 30%);
+      @include theme.use {
+        background: color.mix(theme.get('active-color'), theme.get('background'), 30%);
       }
     }
   }
@@ -318,13 +318,13 @@ onMounted(() => {
 @media print {
   .scale-item {
     border: 0.2em solid;
-    @include useTheme {
-      border-color: rgba(getTheme('color'), 1);
+    @include theme.use {
+      border-color: rgba(theme.get('color'), 1);
     }
     .tag {
       border: 0.1em solid;
-      @include useTheme {
-        border-color: rgba(getTheme('color'), 1);
+      @include theme.use {
+        border-color: rgba(theme.get('color'), 1);
       }
     }
   }
@@ -333,8 +333,8 @@ onMounted(() => {
   text-decoration: none;
   outline: none;
   position: relative;
-  @include useTheme {
-    color: getTheme('color');
+  @include theme.use {
+    color: theme.get('color');
   }
   .scale-desc {
     text-overflow: ellipsis;
@@ -357,8 +357,8 @@ onMounted(() => {
       padding: 0.2em 0.5em;
       border-radius: 0.4em;
 
-      @include useTheme {
-        background: color.mix(getTheme('active-color'), getTheme('background'), 50%);
+      @include theme.use {
+        background: color.mix(theme.get('active-color'), theme.get('background'), 50%);
       }
     }
   }
