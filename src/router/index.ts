@@ -51,11 +51,11 @@ const router = createRouter({
 });
 
 const defaultTitle = 'Scale';
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   title.value = (to.meta.title as string) || defaultTitle;
   fullscreen.value = (to.meta.fullscreen as boolean) || false;
   hideHeader.value = (to.meta.hideHeader as boolean) || false;
-  next();
+  return;
 });
 
 export const title = ref(defaultTitle);
