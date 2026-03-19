@@ -154,7 +154,7 @@ import { show as showBuildInfo } from 'visual:k-build-info';
       row-gap: 1em;
       position: relative;
       overflow: hidden;
-      transition: background 0.3s;
+      @include motion.transition(background 0.3s);
       @include theme.use {
         background-color: color.mix(theme.get('active-color'), theme.get('background'), 10%);
         color: theme.get('color');
@@ -209,7 +209,7 @@ import { show as showBuildInfo } from 'visual:k-build-info';
     padding: 0.3em 1em;
     border-radius: 0.3em;
     vertical-align: middle;
-    transition: 0.3s;
+    @include motion.transition(0.3s);
     outline: none;
 
     @include theme.use {

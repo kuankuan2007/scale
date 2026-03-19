@@ -14,6 +14,7 @@ import VitePluginBuildInfo from './vite-plugin/build-info';
 
 const sassAddition = `
 @use '@/styles/theme.scss';
+@use '@kuankuan/assist-2026/styles/motion.scss';
 @use 'sass:math';
 @use 'sass:color';
 `;

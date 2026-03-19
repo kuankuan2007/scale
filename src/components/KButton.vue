@@ -21,10 +21,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0.5em;
-  transition:
-    background 0.3s,
-    color 0.3s,
-    border-color 0.3s;
+  @include motion.transition(background 0.3s, color 0.3s, border-color 0.3s);
 
   border-radius: 0.5em;
   &.capsule {

@@ -12,7 +12,8 @@ const value = defineModel<string>();
   padding: 0.5em 1em;
   border: none;
   background: transparent;
-  transition: background 0.3s;
+  @include motion.transition(background 0.3s);
+
   border-radius: 0.5em;
 
   font-size: 1em;

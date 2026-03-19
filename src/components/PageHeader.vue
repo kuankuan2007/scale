@@ -49,7 +49,7 @@ header {
   align-items: center;
   justify-content: center;
   z-index: 1;
-  transition: transform 0.3s ease-in-out;
+  @include motion.transition(transform 0.3s ease-in-out);
   overflow: scroll;
   scrollbar-width: none;
 
@@ -91,7 +91,7 @@ header {
       all: unset;
       font-size: 2em;
       cursor: pointer;
-      transition: 0.3s;
+      @include motion.transition(0.3s);
       padding: 0.1em;
       border: 0.1em solid transparent;
       border-radius: 0.3em;

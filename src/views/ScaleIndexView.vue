@@ -153,7 +153,7 @@ onMounted(() => {
       outline: none;
       padding: 0.2em 0.5em;
       border-radius: 0.5em 0.5em 0 0;
-      transition: background 0.3s;
+      @include motion.transition(background 0.3s);
       span.tag-filter-num {
         font-size: 0.6em;
         opacity: 0.5;
@@ -186,7 +186,7 @@ onMounted(() => {
 
       flex-direction: column;
 
-      transition: height 0.3s;
+      @include motion.transition(height 0.3s);
       justify-content: center;
       align-items: stretch;
       border-radius: 0 0.5em 0.5em 0.5em;
@@ -249,7 +249,7 @@ onMounted(() => {
         left: 100%;
         top: 50%;
         transform: translate(-100%, -50%);
-        transition: 0.3s;
+        @include motion.transition(0.3s);
         width: 100%;
         height: 100%;
         opacity: 0;
@@ -274,7 +274,7 @@ onMounted(() => {
     margin: 1em 0;
     padding: 1em;
     border-radius: 1em;
-    transition: background 0.3s;
+    @include motion.transition(background 0.3s);
     break-inside: avoid;
     flex: 1 1 auto;
     @include theme.use {
@@ -300,7 +300,7 @@ onMounted(() => {
   .scale-list-enter-active,
   .scale-list-leave-active,
   .scale-list-move {
-    transition: all 0.5s ease;
+    @include motion.transition(all 0.5s ease);
   }
   .scale-list-leave-to {
     z-index: -1;

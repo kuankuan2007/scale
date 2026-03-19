@@ -73,7 +73,7 @@ input[type='radio'] {
     border-radius: 50%;
     border: 0.3em solid;
     opacity: 0;
-    transition: 0.3s;
+    @include motion.transition(0.3s);
     @include theme.use {
       border-color: theme.get('active-color');
     }

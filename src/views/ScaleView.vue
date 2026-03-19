@@ -306,7 +306,7 @@ onMounted(() => {
   left: 0;
   height: 1em;
   background-color: green;
-  transition: width 0.3s;
+  @include motion.transition(width 0.3s);
 }
 .question-list {
   font-size: 1.2em;
@@ -314,7 +314,7 @@ onMounted(() => {
     border-radius: 0.8em;
     margin: 1em 0;
     padding: 1em;
-    transition: background 0.3s;
+    @include motion.transition(background 0.3s);
     break-inside: avoid;
 
     &:focus-within {
@@ -455,10 +455,11 @@ onMounted(() => {
   font-size: 1.2em;
   right: 4em;
   bottom: 3em;
-  transition:
+  @include motion.transition(
     transform 0.3s cubic-bezier(0.67, 0.02, 0.34, 1.47),
     bottom 0.3s cubic-bezier(0.67, 0.02, 0.34, 1.47),
-    0.3s ease;
+    0.3s ease
+  );
   &.hide {
     bottom: 0;
     transform: translate(0, 110%);
