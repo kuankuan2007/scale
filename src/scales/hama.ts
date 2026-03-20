@@ -136,7 +136,7 @@ export const hama: Scale = {
     let n = 0;
     const dataArray: number[] = [];
     for (let i = 1; i <= 14; i++) {
-      if (!(i in datas)) {
+      if (!(i in datas) || datas[i] === void 0) {
         return {
           ok: false,
           require: String(i),

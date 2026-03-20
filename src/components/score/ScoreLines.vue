@@ -1,11 +1,18 @@
 <template>
   <div class="score-lines">
-    <div class="draw-box">
-      <canvas ref="canvas"></canvas>
-    </div>
-    <div class="names">
-      <div class="name-box" v-for="item in props.config.splitLinesData" :key="item">
-        <div class="name-box-inner">{{ item }}</div>
+    <div
+      class="score-lines-inner"
+      :style="{
+        minWidth: props.config.minWidth ? props.config.minWidth + 'em' : void 0,
+      }"
+    >
+      <div class="draw-box">
+        <canvas ref="canvas"></canvas>
+      </div>
+      <div class="names">
+        <div class="name-box" v-for="item in props.config.splitLinesData" :key="item">
+          <div class="name-box-inner">{{ item }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -101,6 +108,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .score-lines {
   padding: 2em;
+  overflow-y: auto;
 }
 .draw-box {
   display: flex;
@@ -115,13 +123,14 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   & > .name-box {
+    position: relative;
     width: 0;
     height: 2.5em;
     & > .name-box-inner {
       text-align: center;
       position: absolute;
       transform: translate(-50%);
-      white-space: pre-wrap;
+      white-space: pre;
     }
   }
 }

@@ -278,7 +278,7 @@ export const bdi: Scale = {
   result: (datas) => {
     let n = 0;
     for (let i = 1; i <= 21; i++) {
-      if (!(i in datas)) {
+      if (!(i in datas) || datas[i] === void 0) {
         return {
           ok: false,
           require: String(i),

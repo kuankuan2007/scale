@@ -242,7 +242,7 @@ export const sioss: Scale = {
   result: (datas) => {
     const dataArray: number[] = [];
     for (let i = 1; i <= 26; i++) {
-      if (!(i in datas)) {
+      if (!(i in datas) || datas[i] === void 0) {
         return {
           ok: false,
           require: String(i),

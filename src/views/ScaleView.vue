@@ -186,6 +186,9 @@ const completionTime = computed(() => {
 });
 
 if (import.meta.env.DEV) {
+  function randomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
   // @ts-expect-error DEV
   window.loadTestData = (data: string) => {
     fetch(`/temp/test-datas/${data}.json`)
@@ -193,6 +196,14 @@ if (import.meta.env.DEV) {
       .then((data) => (formResult.value = data))
       .then(() => console.log('test data loaded:', data), console.error);
   };
+  // @ts-expect-error DEV
+  window.randomTestData = () => {
+    for (const i of data.value!.questions) {
+      formResult.value[i.id] = randomInt(0, i.form.choices.length - 1);
+    }
+  };
+  // @ts-expect-error DEV
+  window.submitTest = submit;
 }
 function showRequired(id: string) {
   requiredId.value = id;

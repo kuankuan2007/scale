@@ -167,7 +167,7 @@ export const ymrs: Scale = {
     let d = 0;
 
     for (let i = 1; i <= 11; i++) {
-      if (!(i in datas)) {
+      if (!(i in datas) || datas[i] === void 0) {
         return {
           ok: false,
           require: String(i),

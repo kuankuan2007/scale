@@ -261,7 +261,7 @@ export const saq: Scale = {
   result: (datas) => {
     const arrayData: number[] = [];
     for (let i = 1; i <= 29; i++) {
-      if (!(i in datas)) {
+      if (!(i in datas) || datas[i] === void 0) {
         return {
           ok: false,
           require: String(i),

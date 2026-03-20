@@ -43,6 +43,7 @@ export type LinesScore = DeepReadonly<{
   max: number;
   step?: number; // default 1
   splitLines?: number; // default  values
+  minWidth?: number;
   splitLinesData?: string[];
   values: {
     fill?: string;
