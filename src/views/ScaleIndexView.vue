@@ -161,7 +161,7 @@ onMounted(() => {
         const doms = scaleList.value.querySelectorAll(
           '.scale-item .scale-name, .scale-item .scale-desc, .scale-item .tag-list>.tag,.scale-item .id'
         );
-        const ranges = [...doms]
+        const ranges = Array.from(doms)
           .flatMap((el) => getTextNodes(el))
           .flatMap((i) => {
             const text = i.textContent.toLowerCase();
