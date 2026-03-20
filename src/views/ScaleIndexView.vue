@@ -43,13 +43,13 @@
         <k-icon id="search" />
       </div>
     </div>
-    <div class="scale-list">
+    <div class="scale-list" ref="scaleList">
       <transition-group name="scale-list">
         <div class="scale-item" v-for="scale in showScale" :key="scale.id">
           <router-link class="scale-link" :to="`/scale/${scale.id}`">
             <p class="scale-name">{{ scale.name }}</p>
             <p class="scale-desc">{{ scale.description }}</p>
-            <div class="tage-list" v-if="scale.tags.length">
+            <div class="tag-list" v-if="scale.tags.length">
               <div class="tag" v-for="i in scale.tags" :key="i">{{ i }}</div>
             </div>
             <div class="id">{{ scale.id.toUpperCase() }}</div>
@@ -71,8 +71,29 @@ import vTabGroup from '@/scripts/vTabGroup';
 const tagListBox = useTemplateRef('tagListBox');
 const scaleIndexData = reactive(_scaleIndexData);
 const searchText = ref('');
+const scaleList = useTemplateRef('scaleList');
 
 const tagFilter = reactive<Record<string, 'REQUIRED' | 'OPTIONAL' | 'EXCLUDED'>>({});
+
+function getTextNodes(root: Node): Text[] {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!(node instanceof Text)) return NodeFilter.FILTER_SKIP;
+      const value = node.nodeValue;
+      if (!value) return NodeFilter.FILTER_REJECT;
+      if (!value.trim()) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  } as NodeFilter);
+
+  const res: Text[] = [];
+  let current = walker.nextNode();
+  while (current) {
+    res.push(current as Text);
+    current = walker.nextNode();
+  }
+  return res;
+}
 
 const tagFilterNum = computed(() => {
   return Object.values(tagFilter).filter((i) => i !== 'OPTIONAL').length;
@@ -92,7 +113,9 @@ const showScale = computed(() => {
   let fullList = Object.values(scaleIndexData);
   if (searchText.value) {
     fullList = fullList.filter((i) =>
-      i.name.toLowerCase().includes(searchText.value.toLowerCase())
+      [i.name, i.id, i.description, ...i.tags].some((i) =>
+        i.toLowerCase().includes(searchText.value.toLowerCase())
+      )
     );
   }
   outer: for (const i of fullList) {
@@ -125,6 +148,42 @@ onMounted(() => {
       immediate: true,
       deep: true,
     }
+  );
+  watch(
+    () => searchText.value,
+    (value) => {
+      nextTick(() => {
+        if (!value) {
+          CSS.highlights.set('search-results', new Highlight());
+          return;
+        }
+        if (!scaleList.value) return;
+        const doms = scaleList.value.querySelectorAll(
+          '.scale-item .scale-name, .scale-item .scale-desc, .scale-item .tag-list>.tag,.scale-item .id'
+        );
+        const ranges = [...doms]
+          .flatMap((el) => getTextNodes(el))
+          .flatMap((i) => {
+            const text = i.textContent.toLowerCase();
+            const indices: number[] = [];
+            let now = 0;
+            while (now < text.length) {
+              const index = text.indexOf(value, now);
+              if (index === -1) break;
+              indices.push(index);
+              now = index + value.length;
+            }
+            return indices.map((index) => {
+              const range = new Range();
+              range.setStart(i, index);
+              range.setEnd(i, index + value.length);
+              return range;
+            });
+          });
+        CSS.highlights.set('search-results', new Highlight(...ranges));
+      });
+    },
+    { immediate: true }
   );
 });
 </script>
@@ -268,7 +327,6 @@ onMounted(() => {
 }
 .scale-list {
   overflow: hidden;
-  margin-top: 1em;
 
   & > .scale-item {
     margin: 1em 0;
@@ -348,7 +406,7 @@ onMounted(() => {
   p {
     margin: 0;
   }
-  .tage-list {
+  .tag-list {
     display: flex;
     flex-wrap: wrap;
     padding: 0 1em;
@@ -367,6 +425,11 @@ onMounted(() => {
     top: -0.5em;
     right: -0.5em;
     opacity: 0.3;
+  }
+}
+.scale-list *::highlight(search-results) {
+  @include theme.use {
+    color: yellow;
   }
 }
 </style>
