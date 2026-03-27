@@ -43,6 +43,7 @@
         <k-icon id="search" />
       </div>
     </div>
+    <hr />
     <div class="scale-list" ref="scaleList">
       <transition-group name="scale-list">
         <div class="scale-item" v-for="scale in showScale" :key="scale.id">
@@ -194,12 +195,12 @@ onMounted(() => {
   padding: 2em;
 }
 .title-line {
-  border-bottom: 0.1em solid;
   font-size: 1.5em;
   display: flex;
   justify-content: start;
   align-items: end;
   gap: 1em;
+  position: relative;
   & > h2 {
     margin: 0;
     padding: 0;
@@ -289,37 +290,41 @@ onMounted(() => {
     }
   }
   & > .search {
-    margin: auto;
     margin-right: 0;
     display: flex;
+    justify-content: end;
     gap: 0.5em;
-    justify-content: center;
     align-items: center;
-    position: relative;
+    flex: 1 0 auto;
+    height: 1.6em;
     input {
+      flex: 1 1 0;
+      display: block;
       font-size: 0.8em;
+      padding: 0.5em 1em;
+      height: 1em;
+    }
+    .icon {
+      z-index: 1;
+      pointer-events: none;
+      padding-right: 0.2em;
     }
     @media screen and (max-width: 50em) {
       input {
-        display: block;
         position: absolute;
         box-sizing: border-box;
-        padding: 0 0;
-        left: 100%;
-        top: 50%;
-        transform: translate(-100%, -50%);
-        @include motion.transition(0.3s);
-        width: 100%;
-        height: 100%;
         opacity: 0;
-        &:focus {
-          opacity: 1;
-          transform: translate(-100%, -50%);
-          padding: 1em 0.5em;
-          left: 100%;
+        right: 0;
+        bottom: 0;
+        height: 1em;
+        @include motion.transition(0.3s);
+        width: 2em;
+        padding: 1em 0.5em;
 
-          top: 50%;
-          width: min(80vw, 20em);
+        &:focus {
+          position: absolute;
+          opacity: 1;
+          width: 100%;
         }
       }
     }
