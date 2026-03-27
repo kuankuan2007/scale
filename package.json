@@ -17,10 +17,10 @@
     "load-fontello": "load-fontello"
   },
   "dependencies": {
-    "@kuankuan/assist-2026": "^0.1.12",
+    "@kuankuan/assist-2026": "^0.1.13",
     "color": "^5.0.0",
     "unplugin-auto-import": "^21.0.0",
-    "vue": "^3.5.30",
+    "vue": "^3.5.31",
     "vue-router": "^5.0.4"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "@vitejs/plugin-vue": "^6.0.5",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.7.0",
-    "@vue/tsconfig": "^0.9.0",
+    "@vue/tsconfig": "^0.9.1",
     "autoprefixer": "^10.4.27",
     "compressing": "^2.0.0",
     "cssnano": "^7.1.3",
@@ -42,9 +42,9 @@
     "prettier": "3.8.1",
     "rollup-plugin-visualizer": "^7.0.1",
     "sass": "^1.98.0",
-    "typescript": "~5.9.2",
-    "vite": "^8.0.1",
-    "vite-plugin-vue-devtools": "^8.1.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.3",
+    "vite-plugin-vue-devtools": "^8.1.1",
     "vue-tsc": "^3.2.6"
   }
 }
