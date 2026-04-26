@@ -245,6 +245,8 @@ async function submit() {
   } else {
     if (res?.require) {
       showRequired(res.require);
+    } else {
+      console.error(res);
     }
   }
 }
