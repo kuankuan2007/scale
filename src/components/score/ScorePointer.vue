@@ -1,76 +1,56 @@
 <template>
   <div class="score-pointer">
-    <div class="draw-box">
-      <canvas ref="canvas"></canvas>
+    <div class="bar">
+      <div
+        v-for="item in config.part"
+        :key="item.start"
+        class="bar-item"
+        :style="{
+          background: item.color,
+          left: `${((item.start - range.min) / (range.max - range.min)) * 100}%`,
+          width: `${((item.end - item.start) / (range.max - range.min)) * 100}%`,
+        }"
+      ></div>
+      <div class="bar-start bar-ball" :style="{ background: range.startColor }"></div>
+      <div class="bar-end bar-ball" :style="{ background: range.endColor }"></div>
+      <div class="pointer">
+        <div
+          class="line"
+          :style="{ left: `${((config.value - range.min) / (range.max - range.min)) * 100}%` }"
+        ></div>
+        <div
+          class="value"
+          :style="{ left: `${((config.value - range.min) / (range.max - range.min)) * 100}%` }"
+        >
+          {{ config.value }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { computedSizeRef } from '@kuankuan/assist-2026/ref/sizeRef';
 import type { PointerScore } from '@/types/form';
 
 const props = defineProps<{
   config: PointerScore;
 }>();
-const canvas = useTemplateRef('canvas');
-const size = computedSizeRef(canvas);
 
-onMounted(() => {
-  watchEffect(() => {
-    const ctx = canvas.value?.getContext('2d');
-    const datas = props.config;
-    const canvasSize = size.value;
-    if (!ctx || !datas || !canvasSize) return;
-    canvas.value!.width = canvasSize.width;
-    canvas.value!.height = canvasSize.height;
-    const boxHeight = canvasSize.height / 3;
-    const nowColor =
-      datas.part.find((i) => i.start <= datas.value && i.end >= datas.value)?.color || '#888';
-
-    const min = datas.part[0]!.start,
-      max = datas.part[datas.part.length - 1]!.end;
-
-    ctx.beginPath();
-    ctx.fillStyle = datas.part[0]!.color;
-    ctx.arc(boxHeight / 2, boxHeight * 1.5, boxHeight / 2, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.fillStyle = datas.part[datas.part.length - 1]!.color;
-    ctx.arc(canvasSize.width - boxHeight / 2, boxHeight * 1.5, boxHeight / 2, 0, Math.PI * 2);
-    ctx.fill();
-
-    const boxRange = canvasSize.width - boxHeight;
-    for (const i of datas.part) {
-      ctx.beginPath();
-      ctx.fillStyle = i.color;
-      ctx.fillRect(
-        ((i.start - min) / (max - min)) * boxRange + boxHeight / 2,
-        boxHeight,
-        ((i.end - i.start) / (max - min)) * boxRange,
-        boxHeight
-      );
+const range = computed(() => {
+  let max = -Infinity,
+    min = Infinity,
+    startColor = '',
+    endColor = '';
+  for (const item of props.config.part) {
+    if (item.start < min) {
+      min = item.start;
+      startColor = item.color;
     }
-    const now = ((datas.value - min) / (max - min)) * boxRange + boxHeight / 2;
-    ctx.beginPath();
-    ctx.fillStyle = nowColor;
-    ctx.lineWidth = 0;
-    ctx.moveTo(now, boxHeight * 0.8);
-    ctx.lineTo(now - boxHeight / 2, 0);
-    ctx.lineTo(now + boxHeight / 2, 0);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.font = `${boxHeight * 0.8}px sans-serif`;
-    ctx.fillText(
-      datas.value % 1 === 0 ? datas.value.toFixed(0) : datas.value.toFixed(2),
-      now,
-      boxHeight * 2.1
-    );
-  });
+    if (item.end > max) {
+      max = item.end;
+      endColor = item.color;
+    }
+  }
+  return { max, min, startColor, endColor };
 });
 </script>
 <style scoped lang="scss">
@@ -79,13 +59,65 @@ onMounted(() => {
 .score-pointer {
   padding: 2em;
 }
-.draw-box {
-  display: flex;
-  justify-content: stretch;
-  canvas {
-    flex: 1 1 0;
-    height: 6em;
-    width: 100%;
+.bar {
+  position: relative;
+  height: 2em;
+  margin: 0 1em;
+  .bar-item {
+    top: 0;
+    position: absolute;
+    height: 100%;
+    @media print {
+      border: 0.2em solid;
+      @include theme.use {
+        border-color: theme.get('color');
+      }
+      box-sizing: border-box;
+    }
+  }
+  .bar-ball {
+    @media print {
+      opacity: 0;
+    }
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    top: 0;
+    position: absolute;
+    transform: translate(-50%, 0);
+    &.bar-start {
+      left: 0;
+    }
+    &.bar-end {
+      left: 100%;
+    }
+  }
+  .pointer {
+    .line {
+      width: 0.2em;
+      height: 3em;
+      @include theme.use {
+        background: theme.get('color');
+      }
+      @media print {
+        border: solid 0.2em;
+        @include theme.use {
+          border-color: theme.get('color');
+        }
+      }
+      top: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    .value {
+      position: absolute;
+      top: 120%;
+      transform: translate(-50%, 0);
+      font-size: 1.5em;
+      @include theme.use {
+        color: theme.get('color');
+      }
+    }
   }
 }
 </style>
