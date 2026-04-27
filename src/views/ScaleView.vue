@@ -24,7 +24,19 @@
       <ul class="tags">
         <li v-for="tag in data?.tags" :key="tag">{{ tag }}</li>
       </ul>
-      <p class="description">{{ data?.description }}</p>
+      <p class="description">
+        <template
+          v-for="(i, index) in typeof data?.description === 'string'
+            ? [data?.description]
+            : data?.description"
+          :key="index"
+        >
+          <span v-if="typeof i === 'string'">{{ i }}</span>
+          <router-link v-else-if="i.type === 'link'" :to="i.to" target="_blank">{{
+            i.content
+          }}</router-link>
+        </template>
+      </p>
       <details class="refers" v-if="data?.refer?.length">
         <summary>{{ data?.refer.length }} 条引用</summary>
         <ul>

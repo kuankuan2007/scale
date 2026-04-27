@@ -55,7 +55,9 @@ export default function VitePluginScaleIndex(): Plugin {
         for (const i of results) {
           res[i.id] = {
             name: i.name,
-            description: i.description,
+            description: Array.isArray(i.description)
+              ? i.description.map((j) => (typeof j === 'string' ? j : j.content)).join('')
+              : i.description,
             id: i.id,
             tags: i.tags,
           };

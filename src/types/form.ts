@@ -69,7 +69,7 @@ export type ScaleErrorResult = Readonly<{
 export type Scale = Readonly<{
   id: string;
   name: string;
-  description: string;
+  description: string | (string | { type: 'link'; to: string; content: string })[];
   questions: Question[];
   refer?: [
     {
