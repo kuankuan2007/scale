@@ -435,6 +435,6 @@ export const sdq: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁'],
+  tags: ['自评', '祂评', '筛查', '青少年'],
 };
 export default sdq;
