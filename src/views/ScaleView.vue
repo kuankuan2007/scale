@@ -211,7 +211,9 @@ if (import.meta.env.DEV) {
   // @ts-expect-error DEV
   window.randomTestData = () => {
     for (const i of data.value!.questions) {
-      formResult.value[i.id] = randomInt(0, i.form.choices.length - 1);
+      if (i.form.type === 'choice') {
+        formResult.value[i.id] = randomInt(0, i.form.choices.length - 1);
+      }
     }
   };
   // @ts-expect-error DEV

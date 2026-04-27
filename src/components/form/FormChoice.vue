@@ -22,10 +22,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { FormConfig } from '@/types/form';
+import type { ChoiceFormConfig } from '@/types/form';
 const value = defineModel<number | undefined>();
 defineProps<{
-  config: FormConfig;
+  config: ChoiceFormConfig;
   id: string;
   readonly: boolean;
 }>();

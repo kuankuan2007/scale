@@ -14,8 +14,12 @@ export type ChkeckBoxFormConfig = DeepReadonly<{
   question: string;
   choices: string[];
 }>;
-
-export type FormConfig = ChoiceFormConfig | ChkeckBoxFormConfig;
+export type SubTitleFormConfig = DeepReadonly<{
+  type: 'subtitle';
+  title: string;
+  level?: number;
+}>;
+export type FormConfig = ChoiceFormConfig | ChkeckBoxFormConfig | SubTitleFormConfig;
 
 export type Question = Readonly<{
   id: string;
