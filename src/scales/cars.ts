@@ -229,7 +229,7 @@ export const cars: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 15, end: 30, color: '#009400' },
+            { start: 15, end: 30, color: '#007700' },
             { start: 30, end: 36, color: '#ff7b00' },
             { start: 36, end: 60, color: '#FF0000' },
           ],

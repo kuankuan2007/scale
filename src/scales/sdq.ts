@@ -389,7 +389,7 @@ export const sdq: Scale = {
               title: `${nameMap[i]}: ${results1[i]}, ${results1[i] < resultRange[i][type][0] ? '正常' : results1[i] <= resultRange[i][type][resultRange[i][type].length - 1] ? '边缘' : '异常'}`,
               value: results1[i],
               part: [
-                { start: 0, end: resultRange[i][type][0], color: '#009400' },
+                { start: 0, end: resultRange[i][type][0], color: '#007700' },
                 {
                   start: resultRange[i][type][0],
                   end: resultRange[i][type][resultRange[i][type].length - 1] + 1,
@@ -417,7 +417,7 @@ export const sdq: Scale = {
             {
               start: resultRange.E[type][resultRange.E[type].length - 1] + 1,
               end: 10,
-              color: '#009400',
+              color: '#007700',
             },
           ],
         },
@@ -426,7 +426,7 @@ export const sdq: Scale = {
           title: `影响因子: ${results3}, ${results3 === 0 ? '正常' : results3 === 2 ? '边缘' : '异常'}`,
           value: results3,
           part: [
-            { start: 0, end: 1, color: '#009400' },
+            { start: 0, end: 1, color: '#007700' },
             { start: 1, end: 2, color: '#ff7b00' },
             { start: 2, end: 10, color: '#FF0000' },
           ],

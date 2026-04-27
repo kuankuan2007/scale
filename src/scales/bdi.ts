@@ -295,7 +295,7 @@ export const bdi: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 10, color: '#009400' },
+            { start: 0, end: 10, color: '#007700' },
             { start: 10, end: 15, color: '#ACAC00' },
             { start: 15, end: 25, color: '#FF7500' },
             { start: 25, end: 63, color: '#FF0000' },

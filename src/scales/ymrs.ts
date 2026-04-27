@@ -199,7 +199,7 @@ export const ymrs: Scale = {
           type: 'pointer',
           value: d,
           part: [
-            { start: 0, end: 5, color: '#009400' },
+            { start: 0, end: 5, color: '#007700' },
             { start: 5, end: 12, color: '#ACAC00' },
             { start: 12, end: 19, color: '#FFAA00' },
             { start: 19, end: 29, color: '#FF7500' },

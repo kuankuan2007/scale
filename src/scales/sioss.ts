@@ -275,7 +275,7 @@ export const sioss: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 12, color: '#009400' },
+            { start: 0, end: 12, color: '#007700' },
             { start: 12, end: 17, color: '#FF7500' },
             { start: 17, end: 26, color: '#FF0000' },
           ],

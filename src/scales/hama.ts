@@ -175,7 +175,7 @@ export const hama: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 7, color: '#009400' },
+            { start: 0, end: 7, color: '#007700' },
             { start: 7, end: 14, color: '#ACAC00' },
             { start: 14, end: 21, color: '#FF7500' },
             { start: 21, end: 29, color: '#FF0000' },

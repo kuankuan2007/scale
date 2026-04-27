@@ -95,7 +95,7 @@ export const sas: Scale = {
           type: 'pointer',
           value: r,
           part: [
-            { start: 25, end: 49, color: '#009400' },
+            { start: 25, end: 49, color: '#007700' },
             { start: 49, end: 59, color: '#ACAC00' },
             { start: 59, end: 69, color: '#FF7500' },
             { start: 69, end: 100, color: '#FF0000' },

@@ -140,7 +140,7 @@ export const bsq: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 6, color: '#009400' },
+            { start: 0, end: 6, color: '#007700' },
             { start: 6, end: 15, color: '#ACAC00' },
             { start: 15, end: 24, color: '#FF7500' },
             { start: 24, end: 60, color: '#FF0000' },

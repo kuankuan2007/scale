@@ -192,7 +192,7 @@ export const brms: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 5.5, color: '#009400' },
+            { start: 0, end: 5.5, color: '#007700' },
             { start: 5.5, end: 10.5, color: '#ACAC00' },
             { start: 10.5, end: 22.5, color: '#ff7b00' },
             { start: 22.5, end: 52, color: '#FF0000' },

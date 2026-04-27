@@ -310,7 +310,7 @@ export const hamd: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 8, color: '#009400' },
+            { start: 0, end: 8, color: '#007700' },
             { start: 8, end: 20, color: '#ACAC00' },
             { start: 20, end: 35, color: '#FF7500' },
             { start: 35, end: 76, color: '#FF0000' },

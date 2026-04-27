@@ -558,7 +558,7 @@ export const bai: Scale = {
           type: 'pointer',
           value: sum,
           part: [
-            { start: 0, end: 31, color: '#009400' },
+            { start: 0, end: 31, color: '#007700' },
             { start: 31, end: 62, color: '#ff7b00' },
             { start: 62, end: 157, color: '#FF0000' },
           ],
