@@ -10,4 +10,6 @@ const app = createApp(App);
 
 app.use(router);
 
+console.log(`本项目为开源项目，详细信息参见: ${new URL('/about', location.origin).href}`);
+
 app.mount('#app');
