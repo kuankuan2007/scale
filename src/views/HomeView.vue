@@ -84,7 +84,6 @@ function framCallback(
   if (!ctx) {
     return false;
   }
-  console.log('framCallback');
   const gr = ctx.createLinearGradient(0, 0, 0, 600);
   gr.addColorStop(0, 'rgb(255,255,255,0.15)');
   gr.addColorStop(1, 'rgb(255,255,255,0)');

@@ -214,6 +214,7 @@ if (import.meta.env.DEV) {
       if (i.form.type === 'choice') {
         formResult.value[i.id] = randomInt(0, i.form.choices.length - 1);
       }
+      console.log('random data generated:');
     }
   };
   // @ts-expect-error DEV
