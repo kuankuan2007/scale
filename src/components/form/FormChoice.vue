@@ -64,12 +64,13 @@ defineProps<{
     margin-right: 1em;
   }
   .result-item {
-    user-select: none;
     cursor: pointer;
   }
   .readonly {
     cursor: default;
-    opacity: 0.7;
+    @media screen {
+      opacity: 0.7;
+    }
   }
 }
 input[type='radio'] {
