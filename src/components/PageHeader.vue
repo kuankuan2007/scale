@@ -73,16 +73,6 @@ header {
     word-break: keep-all;
     margin: auto;
     overflow-x: auto;
-    &::-webkit-scrollbar {
-      background: transparent;
-      height: 0.3em;
-    }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 99999999px;
-      @include theme.use {
-        background: color.mix(theme.get('color'), theme.get('background'), 60%);
-      }
-    }
   }
   button {
     font-size: 2em;
