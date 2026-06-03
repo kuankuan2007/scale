@@ -1,6 +1,14 @@
 <template>
   <div class="form-item form-choice">
-    <p class="question">{{ id }}. {{ config.question }}</p>
+    <div class="questions-box">
+      <div class="question-id">{{ id }}.</div>
+      <div class="content-box">
+        <p class="question">{{ config.question }}</p>
+        <p v-if="config.questionDescription" class="question-description">
+          {{ config.questionDescription }}
+        </p>
+      </div>
+    </div>
     <div class="result-list">
       <label
         class="result-item"
@@ -33,8 +41,19 @@ defineProps<{
 <style scoped lang="scss">
 @use '@/styles/theme' as *;
 
+.questions-box {
+  display: flex;
+  column-gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
 .question {
   margin: 0;
+}
+.question-description {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 0.8em;
 }
 .result-list {
   display: flex;

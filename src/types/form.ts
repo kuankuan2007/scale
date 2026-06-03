@@ -7,6 +7,7 @@ type DeepReadonly<T> = T extends object
 export type ChoiceFormConfig = DeepReadonly<{
   type: 'choice';
   question: string;
+  questionDescription?: string;
   choices: string[];
 }>;
 export type ChkeckBoxFormConfig = DeepReadonly<{
