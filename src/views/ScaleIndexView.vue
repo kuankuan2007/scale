@@ -331,8 +331,7 @@ onMounted(() => {
   }
 }
 .scale-list {
-  overflow: hidden;
-
+  margin-top: 1.2em;
   & > .scale-item {
     margin: 1em 0;
     padding: 1em;
