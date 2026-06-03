@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@kuankuan/assist-2026": "^0.1.17",
-    "color": "^5.0.0",
-    "vue": "^3.5.34",
-    "vue-router": "^5.0.7"
+    "color": "^5.0.3",
+    "vue": "^3.5.35",
+    "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
@@ -33,7 +33,7 @@
     "compressing": "^2.1.1",
     "cssnano": "^8.0.1",
     "esbuild": "^0.28.0",
-    "eslint": "^10.4.0",
+    "eslint": "^10.4.1",
     "eslint-plugin-vue": "~10.9.1",
     "jiti": "^2.7.0",
     "npm-run-all2": "^9.0.1",
@@ -42,12 +42,12 @@
     "rollup-plugin-visualizer": "^7.0.1",
     "sass": "^1.100.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.59.4",
+    "typescript-eslint": "^8.60.1",
     "unplugin-auto-import": "^21.0.0",
-    "vite": "^8.0.14",
+    "vite": "^8.0.16",
     "vite-plugin-inspect": "11.3.3",
-    "vite-plugin-vue-devtools": "^8.1.1",
-    "vue-tsc": "^3.3.1"
+    "vite-plugin-vue-devtools": "^8.1.2",
+    "vue-tsc": "^3.3.3"
   },
   "packageManager": "pnpm@11.2.2"
 }
