@@ -2,7 +2,7 @@ import type { Scale } from '@/types/form';
 
 const globalChoices = ['完全没有', '有一点点', '还不算少', '非常的多'] as const;
 
-export const asrsA: Scale = {
+export const snapiv: Scale = {
   id: 'snapiv',
   name: '儿童注意力缺陷多动症评定量表(SNAP-IV)',
   description:
@@ -354,4 +354,4 @@ export const asrsA: Scale = {
   },
   tags: ['祂评', '儿童', '青少年', 'ADHD'],
 };
-export default asrsA;
+export default snapiv;
