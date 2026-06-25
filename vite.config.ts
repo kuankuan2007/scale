@@ -67,4 +67,18 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
   },
+  build: {
+    rollupOptions: {
+      output: {
+        chunkFileNames: function (chunk) {
+          for (const modules of chunk.moduleIds) {
+            if (modules.includes('src/scales')) {
+              return 'scales/[name]-[hash].js';
+            }
+          }
+          return 'script/[name]-[hash].js';
+        },
+      },
+    },
+  },
 });
