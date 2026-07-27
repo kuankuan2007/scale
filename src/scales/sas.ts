@@ -6,7 +6,13 @@ export const sas: Scale = {
   id: 'sas',
   name: '焦虑自评量表 (SAS)',
   description:
-    'SAS量表（Self-rating Anxiety Scale，焦虑自评量表），又称Zung宗氏焦虑自评量表，是由W.K. Zung于1971年编制的一种用于评估焦虑状态的自评量表。它包含20个项目，采用4级评分方式，主要用于评估患者在过去一周内的主观焦虑感受及其严重程度。SAS量表的特点是简便易用，适合门诊和住院患者，尤其是具有焦虑症状的成年人。',
+    '焦虑自评量表（Self-rating Anxiety Scale，SAS）由 W. K. Zung 于1971年编制，共20项，其中5项为反向计分，适用于成人近期焦虑症状评估。粗分范围20～80，乘以1.25并取整得到标准分，用于评估症状严重度及疗效变化。结果不能作为独立诊断，须结合临床访谈、病史和功能受损情况综合判断。',
+  refer: [
+    {
+      title: 'A Rating Instrument for Anxiety Disorders',
+      url: 'https://doi.org/10.1016/S0033-3182(71)71479-0',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -86,25 +92,32 @@ export const sas: Scale = {
       }
     }
     const r = Math.floor(n * 1.25);
+    const level = r <= 49 ? '正常范围' : r <= 59 ? '轻度焦虑' : r <= 69 ? '中度焦虑' : '重度焦虑';
     return {
       ok: true,
-      title: r <= 49 ? '正常' : `有(${r <= 59 ? '轻度' : r <= 69 ? '中度' : '重度'})焦虑倾向`,
-      description: `粗分：${n}，标准分值：${r}。`,
+      title: level,
+      description: `粗分：${n}分，标准分：${r}分。${
+        r >= 60
+          ? '结果提示中度或重度焦虑症状，建议及时向精神科或心理专业人员咨询评估；本结果不能作为独立诊断。'
+          : r >= 50
+            ? '结果提示轻度焦虑症状，如症状持续或影响生活，建议向精神科或心理专业人员咨询；本结果不能作为独立诊断。'
+            : '结果处于中国常用标准分正常范围；如仍有明显不适或功能受损，建议寻求专业评估。'
+      }`,
       score: [
         {
           type: 'pointer',
           value: r,
           part: [
-            { start: 25, end: 49, color: '#007700' },
-            { start: 49, end: 59, color: '#ACAC00' },
-            { start: 59, end: 69, color: '#FF7500' },
-            { start: 69, end: 100, color: '#FF0000' },
+            { start: 25, end: 50, color: '#007700' },
+            { start: 50, end: 60, color: '#ACAC00' },
+            { start: 60, end: 70, color: '#FF7500' },
+            { start: 70, end: 100, color: '#FF0000' },
           ],
         },
       ],
     };
   },
 
-  tags: ['自评', '焦虑'],
+  tags: ['自评', '焦虑', '症状严重度'],
 };
 export default sas;

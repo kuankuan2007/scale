@@ -1,7 +1,8 @@
 import type { Question, Scale, ScaleErrorResult, ScaleOKResult } from '@/types/form';
 
 const globalChoices = ['不符合', '有点符合', '完全符合'] as const;
-const globalChoices2 = ['没有', '轻微', '非常'] as const;
+const globalChoices2 = ['一点也不', '只有一点', '相当多', '非常多'] as const;
+const impactScores = [0, 0, 1, 2] as const;
 const ask26Choices = ['否', '有少许困难', '有困难', '有很大的困难'] as const;
 const ask27Choices = ['少于一个月', '1-5个月', '6-11个月', '一年以上'] as const;
 const resultTypeChoices = ['家长', '教师', '学生'] as const;
@@ -42,12 +43,8 @@ export const parentTeacherChoices = ['家长', '教师'] as const;
 
 export const sdqRefer = [
   {
-    title: 'SDQ 官方说明',
-    url: 'https://www.sdqinfo.org/a0.html',
-  },
-  {
-    title: 'SDQ 官方评分说明',
-    url: 'https://www.sdqinfo.org/py/sdqinfo/c0.py',
+    title: 'The Strengths and Difficulties Questionnaire: A Research Note',
+    url: 'https://doi.org/10.1111/j.1469-7610.1997.tb01545.x',
   },
 ];
 
@@ -118,12 +115,12 @@ export function buildParentTeacherQuestions(): Question[] {
       },
     },
     ...buildAttributeQuestions(parentTeacherQuestionTexts),
-    ...buildSupplementQuestions(false),
+    ...buildSupplementQuestions('parentTeacher'),
   ];
 }
 
 export function buildSelfQuestions(): Question[] {
-  return [...buildAttributeQuestions(selfQuestionTexts), ...buildSupplementQuestions(true)];
+  return [...buildAttributeQuestions(selfQuestionTexts), ...buildSupplementQuestions('self')];
 }
 
 function buildAttributeQuestions(questionTexts: readonly string[]): Question[] {
@@ -137,7 +134,8 @@ function buildAttributeQuestions(questionTexts: readonly string[]): Question[] {
   }));
 }
 
-function buildSupplementQuestions(selfReport: boolean): Question[] {
+function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Question[] {
+  const selfReport = reportType === 'self';
   return [
     {
       id: 'subtitle1',
@@ -188,7 +186,7 @@ function buildSupplementQuestions(selfReport: boolean): Question[] {
         type: 'choice',
         question: selfReport
           ? '这些困难是否在“家庭生活”中对你造成干扰？'
-          : '这些困难是否在“家庭生活”方面造成干扰？',
+          : '（仅家长版填写；教师版跳过）这些困难是否在“家庭生活”方面造成干扰？',
         choices: [...globalChoices2],
       },
     },
@@ -218,7 +216,7 @@ function buildSupplementQuestions(selfReport: boolean): Question[] {
         type: 'choice',
         question: selfReport
           ? '这些困难是否在“课外休闲活动”中对你造成干扰？'
-          : '这些困难是否在“课外休闲活动”方面造成干扰？',
+          : '（仅家长版填写；教师版跳过）这些困难是否在“课外休闲活动”方面造成干扰？',
         choices: [...globalChoices2],
       },
     },
@@ -271,29 +269,54 @@ export function calcSdqResult(
   }
   let results3 = 0;
   if (hasDifficulties) {
-    for (let i = 28; i <= 32; i++) {
+    const impactItems = type === 1 ? [28, 30, 31] : [28, 29, 30, 31, 32];
+    for (const i of impactItems) {
       if (datas[i] === void 0) {
         return {
           ok: false,
           require: String(i),
         };
       }
-      results3 += Number(datas[i]);
+      const choiceIndex = Number(datas[i]);
+      if (!Number.isInteger(choiceIndex) || choiceIndex < 0 || choiceIndex >= impactScores.length) {
+        return {
+          ok: false,
+          require: String(i),
+        };
+      }
+      results3 += impactScores[choiceIndex]!;
     }
   }
+  const getLevel = (key: keyof typeof resultRange, value: number) => {
+    const range = resultRange[key][type];
+    if (key === 'E') {
+      return value < range[0] ? '异常' : value <= range[range.length - 1]! ? '边缘' : '正常';
+    }
+    return value < range[0] ? '正常' : value <= range[range.length - 1]! ? '边缘' : '异常';
+  };
+  const impactLevel = results3 === 0 ? '正常' : results3 === 1 ? '边缘' : '异常';
+  const needsFurtherAssessment =
+    (['SUM', 'A', 'B', 'C', 'D', 'E'] as const).some(
+      (key) => getLevel(key, results1[key]) !== '正常'
+    ) || results3 > 0;
+  const resultSummary = (['SUM', 'A', 'B', 'C', 'D', 'E'] as const)
+    .map((key) => `${nameMap[key]}：${results1[key]}（${getLevel(key, results1[key])}）`)
+    .join('\n');
+  const difficultySummary =
+    results2[26] === 0
+      ? '总体困难题未报告困难。'
+      : `总体困难题：${ask26Choices[results2[26]]}，持续时间${ask27Choices[results2[27]]}。`;
+  const impactMaximum = type === 1 ? 6 : 10;
   return {
     ok: true,
-    title: `填写版本：${resultTypeChoices[type]}`,
-    description:
-      results2[26] === 0
-        ? '无特指的困难造成了困扰'
-        : `${ask26Choices[results2[26]]}造成了困扰，持续时间${ask27Choices[results2[27]]}`,
+    title: `长处和困难问卷${resultTypeChoices[type] === '学生' ? '学生自评版' : `${resultTypeChoices[type]}版`}结果`,
+    description: `${resultSummary}\n影响因子：${results3}/${impactMaximum}（${impactLevel}）\n${difficultySummary}\n总困难分为前四个困难维度之和，亲社会行为单独解释；影响因子反映困难造成的困扰及生活干扰。以上采用传统正常／边缘／异常阈值，仅用于筛查，不能作为诊断。${needsFurtherAssessment ? '出现边缘、异常或影响分时，建议结合家长、教师和学生等多方信息，必要时接受儿童青少年精神心理专业评估。' : ''}`,
     score: [
       ...(['SUM', 'A', 'B', 'C', 'D'] as const).map(
         (key) =>
           ({
             type: 'pointer',
-            title: `${nameMap[key]}: ${results1[key]}, ${results1[key] < resultRange[key][type][0] ? '正常' : results1[key] <= resultRange[key][type][resultRange[key][type].length - 1] ? '边缘' : '异常'}`,
+            title: `${nameMap[key]}: ${results1[key]}, ${getLevel(key, results1[key])}`,
             value: results1[key],
             part: [
               { start: 0, end: resultRange[key][type][0], color: '#007700' },
@@ -312,7 +335,7 @@ export function calcSdqResult(
       ),
       {
         type: 'pointer',
-        title: `${nameMap.E}: ${results1.E}, ${results1.E < resultRange.E[type][0] ? '异常' : results1.E <= resultRange.E[type][resultRange.E[type].length - 1] ? '边缘' : '正常'}`,
+        title: `${nameMap.E}: ${results1.E}, ${getLevel('E', results1.E)}`,
         value: results1.E,
         part: [
           { start: 0, end: resultRange.E[type][0], color: '#FF0000' },
@@ -330,12 +353,12 @@ export function calcSdqResult(
       },
       {
         type: 'pointer',
-        title: `影响因子: ${results3}, ${results3 === 0 ? '正常' : results3 === 1 ? '边缘' : '异常'}`,
+        title: `影响因子: ${results3}, ${impactLevel}`,
         value: results3,
         part: [
           { start: 0, end: 1, color: '#007700' },
           { start: 1, end: 2, color: '#ff7b00' },
-          { start: 2, end: 10, color: '#FF0000' },
+          { start: 2, end: impactMaximum, color: '#FF0000' },
         ],
       },
     ],
@@ -344,15 +367,15 @@ export function calcSdqResult(
 
 export const sdq: Scale = {
   id: 'sdq',
-  name: '长处和困难问卷 (SDQ) 家长/教师版',
+  name: '长处和困难问卷家长／教师版 (SDQ)',
   description: [
-    '长处和困难问卷（SDQ）由 Robert Goodman 于 1997 年提出，是用于儿童青少年行为与情绪问题筛查的简明问卷。当前页面为家长/教师版；如需学生自评版，请使用',
+    '长处和困难问卷（Strengths and Difficulties Questionnaire，SDQ）由 Robert N. Goodman 编制，1997 年发表主量表。量表含 25 项，涵盖情绪症状、品行问题、多动、同伴交往问题和亲社会行为五个维度，并附影响补充题，用于儿童青少年情绪与行为问题筛查。当前页面为家长／教师版，结果采用各版本的传统阈值；量表结果不能替代临床诊断。如需约 11—17 岁青少年的学生自评版，请使用',
     {
       type: 'link',
       content: '学生自评版',
       to: '/scale/sdq-s',
     },
-    '。',
+    '。请先选择填表身份；家长版影响分评估儿童自身困扰及家庭、朋友、课堂、休闲五方面（0—10 分），教师版仅评估儿童自身困扰、同伴关系和课堂学习（0—6 分）。',
   ],
   refer: [...sdqRefer],
   questions: buildParentTeacherQuestions(),
@@ -373,6 +396,6 @@ export const sdq: Scale = {
     return calcSdqResult(datas, type as 0 | 1);
   },
 
-  tags: ['祂评', '筛查', '青少年'],
+  tags: ['祂评', '筛查', '儿童', '青少年', '情绪与行为'],
 };
 export default sdq;

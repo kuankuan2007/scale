@@ -17,22 +17,28 @@ const resultMap = {
 
 const nameMap = {
   somatization: '躯体化',
-  obsessiveCompulsive: ' 强迫',
-  interpersonalSensitivity: '人际关系',
+  obsessiveCompulsive: '强迫症状',
+  interpersonalSensitivity: '人际关系敏感',
   depression: '抑郁',
   anxiety: '焦虑',
   hostility: '敌对',
   phobicAnxiety: '恐怖',
   paranoidIdeation: '偏执',
   psychoticism: '精神病性',
-  other: '其他',
+  other: '附加项目',
 };
 
 export const scl90: Scale = {
   id: 'scl90',
-  name: '症状自评量表 (SCL-90)',
+  name: '90 项症状清单 (SCL-90)',
   description:
-    'SCL-90只是一个90题的症状校核表，其项目主要来自于精神病症状学，涉及感觉、思维、情感、行为、人际关系、生活习惯、饮食、睡眠等方面。主要目的是用于评定一个人是否有某种心理症状，及严重程度如何，临床上常用作精神科、咨询门诊的一个筛选量表。',
+    '90项症状清单（Symptom Checklist-90，SCL-90）由 Leonard R. Derogatis、Ronald S. Lipman、Lino Covi 于1973年编制，共90项，包括躯体化、强迫症状、人际关系敏感、抑郁、焦虑、敌对、恐怖、偏执、精神病性9个正式症状维度及7个附加项目。中国常用版本采用1～5级计分，用于心理症状筛查、严重度评估及疗效观察；结果不能作为独立诊断，须结合临床访谈和专业评估解释。',
+  refer: [
+    {
+      title: 'SCL-90: An Outpatient Psychiatric Rating Scale—Preliminary Report',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/4682398/',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -767,12 +773,11 @@ export const scl90: Scale = {
       arrayData.push(datas[i] as number);
     }
     const sum = arrayData.reduce((a, b) => a + b + 1, 0);
-    const activeNum = arrayData.filter((i) => i > 1).length;
+    const activeItems = arrayData.filter((i) => i > 0);
+    const activeNum = activeItems.length;
     const inactiveNum = arrayData.filter((i) => i === 0).length;
     const activeAverageScore =
-      activeNum === 0
-        ? 0
-        : arrayData.filter((i) => i > 1).reduce((a, b) => a + b + 1, 0) / activeNum;
+      activeNum === 0 ? 0 : activeItems.reduce((a, b) => a + b + 1, 0) / activeNum;
 
     const average = sum / 90;
 
@@ -781,14 +786,20 @@ export const scl90: Scale = {
       results[key] =
         value.map((i) => datas[i] as number).reduce((a, b) => a + b + 1, 0) / value.length;
     }
+    const formalFactorPositive = Object.entries(results).some(
+      ([key, value]) => key !== 'other' && value > 2
+    );
+    const screeningPositive = sum > 160 || activeNum > 43 || formalFactorPositive;
     return {
       ok: true,
-      title: '',
-      description: `总分：${sum}，平均分：${average.toFixed(2)}，阳性项目数：${activeNum}，阳性平均分：${activeAverageScore.toFixed(2)}，阴性项目数：${inactiveNum}\n${Object.keys(
+      title: screeningPositive ? '筛查阳性' : '筛查阴性',
+      description: `总分：${sum}分，总均分：${average.toFixed(2)}，阳性项目数：${activeNum}，阳性项目均分：${activeAverageScore.toFixed(2)}，阴性项目数：${inactiveNum}\n${Object.keys(
         nameMap
       )
         .map((key) => `${nameMap[key as never]}：${results[key]!.toFixed(2) || 0}`)
-        .join('，')}`,
+        .join(
+          '，'
+        )}\n阳性项目指1～5级计分中≥2分的项目。总分>160、阳性项目数>43或任一正式症状因子均分>2时判为筛查阳性；因子均分越高，表示相应症状越突出。结果仅供筛查，不能作为独立诊断。${screeningPositive ? '建议向精神科或心理专业人员进一步咨询评估。' : ''}`,
       score: [
         {
           type: 'lines',
@@ -807,6 +818,18 @@ export const scl90: Scale = {
     };
   },
 
-  tags: ['自评', '焦虑', '抑郁', '躯体化', '强迫', '敌对', '恐怖', '偏执'],
+  tags: [
+    '自评',
+    '症状筛查',
+    '焦虑',
+    '抑郁',
+    '躯体化',
+    '强迫症状',
+    '人际关系敏感',
+    '敌对',
+    '恐怖',
+    '偏执',
+    '精神病性',
+  ],
 };
 export default scl90;

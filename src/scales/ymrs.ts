@@ -4,9 +4,15 @@ const doubles = [5, 6, 8, 9] as const;
 
 export const ymrs: Scale = {
   id: 'ymrs',
-  name: '杨氏躁狂评定量表 (YMRS)',
+  name: '杨氏躁狂状态评定量表 (YMRS)',
   description:
-    '杨氏躁狂评定量表（Young mania rating scale，YMRS）由Young等人于1978年开发，是一种用于评估躁狂症状严重程度的临床量表，主要适用于双相情感障碍中躁狂发作的评定。该量表旨在为临床医生和研究者提供一种系统、敏感、可靠的工具，以辅助判断躁狂症状的严重程度、疗效变化及病情进展。',
+    '杨氏躁狂状态评定量表（Young Mania Rating Scale，YMRS）由 Young、Biggs、Ziegler、Meyer 于 1978 年编制，共 11 项，是结合半结构访谈与临床观察完成的临床他评量表，用于评估躁狂症状严重度及疗效变化。量表结果不能单独用于诊断，应由受过训练的专业人员结合病史、功能损害及其他临床资料解释。',
+  refer: [
+    {
+      title: 'A Rating Scale for Mania: Reliability, Validity and Sensitivity',
+      url: 'https://doi.org/10.1192/bjp.133.5.429',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -185,7 +191,7 @@ export const ymrs: Scale = {
       ok: true,
       title:
         d <= 5
-          ? '无躁狂倾向'
+          ? '未见明显躁狂症状'
           : d <= 12
             ? '轻度躁狂'
             : d <= 19
@@ -193,23 +199,23 @@ export const ymrs: Scale = {
               : d <= 29
                 ? '重度躁狂'
                 : '极重度躁狂',
-      description: `总分：${d}分。`,
+      description: `总分：${d}/60分。按国内常用分级：0—5分未见明显躁狂症状，6—12分轻度，13—19分中度，20—29分重度，30—60分极重度。本结果用于严重度及疗效评定，不能替代诊断。${d >= 20 ? '当前评分达到重度或以上，建议尽快由精神卫生专业人员进一步评估；如出现明显冲动、攻击、危险行为或无法保证安全，请及时就近急诊。' : ''}`,
       score: [
         {
           type: 'pointer',
           value: d,
           part: [
-            { start: 0, end: 5, color: '#007700' },
-            { start: 5, end: 12, color: '#ACAC00' },
-            { start: 12, end: 19, color: '#FFAA00' },
-            { start: 19, end: 29, color: '#FF7500' },
-            { start: 29, end: 56, color: '#FF0000' },
+            { start: 0, end: 6, color: '#007700' },
+            { start: 6, end: 13, color: '#ACAC00' },
+            { start: 13, end: 20, color: '#FFAA00' },
+            { start: 20, end: 30, color: '#FF7500' },
+            { start: 30, end: 60, color: '#FF0000' },
           ],
         },
       ],
     };
   },
 
-  tags: ['躁狂', '祂评', '双相'],
+  tags: ['躁狂', '祂评', '双相', '临床评定', '严重度'],
 };
 export default ymrs;

@@ -2,9 +2,15 @@ import type { Scale } from '@/types/form';
 
 export const hamd: Scale = {
   id: 'hamd',
-  name: '汉密尔顿抑郁量表 (HAMD)',
+  name: '汉密尔顿抑郁量表 24 项版 (HAMD-24)',
   description:
-    '汉密顿抑郁量表（Hamilton Depression Scale，HAMD）是由Hamilton于1960年编制，是临床上评定抑郁状态时应用得最为普遍的量表。本量表有17项、21项和24项等3种版本。这项量表由经过培训的两名评定者对患者进行HAMD联合检查，一般采用交谈与观察的方式，检查结束后，两名评定者分别独立评分',
+    '汉密尔顿抑郁量表（Hamilton Depression Rating Scale，HAMD）由 Max Hamilton 于1960年编制，原版为17项，后有21项、24项等扩展版本；本表采用24项版。量表由经过训练的临床评定者通过访谈与观察评分，用于评估抑郁症状严重度及疗效变化。结果须结合临床访谈、病史和功能受损情况判断，不能单独用于诊断。',
+  refer: [
+    {
+      title: 'A Rating Scale for Depression',
+      url: 'https://doi.org/10.1136/jnnp.23.1.56',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -292,7 +298,7 @@ export const hamd: Scale = {
 
     let level = '';
     if (n <= 7) {
-      level = '正常';
+      level = '正常／无明显抑郁症状';
     } else if (n <= 20) {
       level = '可能有抑郁症';
     } else if (n <= 35) {
@@ -301,25 +307,37 @@ export const hamd: Scale = {
       level = '严重抑郁症';
     }
 
+    const descriptions = [
+      `总分：${n}分。结果须由临床专业人员结合访谈、病史及功能受损情况综合判断，不能作为独立诊断。`,
+    ];
+    if (n >= 8) {
+      descriptions.push('建议向精神科或心理专业人员进一步咨询评估。');
+    }
+    if (Number(datas[3]) >= 2) {
+      descriptions.push(
+        '自杀条目评分较高：如当前有伤害自己的想法、计划或迫切危险，请立即联系当地急救或危机干预资源，并告知可信任的人，避免独处。'
+      );
+    }
+
     return {
       ok: true,
       title: level,
-      description: `总分：${n}分`,
+      description: descriptions.join('\n'),
       score: [
         {
           type: 'pointer',
           value: n,
           part: [
             { start: 0, end: 8, color: '#007700' },
-            { start: 8, end: 20, color: '#ACAC00' },
-            { start: 20, end: 35, color: '#FF7500' },
-            { start: 35, end: 76, color: '#FF0000' },
+            { start: 8, end: 21, color: '#ACAC00' },
+            { start: 21, end: 36, color: '#FF7500' },
+            { start: 36, end: 76, color: '#FF0000' },
           ],
         },
       ],
     };
   },
 
-  tags: ['祂评', '抑郁'],
+  tags: ['祂评', '临床评定', '抑郁', '症状严重度'],
 };
 export default hamd;

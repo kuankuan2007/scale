@@ -2,9 +2,15 @@ import type { Scale } from '@/types/form';
 
 export const brms: Scale = {
   id: 'brms',
-  name: '贝克-拉范森躁狂量表 (BRMS)',
+  name: '贝克－拉范森躁狂量表 13 项中文版 (BRMS)',
   description:
-    '贝克-拉范森躁狂量表（Bech-Rafaelsen Mania Rating Scale，BRMS）由Bech和Rafaelsen于1978年编制，主要用于评估成年躁郁症患者或分裂情感性精神病患者的躁狂症状。',
+    '贝克－拉范森躁狂量表（Bech-Rafaelsen Mania Rating Scale，BRMS）由 Per Bech、Tom G. Bolwig、Peter Kramp、Ole J. Rafaelsen 于 1978 年编制。原版含 11 项，中国临床常用版增加幻觉和妄想 2 项，共 13 项，由临床人员对成人进行祂评，用于评定躁狂症状严重度和疗效；结果不能独立诊断。',
+  refer: [
+    {
+      title: 'The Mania Rating Scale: Scale Construction and Inter-observer Agreement',
+      url: 'https://doi.org/10.1016/0028-3908(78)90022-9',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -182,11 +188,30 @@ export const brms: Scale = {
       }
       n += Number(datas[i]);
     }
+    const title =
+      n <= 5
+        ? '无明显躁狂症状'
+        : n <= 10
+          ? '有肯定躁狂症状'
+          : n <= 22
+            ? '中度躁狂症状'
+            : '重度躁狂症状';
+    const danger = Number(datas[5]) >= 3 || Number(datas[12]) === 4;
+    const advice =
+      n <= 5
+        ? '当前未见明显躁狂症状，仍应结合临床表现综合判断。'
+        : n <= 10
+          ? '存在肯定躁狂症状，建议由精神卫生专业人员进一步评估。'
+          : n <= 22
+            ? '存在中度躁狂症状，建议尽快接受精神卫生专业评估。'
+            : '存在重度躁狂症状，建议尽快接受精神卫生专业评估。';
+    const safety = danger
+      ? '评分提示可能存在威胁、破坏行为或行为受幻觉支配，应立即寻求精神科急诊帮助并保障现场安全。'
+      : '';
     return {
       ok: true,
-      title:
-        n <= 5 ? '无明显躁狂症状' : `有(${n <= 10 ? '轻度' : n <= 22 ? '中度' : '重度'})躁狂症状`,
-      description: `总分${n}`,
+      title,
+      description: `总分：${n}。${advice}${safety}量表结果不能独立诊断。`,
       score: [
         {
           type: 'pointer',
@@ -202,6 +227,6 @@ export const brms: Scale = {
     };
   },
 
-  tags: ['躁狂', '祂评', '双相'],
+  tags: ['躁狂', '祂评', '双相', '临床评定'],
 };
 export default brms;

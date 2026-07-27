@@ -6,7 +6,13 @@ export const bai: Scale = {
   id: 'bai',
   name: '贝克焦虑量表 (BAI)',
   description:
-    '贝克焦虑量表（Beck Anxiety Inventory，BAI）由 Aaron T. Beck 等人编制，是常用的焦虑症状自评量表，用于评估个体焦虑症状的严重程度。',
+    '贝克焦虑量表（Beck Anxiety Inventory，BAI）由 Aaron T. Beck、Norman Epstein、Gary Brown、Robert A. Steer 于 1988 年编制，包含 21 项，评估过去一周焦虑症状的严重程度，总分为 0—63 分，较侧重躯体和惊恐样症状。结果不能独立诊断焦虑障碍，应结合临床情况解释。',
+  refer: [
+    {
+      title: 'An Inventory for Measuring Clinical Anxiety: Psychometric Properties',
+      url: 'https://doi.org/10.1037/0022-006X.56.6.893',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -188,11 +194,19 @@ export const bai: Scale = {
       }
       n += Number(datas[i]);
     }
+    const level = n <= 7 ? '极轻微' : n <= 15 ? '轻度' : n <= 25 ? '中度' : '重度';
+    const advice =
+      n <= 7
+        ? '当前焦虑症状程度极轻微；如症状持续或影响生活，可进一步咨询专业人员。'
+        : n <= 15
+          ? '当前为轻度焦虑症状；如症状持续或影响生活，建议接受专业评估。'
+          : n <= 25
+            ? '当前为中度焦虑症状，建议接受心理或精神卫生专业评估。'
+            : '当前为重度焦虑症状，建议尽快接受心理或精神卫生专业评估。';
     return {
       ok: true,
-      title:
-        n <= 7 ? '几乎没有焦虑' : `有(${n <= 15 ? '轻度' : n <= 25 ? '中度' : '重度'})焦虑倾向`,
-      description: `总分${n}`,
+      title: `${level}焦虑症状`,
+      description: `总分：${n}。${advice}量表结果不能独立诊断。`,
       score: [
         {
           type: 'pointer',
@@ -209,6 +223,6 @@ export const bai: Scale = {
     };
   },
 
-  tags: ['自评', '焦虑'],
+  tags: ['自评', '焦虑', '症状严重度'],
 };
 export default bai;

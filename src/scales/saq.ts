@@ -20,9 +20,15 @@ const nameMap = {
 
 export const saq: Scale = {
   id: 'saq',
-  name: '自杀态度问卷 (SAQ)',
+  name: '自杀态度问卷 (QSA)',
   description:
-    '自杀态度问卷（SAQ）是一种用于评估个体对自杀行为看法和态度的心理量表。该问卷能帮助了解人们对自杀现象的认知、感受及道德评价，常用于心理健康研究和自杀预防工作。',
+    '自杀态度问卷（Questionnaire of Suicide Attitude，QSA）由肖水源、杨洪、董群惠等于1999年编制，共29项，采用5级评分，从对自杀行为性质的认识、对自杀者的态度、对自杀者家属的态度和对安乐死的态度4个维度开展态度调查与研究。本问卷评估的是对相应对象或议题的态度，不用于评估自杀意念或自杀风险。',
+  refer: [
+    {
+      title: '自杀态度问卷的编制及信度与效度研究：自杀系列研究之一',
+      url: 'https://qolpsy.gdmu.edu.cn/info/1096/1310.htm',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -285,17 +291,16 @@ export const saq: Scale = {
         res / resultMap[key as keyof typeof resultMap].length;
     }
 
+    const getAttitude = (score: number) => {
+      if (score <= 2.5) return '肯定';
+      if (score < 3.5) return '矛盾或中立';
+      return '否定';
+    };
+
     return {
       ok: true,
-      title: '',
-      description: `分值区间：1到2.5（含）对自杀持肯定态度，2.5到3.5矛盾和中立，3.5（含）到5对自杀持否定态度\n${Object.keys(
-        nameMap
-      )
-        .map(
-          (key) =>
-            `${nameMap[key as never]}：${results[key as keyof typeof results].toFixed(2) || 0}`
-        )
-        .join('，')}`,
+      title: '自杀态度问卷结果（分维度解释）',
+      description: `各维度均分1～2.5表示对对应对象或议题持肯定态度，>2.5且<3.5表示矛盾或中立态度，3.5～5表示否定态度；结果反映态度，不代表自杀意念或风险。\n对自杀行为性质的认识：${results.f1.toFixed(2)}（对自杀行为性质持${getAttitude(results.f1)}态度）\n对自杀者的态度：${results.f2.toFixed(2)}（对自杀者持${getAttitude(results.f2)}态度）\n对自杀者家属的态度：${results.f3.toFixed(2)}（对自杀者家属持${getAttitude(results.f3)}态度）\n对安乐死的态度：${results.f4.toFixed(2)}（对安乐死议题持${getAttitude(results.f4)}态度）`,
       score: Object.keys(nameMap).map((key) => ({
         type: 'pointer',
         title: nameMap[key as never],
@@ -321,6 +326,6 @@ export const saq: Scale = {
     };
   },
 
-  tags: ['自评', '自杀'],
+  tags: ['自评', '自杀', '态度', '安乐死'],
 };
 export default saq;

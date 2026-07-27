@@ -56,10 +56,10 @@ const resultMap: [number, number, number, number, number][] = [
   [0, 0, 0, 4, 0],
   [0, 0, 0, 0, 2],
   [0, 0, 0, 0, 4],
-  [0, 3, 0, 0, 0],
+  [0, 0, 3, 0, 0],
   [3, 0, 0, 0, 0],
-  [0, 4, 0, 0, 0],
-  [0, 2, 0, 0, 0],
+  [0, 0, 4, 0, 0],
+  [0, 0, 2, 0, 0],
   [0, 0, 0, 0, 1],
   [0, 0, 0, 3, 0],
   [4, 0, 0, 0, 0],
@@ -67,9 +67,16 @@ const resultMap: [number, number, number, number, number][] = [
 
 export const abc: Scale = {
   id: 'abc',
-  name: '孤独症儿童行为评定量表 (ABC)',
+  name: '孤独症行为量表 (ABC)',
   description:
-    '孤独症儿童行为量表（ABC 量表）是目前国内应用较广泛的孤独症评估量表之一。ABC 量表（Autism Behavior Checklist）由 Krug 于 1978 年编制，表中列出 57 项孤独症儿童的行为特征，包括感觉（Sensory）、交往（Relating）、躯体和物体使用（Body and Object Use）、语言（Language）、社会生活自理（Social and Self-Help）五个方面，适用于 2-14 岁儿童，由家长或教师评分。',
+    '孤独症行为量表（Autism Behavior Checklist，ABC）由 Krug、Arick、Almond 于 1980 年编制，包含 57 项加权条目，评估感觉、交往、运动（躯体与物体使用）、语言和自理 5 个领域，由熟悉儿童日常表现的家长、教师或照护者填写。本页面采用的中文版参考标准以 31 分为筛查阳性界值、62 分及以上为高度疑似；本量表仅用于辅助筛查，不能单独诊断孤独症，结果阳性或对儿童发育有疑虑时应咨询专业人员。',
+  refer: [
+    {
+      title:
+        'Behavior Checklist for Identifying Severely Handicapped Individuals with High Levels of Autistic Behavior',
+      url: 'https://doi.org/10.1111/j.1469-7610.1980.tb01797.x',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -549,9 +556,20 @@ export const abc: Scale = {
     const sum = result.reduce((a, b) => a + b, 0);
     return {
       ok: true,
-      title: sum >= 31 ? (sum >= 62 ? '明显孤独症迹象' : '怀疑存在孤独症') : '未发现孤独症迹象',
+      title:
+        sum >= 31
+          ? sum >= 62
+            ? '筛查阳性：高度疑似孤独症'
+            : '筛查阳性：疑似孤独症'
+          : '筛查未达阳性界值',
       description:
-        `总分：${sum}\n` +
+        `总分：${sum}。${
+          sum >= 62
+            ? '按本页面采用的中文版参考标准，已达高度疑似界值，建议尽快接受专业评估。'
+            : sum >= 31
+              ? '按本页面采用的中文版参考标准，已达筛查阳性界值，建议接受专业评估。'
+              : '按本页面采用的中文版参考标准，未达筛查阳性界值，但不能据此排除孤独症；如仍有发育疑虑，建议接受专业评估。'
+        }\n` +
         [0, 1, 2, 3, 4].map((i) => `${listTitle[i]}(${listNames[i]})：${result[i]}`).join('\n'),
       score: [
         {
@@ -567,6 +585,6 @@ export const abc: Scale = {
     };
   },
 
-  tags: ['祂评', '孤独症', '儿童'],
+  tags: ['祂评', '孤独症', '儿童', '筛查'],
 };
 export default abc;

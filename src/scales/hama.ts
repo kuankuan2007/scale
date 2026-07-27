@@ -13,7 +13,13 @@ export const hama: Scale = {
   id: 'hama',
   name: '汉密尔顿焦虑量表 (HAMA)',
   description:
-    '汉密尔顿焦虑量表（Hamilton Anxiety Scale，HAMA）由Hamilton于1959年编制。最早是精神科临床中常用的量表之一，包括14个项目。《CCMD-3中国精神疾病诊断标准》将其列为焦虑症的重要诊断工具。HAMA应由经过训练的2名评定员进行联合检查，一般采用交谈和观察的方法，待检查结束后，2名评定员独立评分',
+    '汉密尔顿焦虑量表（Hamilton Anxiety Rating Scale，HAMA）由 Max R. Hamilton 于1959年编制，是含14项的临床他评量表，总分0—56分，可归纳为精神性焦虑与躯体性焦虑两个因子，主要用于评估焦虑症状严重度及疗效变化。量表通常由受过训练的专业人员结合访谈与观察评分，不能作为独立诊断依据。',
+  refer: [
+    {
+      title: 'The Assessment of Anxiety States by Rating',
+      url: 'https://doi.org/10.1111/j.2044-8341.1959.tb00467.x',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -159,17 +165,27 @@ export const hama: Scale = {
       ok: true,
       title:
         n < 7
-          ? '无焦虑倾向'
+          ? '无明显焦虑症状'
           : n < 14
-            ? '可能有焦虑'
+            ? '可能存在焦虑症状'
             : n < 21
-              ? '肯定有焦虑'
+              ? '存在明确焦虑症状'
               : n < 29
-                ? '肯定有明显焦虑'
-                : '可能为重焦虑',
+                ? '存在明显焦虑症状'
+                : '可能存在严重焦虑症状',
       description: `总分：${n}分，${Object.keys(resultMap)
         .map((key) => `${nameMap[key as never]}：${results[key as never]}分`)
-        .join('，')}`,
+        .join('，')}。${
+        n < 7
+          ? '当前未见明显焦虑症状；结果仍需结合临床情况解释。'
+          : n < 14
+            ? '结果提示可能存在焦虑症状；如持续或影响功能，建议接受专业评估。'
+            : n < 21
+              ? '结果提示存在明确焦虑症状，建议由精神科或心理专业人员进一步评估。'
+              : n < 29
+                ? '结果提示存在明显焦虑症状，建议尽快接受专业评估与相应支持。'
+                : '结果提示可能存在严重焦虑症状，建议尽快接受精神科专业评估。'
+      }`,
       score: [
         {
           type: 'pointer',
@@ -186,6 +202,6 @@ export const hama: Scale = {
     };
   },
 
-  tags: ['祂评', '焦虑'],
+  tags: ['祂评', '焦虑', '临床评定', '严重度'],
 };
 export default hama;
