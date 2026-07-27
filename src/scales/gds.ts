@@ -7,9 +7,16 @@ const reverse = [
 
 export const gds: Scale = {
   id: 'gds',
-  name: '老年抑郁量表 (GDS)',
+  name: '老年抑郁量表 30 项长版 (GDS-30)',
   description:
-    '老年抑郁量表(GDS)在线测试，是由 Yesavage 等人于 1983 年开发的专业抑郁筛查工具，专为老年人设计。',
+    '老年抑郁量表30项长版（GDS-30）由 Jerome A. Yesavage、T. L. Brink、Terrence L. Rose 等于1982年开发，并于1982—1983年发表。量表含30个是非题，评估过去一周的抑郁相关表现，设计上减少躯体症状对老年人筛查的干扰。该量表用于筛查及严重度参考，不能单独诊断抑郁障碍。',
+  refer: [
+    {
+      title:
+        'Development and Validation of a Geriatric Depression Screening Scale: A Preliminary Report',
+      url: 'https://doi.org/10.1016/0022-3956(82)90033-4',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -269,8 +276,13 @@ export const gds: Scale = {
     }
     return {
       ok: true,
-      title: n <= 10 ? '正常' : `有(${n <= 20 ? '轻度' : '中重度'})抑郁倾向`,
-      description: `粗分:${n}分`,
+      title: n <= 9 ? '正常范围' : n <= 19 ? '轻度抑郁范围' : '重度抑郁范围',
+      description:
+        n <= 9
+          ? `总分：${n}。结果处于常用正常范围；如情绪或功能变化持续，仍可寻求专业评估。`
+          : n <= 19
+            ? `总分：${n}。结果处于轻度抑郁范围，但不等同于诊断；建议结合身体状况、用药及生活功能接受专业评估。`
+            : `总分：${n}。结果处于重度抑郁范围，但不等同于诊断；建议尽快由精神科、老年医学或相关专业人员评估。`,
       score: [
         {
           type: 'pointer',
@@ -285,6 +297,6 @@ export const gds: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁', '老年'],
+  tags: ['自评', '抑郁', '老年', '筛查'],
 };
 export default gds;

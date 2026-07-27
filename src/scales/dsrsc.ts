@@ -5,9 +5,16 @@ const reverse = [1, 2, 4, 7, 8, 9, 11, 12, 13, 16] as const;
 
 export const dsrsc: Scale = {
   id: 'dsrsc',
-  name: '儿童抑郁自评量表 (DSRSC)',
+  name: '儿童抑郁障碍自评量表 (DSRS-C)',
   description:
-    '儿童抑郁自评量表（Depression Self-Rating Scale for Children，DSRSC）由伯莱森（P.Birleson）于1981年基于成人抑郁症诊断标准编制，适用于7-13岁儿童群体。该量表包含18个自评条目，采用三级计分系统',
+    '儿童抑郁障碍自评量表（Depression Self-Rating Scale for Children，DSRS-C）由 Peter Birleson 于1981年编制，含18个条目，用于了解学龄儿童过去一周的抑郁相关表现。适用年龄应依据具体版本及本地验证资料确定，不宜断言唯一年龄范围。该量表用于筛查，不能单独诊断抑郁障碍。',
+  refer: [
+    {
+      title:
+        'The Validity of Depressive Disorder in Childhood and the Development of a Self-Rating Scale: A Research Report',
+      url: 'https://doi.org/10.1111/j.1469-7610.1981.tb00533.x',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -171,15 +178,17 @@ export const dsrsc: Scale = {
     }
     return {
       ok: true,
-      title: n <= 12 ? '无明显抑郁倾向' : n <= 14 ? '有可能伴有抑郁倾向' : '有明显抑郁倾向',
-      description: `总分：${n}。`,
+      title: n <= 14 ? '低于抑郁筛查界值' : '抑郁筛查阳性',
+      description:
+        n <= 14
+          ? `总分：${n}。结果低于常用筛查界值；若相关表现持续、加重或影响学习生活，仍建议咨询儿童专业人员。`
+          : `总分：${n}。结果达到常用抑郁筛查界值，但不等同于诊断；建议由儿童青少年精神心理专业人员进一步评估。`,
       score: [
         {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 13, color: '#ACAC00' },
-            { start: 13, end: 15, color: '#FF7500' },
+            { start: 0, end: 15, color: '#ACAC00' },
             { start: 15, end: 36, color: '#FF0000' },
           ],
         },
@@ -187,6 +196,6 @@ export const dsrsc: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁', '儿童'],
+  tags: ['自评', '抑郁', '儿童', '筛查'],
 };
 export default dsrsc;

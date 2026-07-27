@@ -7,15 +7,21 @@ const resultMap = {
   anesthesia: [6, 8, 10, 11],
 };
 const nameMap = {
-  avoiding: '重现/回避',
-  block: '心理障碍',
-  anesthesia: '情感麻木',
+  avoiding: '重现／回避症状',
+  block: '心理障碍／功能受损',
+  anesthesia: '情感麻木／紧张敏感',
 };
 export const ptsdss: Scale = {
   id: 'ptsd-ss',
-  name: '创伤后应激障碍自评量表 (PTSD-SS)',
+  name: '心理创伤后应激障碍自评量表 (PTSD-SS)',
   description:
-    'PTSD-SS由中国心理学家张明园等人编制，广泛应用于临床和科研领域，特别是在中国人群中对PTSD症状的筛查和评估。有较好的信度和效度, 易于实施, 评分简单',
+    '心理创伤后应激障碍自评量表（PTSD-SS）由刘贤臣等依据 DSM-IV 和 CCMD-2-R 于1998年编制，共24项，包含重现／回避症状、心理障碍／功能受损、情感麻木／紧张敏感3个因子，用于创伤后应激症状的筛查、严重度评估及研究。结果不能单独用于诊断，须结合创伤经历、症状持续时间、功能受损及专业评估综合判断。',
+  refer: [
+    {
+      title: '心理创伤后应激障碍自评量表的编制和信度效度研究',
+      url: 'https://cnki.com.cn/Article/CJFDTOTAL-SDJB199801000.htm',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -134,10 +140,18 @@ export const ptsdss: Scale = {
       results[key] =
         value.map((i) => datas[i] as number).reduce((a, b) => a + b + 1, 0) / value.length;
     }
+    const level =
+      n < 50
+        ? '未检出明显创伤后应激症状'
+        : n < 60
+          ? '轻度创伤后应激症状 (PTSS)'
+          : '中重度创伤后应激症状 (PTSS)';
     return {
       ok: true,
-      title: n < 50 ? '正常' : `有(${n < 60 ? '轻度' : '中重度'})PTSD症状`,
-      description: `总分：${n}\n${Object.keys(nameMap)
+      title: level,
+      description: `总分：${n}分。下列为各因子平均分，分数越高表示相应症状越突出；本结果仅供筛查，不能作为独立诊断。${n >= 50 ? '建议向精神科或具备创伤相关经验的心理专业人员进一步咨询评估。' : ''}\n${Object.keys(
+        nameMap
+      )
         .map((key) => `${nameMap[key as never]}：${results[key]!.toFixed(2) || 0}`)
         .join('，')}`,
       score: [
@@ -145,7 +159,7 @@ export const ptsdss: Scale = {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 50, color: '#007700' },
+            { start: 24, end: 50, color: '#007700' },
             { start: 50, end: 60, color: '#ACAC00' },
             { start: 60, end: 120, color: '#FF0000' },
           ],
@@ -167,6 +181,6 @@ export const ptsdss: Scale = {
       ],
     };
   },
-  tags: ['自评', 'PTSD', '创伤'],
+  tags: ['自评', 'PTSD', 'PTSS', '创伤', '筛查'],
 };
 export default ptsdss;

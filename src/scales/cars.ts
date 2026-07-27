@@ -4,9 +4,16 @@ export const cars: Scale = {
   id: 'cars',
   name: '儿童孤独症评定量表 (CARS)',
   description: [
-    '儿童孤独症评定量表（CARS）是一种用于评估儿童孤独症严重程度的量表，通过观察儿童在不同情境下的行为表现进行评分。该量表编制于20世纪80年代初，从15个主要方面对孤独症儿童进行评估，是主要适用于医师或儿童心理测验专职人员的他评量表。应用时最好能结合',
+    '儿童孤独症评定量表（CARS）由 Eric Schopler、Robert J. Reichler、Robert F. DeVellis 与 Kenneth Daly 编制，于1980年发表。量表含15项，由受过训练的专业人员综合直接观察、访谈及既有资料评分，用于辅助评估孤独症相关表现及严重程度，不能单独用于诊断。经典评分允许0.5分，本界面当前仅提供整数评分。必要时可结合',
     { type: 'link', to: '/scale/abc', content: '儿童孤独症家长评定量表(ABC)' },
-    '共同使用',
+    '等资料综合判断。',
+  ],
+  refer: [
+    {
+      title:
+        'Toward Objective Classification of Childhood Autism: Childhood Autism Rating Scale (CARS)',
+      url: 'https://doi.org/10.1007/BF02408436',
+    },
   ],
   questions: [
     {
@@ -207,7 +214,6 @@ export const cars: Scale = {
   ],
   result: (datas) => {
     let n = 0;
-    let num = 0;
     for (let i = 1; i <= 15; i++) {
       if (!(i in datas) || datas[i] === void 0) {
         return {
@@ -216,14 +222,21 @@ export const cars: Scale = {
         };
       }
       n += Number(datas[i]) + 1;
-      if (Number(datas[i]) >= 2) {
-        num++;
-      }
     }
     return {
       ok: true,
-      title: n < 30 ? '非孤独症' : n >= 36 && num >= 2 ? '重度孤独症' : '轻至中度孤独症',
-      description: `总分${n}\n${num}个异常项`,
+      title:
+        n <= 29
+          ? '低于 CARS 孤独症界值'
+          : n <= 36
+            ? '轻至中度孤独症表现范围'
+            : '重度孤独症表现范围',
+      description:
+        n <= 29
+          ? `总分：${n}。结果低于经典 CARS 界值；如仍有发育或行为方面的担忧，建议结合发育史和专业评估综合判断。`
+          : n <= 36
+            ? `总分：${n}。结果处于轻至中度孤独症表现范围，建议由儿童发育行为、精神心理等专业人员进行完整评估。`
+            : `总分：${n}。结果处于重度孤独症表现范围，建议尽快接受儿童发育行为、精神心理等专业评估与支持。`,
       score: [
         {
           type: 'pointer',
@@ -238,6 +251,6 @@ export const cars: Scale = {
     };
   },
 
-  tags: ['祂评', '孤独症', '儿童'],
+  tags: ['祂评', '孤独症', '儿童', '临床评定', '严重度'],
 };
 export default cars;

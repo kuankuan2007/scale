@@ -7,7 +7,13 @@ export const sds: Scale = {
   id: 'sds',
   name: '抑郁自评量表 (SDS)',
   description:
-    '抑郁自评量表（Self-rating depression scale，SDS），又称Zung宗氏抑郁自评量表，是含有20个项目，分为4级评分的自评量表，原型是W.K.Zung编制的抑郁量表（1965）。其特点是使用简便，并能相当直观地反映抑郁患者的主观感受及其在治疗中的变化。主要适用于具有抑郁症状的成年人，包括门诊及住院患者。只是对严重迟缓症状的抑郁，评定有困难。同时，SDS对于文化程度较低或智力水平稍差的人使用效果不佳。',
+    '抑郁自评量表（Self-rating Depression Scale，SDS）由 William W. K. Zung 于 1965 年编制，共 20 项，其中 10 项反向计分，用于成年人近期抑郁症状的筛查、严重度评估及疗效变化观察。各题按 1—4 分计分，粗分相加后乘以 1.25 并取整数部分得到标准分；本页采用中国常用的 53、63、73 分界。该量表不能替代临床诊断，且对严重精神运动性迟滞者，以及文化程度较低或理解能力受限者，评定可能存在困难。',
+  refer: [
+    {
+      title: 'A Self-Rating Depression Scale',
+      url: 'https://doi.org/10.1001/archpsyc.1965.01720310065008',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -186,10 +192,28 @@ export const sds: Scale = {
       }
     }
     const r = Math.floor(n * 1.25);
+    const level =
+      r < 53
+        ? '未达抑郁症状筛查界值'
+        : r < 63
+          ? '轻度抑郁症状（筛查阳性）'
+          : r < 73
+            ? '中度抑郁症状（筛查阳性）'
+            : '重度抑郁症状（筛查阳性）';
+    const advice =
+      r < 53
+        ? '结果仅反映近期自评；如症状持续或已影响生活，仍可咨询专业人员。'
+        : r < 63
+          ? '建议结合症状持续时间和功能影响，适时向心理或精神卫生专业人员咨询。'
+          : '建议尽快向心理或精神卫生专业人员寻求进一步评估与帮助。';
+    const safetyReminder =
+      Number(datas['19']) >= 2
+        ? '\n第19题提示较频繁的死亡相关想法，请尽快告诉可信任的人并寻求专业评估；如当前有强烈或迫切的自伤／自杀想法，请让可信任者陪同并就近急诊，紧急时拨打120或110。'
+        : '';
     return {
       ok: true,
-      title: r <= 52 ? '正常' : `有(${r <= 62 ? '轻度' : r <= 72 ? '中度' : '重度'})抑郁倾向`,
-      description: `粗分：${n}，标准分值：${r}。`,
+      title: level,
+      description: `粗分：${n}，标准分：${r}。${advice}本结果为筛查及严重度参考，不能作为诊断。${safetyReminder}`,
       score: [
         {
           type: 'pointer',
@@ -205,6 +229,6 @@ export const sds: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁'],
+  tags: ['自评', '抑郁', '筛查', '成人'],
 };
 export default sds;

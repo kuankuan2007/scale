@@ -1,13 +1,43 @@
 import type { Scale } from '@/types/form';
 
 const globalChoices = ['完全没有', '有一点点', '还不算少', '非常的多'] as const;
+const raterChoices = ['家长', '教师'] as const;
+const cutoffMap = {
+  parent: {
+    attention: 1.78,
+    hyperactivity: 1.44,
+    adhd: 1.67,
+    oppositional: 1.88,
+  },
+  teacher: {
+    attention: 2.56,
+    hyperactivity: 1.78,
+    adhd: 2.0,
+    oppositional: 1.38,
+  },
+} as const;
 
 export const snapiv: Scale = {
   id: 'snapiv',
-  name: '儿童注意力缺陷多动症评定量表(SNAP-IV)',
+  name: 'Swanson、Nolan 和 Pelham 父母及教师评定量表第四版 26 项版 (SNAP-IV-26)',
   description:
-    'SNAP-IV评定量表（Swanson,Nolan,and Pelham Rating Scale-IV），是目前国际上广泛应用于儿童注意力缺陷多动障碍（ADHD，俗称多动症）筛选、辅助诊断及治疗疗效评估的标准化工具，其编制与修订始终围绕权威诊断标准，兼具科学性、实用性和针对性，被各大医院及科研机构广泛采用。',
+    'Swanson、Nolan 和 Pelham 评定量表源自 1983 年的原始 SNAP，后依据 DSM-IV 修订。本页为 SNAP-IV-26，共 26 项，包含注意缺陷、多动／冲动和对立违抗三个维度，由家长或教师根据儿童青少年的表现填写，用于相关症状筛查及疗效变化观察，不能替代临床诊断。结果按填表身份采用传统第 95 百分位均分参考界值。',
+  refer: [
+    {
+      title: 'The SNAP-IV Teacher and Parent Rating Scale',
+      url: 'https://doi.org/10.1016/B978-012256430-7/50022-3',
+    },
+  ],
   questions: [
+    {
+      id: '0',
+      form: {
+        type: 'choice',
+        choices: raterChoices,
+        question: '填表者身份',
+        questionDescription: '请选择家长或教师；结果将采用对应的参考界值。',
+      },
+    },
     {
       id: '.subtitle1',
       form: {
@@ -274,6 +304,19 @@ export const snapiv: Scale = {
     },
   ],
   result: (datas) => {
+    if (datas['0'] === void 0) {
+      return {
+        ok: false,
+        require: '0',
+      };
+    }
+    const raterIndex = Number(datas['0']);
+    if (!Number.isInteger(raterIndex) || raterIndex < 0 || raterIndex >= raterChoices.length) {
+      return {
+        ok: false,
+        require: '0',
+      };
+    }
     const results: number[] = [0];
     for (let i = 1; i <= 26; i++) {
       if (datas[i] === void 0) {
@@ -282,7 +325,14 @@ export const snapiv: Scale = {
           require: i.toString(),
         };
       }
-      results.push(datas[i]);
+      const value = Number(datas[i]);
+      if (!Number.isInteger(value) || value < 0 || value >= globalChoices.length) {
+        return {
+          ok: false,
+          require: i.toString(),
+        };
+      }
+      results.push(value);
     }
     let partA = 0,
       partB = 0,
@@ -296,62 +346,34 @@ export const snapiv: Scale = {
     for (let i = 19; i <= 26; i++) {
       partC += results[i];
     }
-    const total = partA + partB + partC;
-    const getStatue = (avg: number) => {
-      if (avg <= 1) {
-        return '正常';
-      }
-      if (avg < 2) {
-        return '轻度异常';
-      }
-      return '异常';
+    const rater = raterChoices[raterIndex]!;
+    const cutoffs = raterIndex === 0 ? cutoffMap.parent : cutoffMap.teacher;
+    const averages = {
+      attention: partA / 9,
+      hyperactivity: partB / 9,
+      adhd: (partA + partB) / 18,
+      oppositional: partC / 8,
     };
+    const dimensions = [
+      ['注意缺陷', averages.attention, cutoffs.attention],
+      ['多动／冲动', averages.hyperactivity, cutoffs.hyperactivity],
+      ['ADHD 18项', averages.adhd, cutoffs.adhd],
+      ['对立违抗', averages.oppositional, cutoffs.oppositional],
+    ] as const;
+    const reached = dimensions.some(([, average, cutoff]) => average >= cutoff);
     return {
       ok: true,
-      title: getStatue(total / 26),
-      description: `注意力：${getStatue(partA / 9)}
-多动：${getStatue(partB / 9)}
-对抗：${getStatue(partC / 8)}`,
-      score: [
-        {
-          type: 'pointer',
-          value: total,
-          part: [
-            { start: 0, end: 26, color: '#007700' },
-            { start: 26, end: 52, color: '#ACAC00' },
-            { start: 52, end: 78, color: '#FF0000' },
-          ],
-        },
-        {
-          type: 'pointer',
-          value: partA,
-          part: [
-            { start: 0, end: 9, color: '#007700' },
-            { start: 9, end: 18, color: '#ACAC00' },
-            { start: 18, end: 27, color: '#FF0000' },
-          ],
-        },
-        {
-          type: 'pointer',
-          value: partB,
-          part: [
-            { start: 0, end: 9, color: '#007700' },
-            { start: 9, end: 18, color: '#ACAC00' },
-            { start: 18, end: 27, color: '#FF0000' },
-          ],
-        },
-        {
-          type: 'pointer',
-          value: partC,
-          part: [
-            { start: 0, end: 8, color: '#007700' },
-            { start: 8, end: 16, color: '#ACAC00' },
-            { start: 16, end: 24, color: '#FF0000' },
-          ],
-        },
-      ],
+      title: reached ? '达到参考界值' : '未达参考界值',
+      description: `填写版本：${rater}版\n${dimensions
+        .map(
+          ([name, average, cutoff]) =>
+            `${name}均分：${average.toFixed(2)}（参考界值 ${cutoff.toFixed(2)}，${average >= cutoff ? '达到' : '未达'}）`
+        )
+        .join(
+          '\n'
+        )}\n上述界值为传统第95百分位常模参考，仅用于筛查和疗效观察，不能作为诊断；临床判断还需结合多场景表现、持续时间和功能影响。${reached ? '任一维度达到参考界值时，建议结合家庭与学校观察接受专业评估。' : '如相关表现持续或已造成功能影响，即使未达界值也可寻求专业评估。'}`,
     };
   },
-  tags: ['祂评', '儿童', '青少年', 'ADHD'],
+  tags: ['祂评', '儿童', '青少年', 'ADHD', '筛查', '对立违抗'],
 };
 export default snapiv;

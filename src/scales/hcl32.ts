@@ -4,9 +4,15 @@ const globalChoices = ['是', '否'] as const;
 
 export const hcl32: Scale = {
   id: 'hcl32',
-  name: '轻躁狂症自评表(HCL-32)',
+  name: '轻躁狂症状清单 (HCL-32)',
   description:
-    '轻躁狂症状评定量表HCL-32属于自评量表，由32项轻躁狂症状组成，在各综合医院门诊中测试结果显示信效度较好。',
+    '轻躁狂症状清单（Hypomania Checklist-32，HCL-32）由 Jules Angst、Thomas D. Meyer 等于2005年编制，共32项，用于筛查既往轻躁狂症状，辅助识别双相谱系障碍。筛查结果不能单独用于诊断，须结合情绪发作史、持续时间、功能变化及专业评估综合判断。',
+  refer: [
+    {
+      title: 'The HCL-32: Towards a Self-assessment Tool for Hypomanic Symptoms in Outpatients',
+      url: 'https://doi.org/10.1016/j.jad.2005.05.011',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -276,10 +282,13 @@ export const hcl32: Scale = {
       }
       n += Number(datas[i]) === 0 ? 1 : 0;
     }
+    const positive = n >= 14;
     return {
       ok: true,
-      title: n >= 14 ? '筛查阳性（轻躁狂症状较多）' : '筛查阴性（轻躁狂症状较少）',
-      description: `积分：${n}/32`,
+      title: positive ? '轻躁狂筛查阳性' : '轻躁狂筛查阴性',
+      description: positive
+        ? `共检出${n}/32项轻躁狂症状，达到阳性筛查界值（≥14项）。建议由精神科或心理专业人员结合既往情绪发作史进一步评估；本结果不等同于诊断。`
+        : `共检出${n}/32项轻躁狂症状，未达到阳性筛查界值（≥14项）。本结果不排除相关问题，如有明显情绪波动或功能受损，建议进一步专业评估。`,
       score: [
         {
           type: 'pointer',
@@ -293,6 +302,6 @@ export const hcl32: Scale = {
     };
   },
 
-  tags: ['躁狂', '自评', '双相'],
+  tags: ['躁狂', '轻躁狂', '自评', '筛查', '双相'],
 };
 export default hcl32;

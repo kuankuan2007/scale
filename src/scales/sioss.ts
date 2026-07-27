@@ -15,14 +15,14 @@ const nameMap = {
   despair: '绝望',
   optimistic: '乐观',
   sleep: '睡眠',
-  conceal: '隐瞒',
+  conceal: '掩饰',
 } as const;
 
 export const sioss: Scale = {
   id: 'sioss',
   name: '自杀意念自评量表 (SIOSS)',
   description:
-    'SIOSS（Self-rating Idea of Suicide Scale，自评式自杀意念量表）是一种用于评估个体自杀意念和自杀相关心理状态的心理测量工具。该量表由国内心理学专家编制，广泛应用于临床心理学、精神病学及相关研究领域，旨在及早发现存在自杀风险的人群，为干预和治疗提供科学依据',
+    '自杀意念自评量表（Self-rating Idea of Suicide Scale，SIOSS）由夏朝云、王东波、吴素琴、叶剑辉编制，2002 年发表，共 26 项，包含绝望、乐观、睡眠和掩饰四个因子；前三个因子相加形成自杀意念总分，掩饰因子用于判断结果效度。本量表仅用于自杀意念筛查，不是完整的自杀风险评估，不能替代专业人员对当前意念、计划、手段、既往行为及保护因素的综合评估。',
   refer: [
     {
       title: '自杀意念自评量表的初步制定',
@@ -262,28 +262,43 @@ export const sioss: Scale = {
       );
     }
     const n = result.despair + result.sleep + result.optimistic;
+    const invalid = result.conceal >= 4;
+    const positive = n >= 12;
+    const keyItemPositive = Number(datas['17']) === 0 || Number(datas['22']) === 0;
+    const safetyReminder = keyItemPositive
+      ? '\n关键题报告了直接自杀意念或既往自杀行为，请尽快接受专业风险评估；如当前意念强烈或迫切，请立即联系可信任者陪同并就近急诊，紧急时拨打120或110。'
+      : '';
+    const interpretation = invalid
+      ? '掩饰因子达到4分，按量表规则本次结果无效，不同时作阳性或阴性解释；如仍有担忧，应接受专业风险评估。'
+      : positive
+        ? '总分达到12分阳性界值，建议尽快接受心理或精神卫生专业人员的自杀风险评估。'
+        : '总分未达到12分阳性界值；筛查阴性不能排除风险，如存在当前意念、计划或明显担忧，仍应及时接受专业风险评估。';
     return {
       ok: true,
-      title:
-        (n < 12 ? `无明显自杀意念` : n < 17 ? '有自杀意念' : '有（较严重的）自杀意念') +
-        (result.conceal >= 4 ? '(隐瞒倾向高，结果不可靠)' : ''),
+      title: invalid
+        ? '结果无效：掩饰倾向较高'
+        : positive
+          ? '自杀意念筛查阳性'
+          : '未达自杀意念阳性界值',
       description: `总分：${n}分，${Object.keys(resultMap)
         .map((key) => `${nameMap[key as never]}：${result[key as never]}`)
-        .join('，')}`,
-      score: [
-        {
-          type: 'pointer',
-          value: n,
-          part: [
-            { start: 0, end: 12, color: '#007700' },
-            { start: 12, end: 17, color: '#FF7500' },
-            { start: 17, end: 26, color: '#FF0000' },
+        .join('，')}。${interpretation}${safetyReminder}`,
+      score: invalid
+        ? undefined
+        : [
+            {
+              type: 'pointer',
+              title: `自杀意念总分：${n}/21`,
+              value: n,
+              part: [
+                { start: 0, end: 12, color: '#007700' },
+                { start: 12, end: 21, color: '#FF0000' },
+              ],
+            },
           ],
-        },
-      ],
     };
   },
 
-  tags: ['自评', '自杀'],
+  tags: ['自评', '自杀', '筛查', '自杀风险'],
 };
 export default sioss;

@@ -2,9 +2,15 @@ import type { Scale } from '@/types/form';
 
 export const bdi: Scale = {
   id: 'bdi',
-  name: '贝克抑郁量表 (BDI)',
+  name: '贝克抑郁量表修订版 (BDI-IA)',
   description:
-    '贝克抑郁自评量表（Beck Depression Inventory）是专门评测抑郁程度的。整个量表包括下面21组项目，每组有4句陈述。',
+    '贝克抑郁量表（Beck Depression Inventory，BDI）由 Aaron T. Beck 等于 1961 年编制，1978 年修订为 BDI-IA。当前 21 项内容与计分更接近 BDI-IA，用于自评抑郁症状严重程度及观察变化；结果不能独立诊断抑郁障碍，应结合专业评估解释。',
+  refer: [
+    {
+      title: 'Cognitive Therapy of Depression（收录 1978 年修订版 BDI）',
+      url: 'https://www.guilford.com/books/Cognitive-Therapy-of-Depression/Beck-Rush-Shaw-Emery/9781572305823/prior-editions',
+    },
+  ],
   questions: [
     {
       id: '1',
@@ -286,25 +292,41 @@ export const bdi: Scale = {
       }
       n += Number(datas[i]);
     }
+    const level = n <= 9 ? '极轻微' : n <= 18 ? '轻度' : n <= 29 ? '中度' : '重度';
+    const advice =
+      n <= 9
+        ? '当前抑郁症状程度极轻微；如症状持续或影响生活，可咨询专业人员。'
+        : n <= 18
+          ? '当前为轻度抑郁症状；如症状持续或影响生活，建议接受专业评估。'
+          : n <= 29
+            ? '当前为中度抑郁症状，建议接受心理或精神卫生专业评估。'
+            : '当前为重度抑郁症状，建议尽快接受心理或精神卫生专业评估。';
+    const suicideItem = Number(datas[9]);
+    const safety =
+      suicideItem === 0
+        ? ''
+        : suicideItem >= 2
+          ? '\n安全提示：第 9 题提示较高程度的自杀念头，任何自杀念头均需专业安全评估；请立即联系可信任者陪同，前往急诊或拨打 120、110。'
+          : '\n安全提示：第 9 题提示存在自杀念头，任何自杀念头均需专业安全评估，建议尽快联系专业人员。';
     return {
       ok: true,
-      title: n <= 10 ? '正常' : `有(${n <= 15 ? '轻度' : n <= 25 ? '中度' : '重度'})抑郁倾向`,
-      description: `总分${n}`,
+      title: `${level}抑郁症状`,
+      description: `总分：${n}。${advice}量表结果不能独立诊断。${safety}`,
       score: [
         {
           type: 'pointer',
           value: n,
           part: [
-            { start: 0, end: 10, color: '#007700' },
-            { start: 10, end: 15, color: '#ACAC00' },
-            { start: 15, end: 25, color: '#FF7500' },
-            { start: 25, end: 63, color: '#FF0000' },
+            { start: 0, end: 9.5, color: '#007700' },
+            { start: 9.5, end: 18.5, color: '#ACAC00' },
+            { start: 18.5, end: 29.5, color: '#FF7500' },
+            { start: 29.5, end: 63, color: '#FF0000' },
           ],
         },
       ],
     };
   },
 
-  tags: ['自评', '抑郁'],
+  tags: ['自评', '抑郁', '症状严重度'],
 };
 export default bdi;
