@@ -66,7 +66,7 @@ export const sioss: Scale = {
       id: '5',
       form: {
         type: 'choice',
-        question: '我容易人睡并且一夜睡得很好。',
+        question: '我容易入睡并且一夜睡得很好。',
         choices: globalChoices,
       },
     },
@@ -266,7 +266,7 @@ export const sioss: Scale = {
       ok: true,
       title:
         (n < 12 ? `无明显自杀意念` : n < 17 ? '有自杀意念' : '有（较严重的）自杀意念') +
-        (result.conceal >= 4 ? '(隐瞒倾向高，结果不可靠' : ''),
+        (result.conceal >= 4 ? '(隐瞒倾向高，结果不可靠)' : ''),
       description: `总分：${n}分，${Object.keys(resultMap)
         .map((key) => `${nameMap[key as never]}：${result[key as never]}`)
         .join('，')}`,

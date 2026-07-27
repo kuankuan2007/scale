@@ -23,7 +23,7 @@ export const asrsA: Scale = {
   id: 'asrs-a',
   name: '成人ADHD自评量表 (ASRS) A部分',
   description: [
-    '成人ADHD自评量表 (ASRS) 的A部分（前6题），可单独用于快速快速筛查，结果仅供参考，不作为临床诊断依据。其他部分参见',
+    '成人ADHD自评量表 (ASRS) 的A部分（前6题），可单独用于快速筛查，结果仅供参考，不作为临床诊断依据。其他部分参见',
     {
       type: 'link',
       content: '完整版',

@@ -6,7 +6,7 @@ export const bai: Scale = {
   id: 'bai',
   name: '贝克焦虑量表 (BAI)',
   description:
-    '贝克焦虑量表(BAI)评分标准详解：贝克焦虑量表（BeckAnxietyInventory，BAI）是一种常用的焦虑症状自评量表，用于评估个体焦虑程度的严重程度。它由心理学家阿伦·贝克（AaronT.Beck）开发，并经过多次修订和改进。',
+    '贝克焦虑量表（Beck Anxiety Inventory，BAI）由 Aaron T. Beck 等人编制，是常用的焦虑症状自评量表，用于评估个体焦虑症状的严重程度。',
   questions: [
     {
       id: '1',

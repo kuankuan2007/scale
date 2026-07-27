@@ -65,11 +65,11 @@ const resultMap: [number, number, number, number, number][] = [
   [4, 0, 0, 0, 0],
 ];
 
-export const bai: Scale = {
+export const abc: Scale = {
   id: 'abc',
   name: '孤独症儿童行为评定量表 (ABC)',
   description:
-    '孤独症儿童行为量表（ABC量表） 是目前国内应用最广泛的孤独症评估量表之一。ABC量表（Autism Behavior Checklist）由Krug于1978年编制，表中列出57项自闭症儿童的行为特征，包括感觉(Sensory)、交往(Relating)、躯体和物体使用 (Body and object use)、语言(Language)、社会生活自理(Social and self-help)五个方面，用于2-14岁儿童，由家长或老师评分。',
+    '孤独症儿童行为量表（ABC 量表）是目前国内应用较广泛的孤独症评估量表之一。ABC 量表（Autism Behavior Checklist）由 Krug 于 1978 年编制，表中列出 57 项孤独症儿童的行为特征，包括感觉（Sensory）、交往（Relating）、躯体和物体使用（Body and Object Use）、语言（Language）、社会生活自理（Social and Self-Help）五个方面，适用于 2-14 岁儿童，由家长或教师评分。',
   questions: [
     {
       id: '1',
@@ -549,7 +549,7 @@ export const bai: Scale = {
     const sum = result.reduce((a, b) => a + b, 0);
     return {
       ok: true,
-      title: sum >= 31 ? (sum >= 62 ? '明显自闭症迹象' : '怀疑患有自闭症') : '未发现自闭症迹象',
+      title: sum >= 31 ? (sum >= 62 ? '明显孤独症迹象' : '怀疑存在孤独症') : '未发现孤独症迹象',
       description:
         `总分：${sum}\n` +
         [0, 1, 2, 3, 4].map((i) => `${listTitle[i]}(${listNames[i]})：${result[i]}`).join('\n'),
@@ -569,4 +569,4 @@ export const bai: Scale = {
 
   tags: ['祂评', '孤独症', '儿童'],
 };
-export default bai;
+export default abc;

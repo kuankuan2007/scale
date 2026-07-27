@@ -84,7 +84,7 @@ export const hama: Scale = {
       id: '9',
       form: {
         type: 'choice',
-        question: '心血管系统症状：心动过速、心悸、胸痛、血管跳动感、昏倒感、心博脱漏',
+        question: '心血管系统症状：心动过速、心悸、胸痛、血管跳动感、昏倒感、心搏脱漏',
         choices: globalChoices,
       },
     },

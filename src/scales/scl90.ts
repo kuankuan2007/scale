@@ -770,7 +770,9 @@ export const scl90: Scale = {
     const activeNum = arrayData.filter((i) => i > 1).length;
     const inactiveNum = arrayData.filter((i) => i === 0).length;
     const activeAverageScore =
-      arrayData.filter((i) => i > 1).reduce((a, b) => a + b + 1, 0) / activeNum;
+      activeNum === 0
+        ? 0
+        : arrayData.filter((i) => i > 1).reduce((a, b) => a + b + 1, 0) / activeNum;
 
     const average = sum / 90;
 
