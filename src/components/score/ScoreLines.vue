@@ -107,7 +107,7 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 .score-lines {
-  padding: 2em;
+  padding: 3em;
   overflow-y: auto;
 }
 .draw-box {
