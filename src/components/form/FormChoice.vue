@@ -81,6 +81,10 @@ input[type='radio'] {
   border: 0.2em solid;
   border-radius: 50%;
   outline: none;
+  transition:
+    transform 0.15s,
+    border-color 0.15s;
+
   @include theme.use {
     border-color: theme.get('color');
   }
@@ -109,6 +113,19 @@ input[type='radio'] {
   &:focus {
     @include theme.use {
       border-color: theme.get('active-color');
+      transform: scale(1.1);
+    }
+  }
+  &:hover {
+    @include theme.use {
+      border-color: theme.mix('color', 'active-color', 50%);
+      transform: scale(1.1);
+    }
+  }
+  &:active {
+    @include theme.use {
+      border-color: theme.mix('color', 'active-color', 80%);
+      transform: scale(0.9);
     }
   }
 }
