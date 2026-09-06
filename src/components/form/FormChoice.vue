@@ -124,8 +124,19 @@ input[type='radio'] {
   }
   &:active {
     @include theme.use {
-      border-color: theme.mix('color', 'active-color', 80%);
+      border-color: theme.mix('color', 'active-color', 20%);
       transform: scale(0.9);
+    }
+  }
+  &:disabled {
+    @include theme.use {
+      border-color: theme.get('color');
+      transform: scale(1);
+    }
+    &::before {
+      @include theme.use {
+        border-color: theme.get('color');
+      }
     }
   }
 }
