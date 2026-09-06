@@ -163,7 +163,7 @@ const progress = computed(() => {
   let now = 0,
     total = 0;
   for (const i of data.value.questions) {
-    if (formData[i.id] !== void 0) {
+    if (formData[i.id] !== void 0 || i.form.type === 'subtitle') {
       now++;
     }
     total++;
