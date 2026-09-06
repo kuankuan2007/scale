@@ -9,8 +9,8 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import postcssPresetEnv from 'postcss-preset-env';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import VitePluginScaleIndex from './vite-plugin/scales-index';
-import VitePluginBuildInfo from './vite-plugin/build-info';
+import VitePluginScaleIndex from './vite-plugin/scales-index.js';
+import VitePluginBuildInfo from './vite-plugin/build-info.js';
 
 const sassAddition = `
 @use '@/styles/theme.scss';

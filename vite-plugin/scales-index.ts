@@ -3,8 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { build } from 'esbuild';
 
-import type { Scale } from '../src/types/form';
-import type { ScaleIndex } from '../src/types/scaleIndex';
+import type { Scale } from '../src/types/form.js';
+import type { ScaleIndex } from '../src/types/scaleIndex.js';
 import { pathToFileURL } from 'url';
 
 const SCALES_PATH = path.resolve('./src/scales');
