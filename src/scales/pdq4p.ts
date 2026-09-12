@@ -927,6 +927,6 @@ export const pdq4p: Scale = {
     };
   },
 
-  tags: ['自评', '焦虑'],
+  tags: ['自评', '人格', '偏执', '边缘'],
 };
 export default pdq4p;
