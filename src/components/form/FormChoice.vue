@@ -81,10 +81,7 @@ input[type='radio'] {
   border: 0.2em solid;
   border-radius: 50%;
   outline: none;
-  transition:
-    transform 0.15s,
-    border-color 0.15s;
-
+  @include motion.transition(transform 0.15s ease-out, border-color 0.15s ease-out);
   @include theme.use {
     border-color: theme.get('color');
   }
@@ -93,11 +90,11 @@ input[type='radio'] {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.4);
     border-radius: 50%;
     border: 0.3em solid;
     opacity: 0;
-    @include motion.transition(0.3s);
+    @include motion.transition(0.15s);
     @include theme.use {
       border-color: theme.get('active-color');
     }
@@ -108,6 +105,7 @@ input[type='radio'] {
     }
     &::before {
       opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
     }
   }
   &:focus {
@@ -121,11 +119,21 @@ input[type='radio'] {
       border-color: theme.mix('color', 'active-color', 50%);
       transform: scale(1.1);
     }
+    &::before {
+      @include theme.use {
+        border-color: theme.mix('color', 'active-color', 50%);
+      }
+    }
   }
   &:active {
     @include theme.use {
-      border-color: theme.mix('color', 'active-color', 20%);
+      border-color: theme.mix('background', 'active-color', 10%);
       transform: scale(0.9);
+    }
+    &::before {
+      @include theme.use {
+        border-color: theme.mix('background', 'active-color', 10%);
+      }
     }
   }
   &:disabled {
