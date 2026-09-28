@@ -2,7 +2,7 @@ import type { Scale } from '@/types/form';
 
 export const bdi: Scale = {
   id: 'bdi',
-  name: '贝克抑郁量表修订版 (BDI-IA)',
+  name: '贝克抑郁量表 (BDI)',
   description:
     '贝克抑郁量表（Beck Depression Inventory，BDI）由 Aaron T. Beck 等于 1961 年编制，1978 年修订为 BDI-IA。当前 21 项内容与计分更接近 BDI-IA，用于自评抑郁症状严重程度及观察变化；结果不能独立诊断抑郁障碍，应结合专业评估解释。',
   refer: [

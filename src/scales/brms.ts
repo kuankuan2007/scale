@@ -2,7 +2,7 @@ import type { Scale } from '@/types/form';
 
 export const brms: Scale = {
   id: 'brms',
-  name: '贝克－拉范森躁狂量表 13 项中文版 (BRMS)',
+  name: '贝克－拉范森躁狂量表 (BRMS)',
   description:
     '贝克－拉范森躁狂量表（Bech-Rafaelsen Mania Rating Scale，BRMS）由 Per Bech、Tom G. Bolwig、Peter Kramp、Ole J. Rafaelsen 于 1978 年编制。原版含 11 项，中国临床常用版增加幻觉和妄想 2 项，共 13 项，由临床人员对成人进行祂评，用于评定躁狂症状严重度和疗效；结果不能独立诊断。',
   refer: [
