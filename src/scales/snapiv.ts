@@ -19,7 +19,7 @@ const cutoffMap = {
 
 export const snapiv: Scale = {
   id: 'snapiv',
-  name: 'Swanson、Nolan 和 Pelham 父母及教师评定量表第四版 26 项版 (SNAP-IV-26)',
+  name: '注意缺陷与多动量表 (SNAP-IV)',
   description:
     'Swanson、Nolan 和 Pelham 评定量表源自 1983 年的原始 SNAP，后依据 DSM-IV 修订。本页为 SNAP-IV-26，共 26 项，包含注意缺陷、多动／冲动和对立违抗三个维度，由家长或教师根据儿童青少年的表现填写，用于相关症状筛查及疗效变化观察，不能替代临床诊断。结果按填表身份采用传统第 95 百分位均分参考界值。',
   refer: [
