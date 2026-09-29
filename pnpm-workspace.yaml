@@ -1,3 +1,5 @@
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@kuankuan/assist-2026@0.1.18'
