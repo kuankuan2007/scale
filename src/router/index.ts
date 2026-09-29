@@ -32,6 +32,14 @@ const router = createRouter({
       },
     },
     {
+      path: '/research/gbsq',
+      name: 'research-gbsq',
+      component: () => import('@/views/GbsqResearchView.vue'),
+      meta: {
+        title: 'GBSQ 来源考证',
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('@/views/AboutView.vue'),

@@ -59,6 +59,7 @@ export default function VitePluginScaleIndex(): Plugin {
               ? i.description.map((j) => (typeof j === 'string' ? j : j.content)).join('')
               : i.description,
             id: i.id,
+            trusted: i.trusted !== false,
             tags: i.tags,
           };
         }

@@ -2,6 +2,7 @@ type ScaleIndexItem = {
   name: string;
   description: string;
   id: string;
+  trusted: boolean;
   tags: string[];
 };
 type ScaleIndex = {

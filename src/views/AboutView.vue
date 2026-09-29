@@ -113,16 +113,19 @@ import { show as showBuildInfo } from 'visual:k-build-info';
   border-radius: 0.5em;
   display: flex;
   align-items: center;
+  margin: 0.8em 0;
   @include theme.use {
     background: color.mix(theme.get('active-color'), theme.get('background'), 10%);
     border-color: color.mix(theme.get('active-color'), theme.get('background'), 20%);
   }
   .quote-left {
-    opacity: 0.5;
+    opacity: 0.3;
+    margin-right: 0.3em;
     margin-bottom: auto;
   }
   .quote-right {
-    opacity: 0.5;
+    opacity: 0.3;
+    margin-left: 0.3em;
     margin-top: auto;
   }
 }

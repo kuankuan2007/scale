@@ -20,6 +20,10 @@
           <k-icon id="warn" inline />
           本量表为他评量表，<span class="bold strong">不适合自评</span>，请在专业人士指导下完成测试
         </div>
+        <div v-if="data && data.trusted === false">
+          <k-icon id="warn" inline />
+          本量表缺少可考据的信度、效度、划界分等统计学指标，结果仅供自我觉察参考，不具备筛查或诊断效力
+        </div>
       </div>
       <ul class="tags">
         <li v-for="tag in data?.tags" :key="tag">{{ tag }}</li>
