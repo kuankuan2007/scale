@@ -51,6 +51,7 @@
             <p class="scale-name">{{ scale.name }}</p>
             <p class="scale-desc">{{ scale.description }}</p>
             <div class="tag-list" v-if="scale.tags.length">
+              <div class="tag tag-untrusted" v-if="!scale.trusted">置信度低</div>
               <div class="tag" v-for="i in scale.tags" :key="i">{{ i }}</div>
             </div>
             <div class="id">{{ scale.id.toUpperCase() }}</div>
@@ -130,6 +131,7 @@ const showScale = computed(() => {
     }
     res.push(i);
   }
+  res.sort((a, b) => (a.trusted !== b.trusted ? (b.trusted ? 1 : -1) : 0));
   return res;
 });
 onMounted(() => {
@@ -388,6 +390,9 @@ onMounted(() => {
       @include theme.use {
         border-color: rgba(theme.get('color'), 1);
       }
+      &.tag-untrusted {
+        border: 0.2em solid;
+      }
     }
   }
 }
@@ -421,6 +426,11 @@ onMounted(() => {
 
       @include theme.use {
         background: color.mix(theme.get('active-color'), theme.get('background'), 50%);
+      }
+      &.tag-untrusted {
+        @include theme.use {
+          background: color.mix(theme.get('strong-color'), theme.get('background'), 30%);
+        }
       }
     }
   }
