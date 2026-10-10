@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = [
   '完全不符合或几乎不符合',
@@ -191,6 +192,9 @@ export const bsq: Scale = {
     };
   },
 
-  tags: ['自评', '双相', '筛查', '成人'],
+  tags: {
+    rater: RaterTag.SELF,
+    domain: [DomainTag.BIPOLAR],
+  },
 };
 export default bsq;

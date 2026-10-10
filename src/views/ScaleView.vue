@@ -16,7 +16,7 @@
           <k-icon id="warn" inline />
           本网站免费提供量表测试仅供参考，不具有临床意义，如有需要请线下就医
         </div>
-        <div v-if="!data?.tags.includes('自评')">
+        <div v-if="isOtherRater">
           <k-icon id="warn" inline />
           本量表为他评量表，<span class="bold strong">不适合自评</span>，请在专业人士指导下完成测试
         </div>
@@ -26,7 +26,7 @@
         </div>
       </div>
       <ul class="tags">
-        <li v-for="tag in data?.tags" :key="tag">{{ tag }}</li>
+        <li v-for="tag in scaleTags" :key="tag">{{ tag }}</li>
       </ul>
       <p class="description">
         <template
@@ -140,6 +140,7 @@ import KIcon from '@/components/KIcon.vue';
 import { RouterLink } from 'vue-router';
 import intersectionRef, { type intersectionData } from '@kuankuan/assist-2026/ref/intersectionRef';
 import { formatTimeDiff } from '@/scripts/util';
+import { RaterTag, tagLabelsOf } from '@/types/scaleTags';
 
 const props = defineProps<{
   id: string;
@@ -160,6 +161,11 @@ watch(data, (newValue) => {
     formResult.value = {};
   }
 });
+
+const scaleTags = computed(() => (data.value ? tagLabelsOf(data.value.tags) : []));
+const isOtherRater = computed(
+  () => data.value !== undefined && data.value.tags.rater !== RaterTag.SELF
+);
 
 const progress = computed(() => {
   const formData = formResult.value;

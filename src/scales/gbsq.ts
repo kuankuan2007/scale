@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = [
   '完全没有',
@@ -182,6 +183,10 @@ export const gbsq: Scale = {
     };
   },
 
-  tags: ['自评', '双相', '筛查', '成人'],
+  tags: {
+    rater: RaterTag.SELF,
+    population: [PopulationTag.ADULT],
+    domain: [DomainTag.BIPOLAR],
+  },
 };
 export default gbsq;

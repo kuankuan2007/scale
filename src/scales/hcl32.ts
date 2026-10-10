@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['是', '否'] as const;
 
@@ -302,6 +303,10 @@ export const hcl32: Scale = {
     };
   },
 
-  tags: ['躁狂', '轻躁狂', '自评', '筛查', '双相'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SCREENING, PurposeTag.AUX_DIAGNOSIS],
+    domain: [DomainTag.MANIA, DomainTag.BIPOLAR],
+  },
 };
 export default hcl32;

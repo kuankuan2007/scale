@@ -1,3 +1,5 @@
+import type { ScaleTags } from './scaleTags';
+
 type DeepReadonly<T> = T extends object
   ? {
       readonly [K in keyof T]: DeepReadonly<T[K]>;
@@ -83,5 +85,5 @@ export type Scale = Readonly<{
   }[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   result: (datas: { [key: string]: any }) => ScaleOKResult | ScaleErrorResult;
-  tags: string[];
+  tags: ScaleTags;
 }>;

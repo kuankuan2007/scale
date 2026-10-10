@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['无症状', '轻', '中', '重', '极重'] as const;
 const resultMap = {
@@ -202,6 +203,10 @@ export const hama: Scale = {
     };
   },
 
-  tags: ['祂评', '焦虑', '临床评定', '严重度'],
+  tags: {
+    rater: RaterTag.OTHER,
+    purpose: [PurposeTag.SEVERITY],
+    domain: [DomainTag.ANXIETY],
+  },
 };
 export default hama;

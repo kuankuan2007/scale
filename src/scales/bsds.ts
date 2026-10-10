@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['是', '否'] as const;
 
@@ -270,6 +271,10 @@ export const bsds: Scale = {
     };
   },
 
-  tags: ['自评', '双相', '筛查', '成人'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SCREENING, PurposeTag.AUX_DIAGNOSIS],
+    domain: [DomainTag.BIPOLAR],
+  },
 };
 export default bsds;

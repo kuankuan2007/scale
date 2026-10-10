@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['无', '轻度', '中度，尚能忍受', '重度，勉强忍受'] as const;
 
@@ -223,6 +224,10 @@ export const bai: Scale = {
     };
   },
 
-  tags: ['自评', '焦虑', '症状严重度'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SEVERITY],
+    domain: [DomainTag.ANXIETY],
+  },
 };
 export default bai;

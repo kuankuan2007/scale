@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['没有', '有时有', '经常有'] as const;
 const reverse = [1, 2, 4, 7, 8, 9, 11, 12, 13, 16] as const;
@@ -196,6 +197,11 @@ export const dsrsc: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁', '儿童', '筛查'],
+  tags: {
+    rater: RaterTag.SELF,
+    population: [PopulationTag.CHILD],
+    purpose: [PurposeTag.SCREENING],
+    domain: [DomainTag.DEPRESSION],
+  },
 };
 export default dsrsc;

@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const resultMap = {
   A: [3, 26, 27, 51, 52, 76, 101, 126, 151, 176],
@@ -2034,6 +2035,10 @@ export const cat16pf: Scale = {
     };
   },
 
-  tags: ['自评', '人格', '成人'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.TRAIT],
+    domain: [DomainTag.PERSONALITY],
+  },
 };
 export default cat16pf;

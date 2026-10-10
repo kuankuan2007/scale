@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 import { buildSelfQuestions, calcSdqResult, sdqRefer } from './sdq';
 
 export const sdqS: Scale = {
@@ -23,7 +24,12 @@ export const sdqS: Scale = {
   ],
   questions: buildSelfQuestions(),
   result: (datas) => calcSdqResult(datas, 2),
-  tags: ['自评', '筛查', '青少年'],
+  tags: {
+    rater: RaterTag.SELF,
+    population: [PopulationTag.ADOLESCENT],
+    purpose: [PurposeTag.SCREENING],
+    domain: [DomainTag.EMOTION_BEHAVIOR],
+  },
 };
 
 export default sdqS;

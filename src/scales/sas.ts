@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['没有或很少时间', '小部分时间', '相当多时间', '绝大部分或全部时间'] as const;
 const reverse = [5, 9, 13, 17, 19] as const;
@@ -118,6 +119,11 @@ export const sas: Scale = {
     };
   },
 
-  tags: ['自评', '焦虑', '症状严重度'],
+  tags: {
+    rater: RaterTag.SELF,
+    population: [PopulationTag.ADULT],
+    purpose: [PurposeTag.SEVERITY],
+    domain: [DomainTag.ANXIETY],
+  },
 };
 export default sas;

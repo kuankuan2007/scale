@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['完全没有', '有一点点', '还不算少', '非常的多'] as const;
 const raterChoices = ['家长', '教师'] as const;
@@ -374,6 +375,11 @@ export const snapiv: Scale = {
         )}\n上述界值为传统第95百分位常模参考，仅用于筛查和疗效观察，不能作为诊断；临床判断还需结合多场景表现、持续时间和功能影响。${reached ? '任一维度达到参考界值时，建议结合家庭与学校观察接受专业评估。' : '如相关表现持续或已造成功能影响，即使未达界值也可寻求专业评估。'}`,
     };
   },
-  tags: ['祂评', '儿童', '青少年', 'ADHD', '筛查', '对立违抗'],
+  tags: {
+    rater: RaterTag.OTHER,
+    population: [PopulationTag.CHILD, PopulationTag.ADOLESCENT],
+    purpose: [PurposeTag.SCREENING, PurposeTag.SEVERITY],
+    domain: [DomainTag.ADHD, DomainTag.EMOTION_BEHAVIOR],
+  },
 };
 export default snapiv;

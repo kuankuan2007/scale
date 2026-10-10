@@ -41,6 +41,7 @@ export default function VitePluginScaleIndex(): Plugin {
               outfile: path.join(TEMP_DIR, i.replace(/\.ts$/i, '.mjs')),
               bundle: true,
               format: 'esm',
+              alias: { '@': path.resolve('./src') },
             })
           )
         );

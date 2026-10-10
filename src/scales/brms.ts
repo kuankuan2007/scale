@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 export const brms: Scale = {
   id: 'brms',
@@ -227,6 +228,11 @@ export const brms: Scale = {
     };
   },
 
-  tags: ['躁狂', '祂评', '双相', '临床评定'],
+  tags: {
+    rater: RaterTag.OTHER,
+    population: [PopulationTag.ADULT],
+    purpose: [PurposeTag.SEVERITY],
+    domain: [DomainTag.MANIA],
+  },
 };
 export default brms;

@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const doubles = [5, 6, 8, 9] as const;
 
@@ -216,6 +217,10 @@ export const ymrs: Scale = {
     };
   },
 
-  tags: ['躁狂', '祂评', '双相', '临床评定', '严重度'],
+  tags: {
+    rater: RaterTag.OTHER,
+    purpose: [PurposeTag.SEVERITY],
+    domain: [DomainTag.MANIA],
+  },
 };
 export default ymrs;

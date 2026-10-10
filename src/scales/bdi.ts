@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 export const bdi: Scale = {
   id: 'bdi',
@@ -327,6 +328,10 @@ export const bdi: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁', '症状严重度'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SEVERITY],
+    domain: [DomainTag.DEPRESSION],
+  },
 };
 export default bdi;

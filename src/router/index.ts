@@ -1,5 +1,6 @@
 import PageNotFoundView from '@/views/PageNotFoundView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { parseTagQuery, parseTextQuery } from '@/scripts/tagQuery';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,11 @@ const router = createRouter({
       meta: {
         title: '量表列表',
       },
+      props: (to) => ({
+        includedTag: parseTagQuery(to.query['included-tag']),
+        excludedTag: parseTagQuery(to.query['excluded-tag']),
+        q: parseTextQuery(to.query.q),
+      }),
     },
     {
       path: '/research/gbsq',

@@ -1,4 +1,5 @@
 import type { Question, Scale, ScaleErrorResult, ScaleOKResult } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['不符合', '有点符合', '完全符合'] as const;
 const globalChoices2 = ['一点也不', '只有一点', '相当多', '非常多'] as const;
@@ -396,6 +397,11 @@ export const sdq: Scale = {
     return calcSdqResult(datas, type as 0 | 1);
   },
 
-  tags: ['祂评', '筛查', '儿童', '青少年', '情绪与行为'],
+  tags: {
+    rater: RaterTag.OTHER,
+    population: [PopulationTag.CHILD, PopulationTag.ADOLESCENT],
+    purpose: [PurposeTag.SCREENING],
+    domain: [DomainTag.EMOTION_BEHAVIOR],
+  },
 };
 export default sdq;

@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['是', '否'] as const;
 const reverse = [
@@ -297,6 +298,11 @@ export const gds: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁', '老年', '筛查'],
+  tags: {
+    rater: RaterTag.SELF,
+    population: [PopulationTag.ELDERLY],
+    purpose: [PurposeTag.SCREENING, PurposeTag.SEVERITY],
+    domain: [DomainTag.DEPRESSION],
+  },
 };
 export default gds;

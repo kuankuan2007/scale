@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 export const cars: Scale = {
   id: 'cars',
@@ -251,6 +252,11 @@ export const cars: Scale = {
     };
   },
 
-  tags: ['祂评', '孤独症', '儿童', '临床评定', '严重度'],
+  tags: {
+    rater: RaterTag.OTHER,
+    population: [PopulationTag.CHILD],
+    purpose: [PurposeTag.SEVERITY, PurposeTag.AUX_DIAGNOSIS],
+    domain: [DomainTag.AUTISM],
+  },
 };
 export default cars;

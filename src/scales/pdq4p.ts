@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['否', '是'] as const;
 export const resultMap = {
@@ -927,6 +928,10 @@ export const pdq4p: Scale = {
     };
   },
 
-  tags: ['自评', '人格', '偏执', '边缘'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SCREENING, PurposeTag.AUX_DIAGNOSIS],
+    domain: [DomainTag.PERSONALITY],
+  },
 };
 export default pdq4p;

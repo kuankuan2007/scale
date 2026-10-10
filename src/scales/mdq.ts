@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 const globalChoices = ['是', '否'] as const;
 
 export const mdq: Scale = {
@@ -247,6 +248,10 @@ export const mdq: Scale = {
     };
   },
 
-  tags: ['自评', '抑郁', '症状严重度'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SCREENING],
+    domain: [DomainTag.MANIA, DomainTag.BIPOLAR],
+  },
 };
 export default mdq;

@@ -1,15 +1,4 @@
-type ScaleIndexItem = {
-  name: string;
-  description: string;
-  id: string;
-  trusted: boolean;
-  tags: string[];
-};
-type ScaleIndex = {
-  [key: string]: ScaleIndexItem;
-};
-
 declare module 'visual:scales-index' {
-  declare const index: ScaleIndex;
+  const index: import('./scaleIndex').ScaleIndex;
   export default index;
 }

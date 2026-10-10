@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['没有影响', '轻度', '中度', '重度', '极重'] as const;
 const resultMap = {
@@ -181,6 +182,10 @@ export const ptsdss: Scale = {
       ],
     };
   },
-  tags: ['自评', 'PTSD', 'PTSS', '创伤', '筛查'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SCREENING, PurposeTag.SEVERITY],
+    domain: [DomainTag.TRAUMA],
+  },
 };
 export default ptsdss;

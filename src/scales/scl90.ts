@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['没有', '很轻', '中等', '偏重', '很重'] as const;
 
@@ -818,18 +819,10 @@ export const scl90: Scale = {
     };
   },
 
-  tags: [
-    '自评',
-    '症状筛查',
-    '焦虑',
-    '抑郁',
-    '躯体化',
-    '强迫症状',
-    '人际关系敏感',
-    '敌对',
-    '恐怖',
-    '偏执',
-    '精神病性',
-  ],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SCREENING, PurposeTag.SEVERITY],
+    domain: [DomainTag.GENERAL],
+  },
 };
 export default scl90;

@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['是', '否'] as const;
 // 反向计分题目：积极/正面题目需要反向计分
@@ -299,6 +300,10 @@ export const sioss: Scale = {
     };
   },
 
-  tags: ['自评', '自杀', '筛查', '自杀风险'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.SCREENING],
+    domain: [DomainTag.SUICIDE],
+  },
 };
 export default sioss;

@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 export const hamd: Scale = {
   id: 'hamd',
@@ -338,6 +339,10 @@ export const hamd: Scale = {
     };
   },
 
-  tags: ['祂评', '临床评定', '抑郁', '症状严重度'],
+  tags: {
+    rater: RaterTag.OTHER,
+    purpose: [PurposeTag.SEVERITY],
+    domain: [DomainTag.DEPRESSION],
+  },
 };
 export default hamd;

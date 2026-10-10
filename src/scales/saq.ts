@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['完全赞同', '赞同', '中立', '不赞同', '完全不赞同'] as const;
 
@@ -326,6 +327,10 @@ export const saq: Scale = {
     };
   },
 
-  tags: ['自评', '自杀', '态度', '安乐死'],
+  tags: {
+    rater: RaterTag.SELF,
+    purpose: [PurposeTag.TRAIT],
+    domain: [DomainTag.SUICIDE],
+  },
 };
 export default saq;

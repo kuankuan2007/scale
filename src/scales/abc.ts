@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['是', '否'] as const;
 
@@ -585,6 +586,11 @@ export const abc: Scale = {
     };
   },
 
-  tags: ['祂评', '孤独症', '儿童', '筛查'],
+  tags: {
+    rater: RaterTag.OTHER,
+    population: [PopulationTag.CHILD],
+    purpose: [PurposeTag.SCREENING],
+    domain: [DomainTag.AUTISM],
+  },
 };
 export default abc;

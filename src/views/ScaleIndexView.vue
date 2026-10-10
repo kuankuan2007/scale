@@ -9,50 +9,59 @@
           >
         </div>
         <div class="tag-list-box" ref="tagListBox">
-          <div class="required-tags tag-list-outer">
-            <div class="list-name">包含</div>
-            <ul class="tag-list" v-tab-group>
-              <li v-for="i in tagList" :key="i">
-                <check-button
-                  :model-value="tagFilter[i] === 'REQUIRED'"
-                  @update:model-value="tagFilter[i] = $event ? 'REQUIRED' : 'OPTIONAL'"
-                  data-tab-group-item
-                  >{{ i }}</check-button
-                >
-              </li>
-            </ul>
+          <div class="legend">
+            <span><k-icon id="tick" inline /> 包含</span>
+            <span><k-icon id="cross" inline /> 排除</span>
+            <span>点击切换</span>
           </div>
-          <div class="gap"></div>
-          <div class="excluded-tags tag-list-outer">
-            <div class="list-name">排除</div>
-            <ul class="tag-list" v-tab-group>
-              <li v-for="i in tagList" :key="i">
-                <check-button
-                  :model-value="tagFilter[i] === 'EXCLUDED'"
-                  @update:model-value="tagFilter[i] = $event ? 'EXCLUDED' : 'OPTIONAL'"
-                  data-tab-group-item
-                  >{{ i }}</check-button
-                >
-              </li>
-            </ul>
-          </div>
+          <table class="tag-groups" v-tab-group>
+            <tbody>
+              <tr v-for="group in TAG_GROUP_VIEWS" :key="group.key">
+                <td class="group-name">{{ group.name }}</td>
+                <td class="tag-list">
+                  <ul>
+                    <li v-for="item in group.items" :key="item.value">
+                      <check-button
+                        :model-value="tagFilter[item.value] === 'REQUIRED'"
+                        :excluded="tagFilter[item.value] === 'EXCLUDED'"
+                        @update:model-value="cycleTag(item.value)"
+                        data-tab-group-item
+                        >{{ item.label }}</check-button
+                      >
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="search">
-        <k-text-input placeholder="搜索" v-model="searchText" />
+        <k-text-input
+          placeholder="搜索"
+          :model-value="searchText"
+          @update:model-value="onSearchInput"
+        />
         <k-icon id="search" />
       </div>
     </div>
     <hr />
     <div class="scale-list" ref="scaleList">
-      <transition-group name="scale-list">
+      <transition-group name="scale-list" :duration="1000" tag="div" class="scale-item-container">
         <div class="scale-item" v-for="scale in showScale" :key="scale.id">
           <router-link class="scale-link" :to="`/scale/${scale.id}`">
             <p class="scale-name">{{ scale.name }}</p>
             <p class="scale-desc">{{ scale.description }}</p>
-            <div class="tag-list" v-if="scale.tags.length">
+            <div class="tag-list" v-if="scaleTags(scale).length">
               <div class="tag tag-untrusted" v-if="!scale.trusted">置信度低</div>
-              <div class="tag" v-for="i in scale.tags" :key="i">{{ i }}</div>
+              <div
+                class="tag"
+                v-for="i in scaleTags(scale)"
+                :key="i.value"
+                :class="{ 'tag-included': tagFilter[i.value] === 'REQUIRED' }"
+              >
+                {{ i.label }}
+              </div>
             </div>
             <div class="id">{{ scale.id.toUpperCase() }}</div>
           </router-link>
@@ -70,12 +79,24 @@ import CheckButton from '@/components/CheckButton.vue';
 import { RouterLink } from 'vue-router';
 import { windowSize } from '@kuankuan/assist-2026/ref/sizeRef';
 import vTabGroup from '@/scripts/vTabGroup';
+import { ALL_TAG_VALUES, TAG_GROUP_VIEWS, tagEntriesOf, tagValuesOf } from '@/types/scaleTags';
+import type { TagFilterState } from '@/types/scaleTags';
+import { stringifyTagQuery } from '@/scripts/tagQuery';
+import type { ScaleIndexItem } from '@/types/scaleIndex';
+
+const props = withDefaults(
+  defineProps<{ includedTag?: string[]; excludedTag?: string[]; q?: string }>(),
+  { includedTag: () => [], excludedTag: () => [], q: '' }
+);
+
+const route = useRoute();
+const router = useRouter();
 const tagListBox = useTemplateRef('tagListBox');
 const scaleIndexData = reactive(_scaleIndexData);
-const searchText = ref('');
+const searchText = ref(props.q);
 const scaleList = useTemplateRef('scaleList');
 
-const tagFilter = reactive<Record<string, 'REQUIRED' | 'OPTIONAL' | 'EXCLUDED'>>({});
+const scaleTags = (scale: ScaleIndexItem) => tagEntriesOf(scale.tags);
 
 function getTextNodes(root: Node): Text[] {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -97,35 +118,73 @@ function getTextNodes(root: Node): Text[] {
   return res;
 }
 
-const tagFilterNum = computed(() => {
-  return Object.values(tagFilter).filter((i) => i !== 'OPTIONAL').length;
+const tagFilter = computed<Record<string, TagFilterState>>(() => {
+  const res: Record<string, TagFilterState> = {};
+  for (const value of ALL_TAG_VALUES) res[value] = 'OPTIONAL';
+  for (const value of props.includedTag) if (value in res) res[value] = 'REQUIRED';
+  for (const value of props.excludedTag) if (res[value] === 'OPTIONAL') res[value] = 'EXCLUDED';
+  return res;
 });
 
-const tagList = [
-  ...new Set(
-    Object.values(scaleIndexData)
-      .map((i) => i.tags)
-      .flat()
-  ),
-];
+const tagFilterNum = computed(() => props.includedTag.length + props.excludedTag.length);
 
-tagList.forEach((i) => (tagFilter[i] = 'OPTIONAL'));
+const NEXT_TAG_FILTER_STATE: Record<TagFilterState, TagFilterState> = {
+  OPTIONAL: 'REQUIRED',
+  REQUIRED: 'EXCLUDED',
+  EXCLUDED: 'OPTIONAL',
+};
+
+function writeQuery(included: Iterable<string>, excluded: Iterable<string>) {
+  router.replace({
+    query: {
+      ...route.query,
+      'included-tag': stringifyTagQuery([...included]),
+      'excluded-tag': stringifyTagQuery([...excluded]),
+      q: searchText.value || undefined,
+    },
+  });
+}
+
+function cycleTag(value: string) {
+  const included = new Set(props.includedTag);
+  const excluded = new Set(props.excludedTag);
+  included.delete(value);
+  excluded.delete(value);
+  const next = NEXT_TAG_FILTER_STATE[tagFilter.value[value]];
+  if (next === 'REQUIRED') included.add(value);
+  if (next === 'EXCLUDED') excluded.add(value);
+  writeQuery(included, excluded);
+}
+
+function onSearchInput(value: string | undefined) {
+  searchText.value = value ?? '';
+  writeQuery(props.includedTag, props.excludedTag);
+}
+
+watch(
+  () => props.q,
+  (value) => {
+    if (value !== searchText.value) searchText.value = value;
+  }
+);
+
 const showScale = computed(() => {
   const res: ScaleIndexItem[] = [];
   let fullList = Object.values(scaleIndexData);
   if (searchText.value) {
     fullList = fullList.filter((i) =>
-      [i.name, i.id, i.description, ...i.tags].some((i) =>
+      [i.name, i.id, i.description, ...scaleTags(i).map((t) => t.label)].some((i) =>
         i.toLowerCase().includes(searchText.value.toLowerCase())
       )
     );
   }
   outer: for (const i of fullList) {
-    for (const tag of tagList) {
-      if (tagFilter[tag] === 'REQUIRED' && !i.tags.includes(tag)) {
+    const tags = new Set(tagValuesOf(i.tags));
+    for (const value of ALL_TAG_VALUES) {
+      if (tagFilter.value[value] === 'REQUIRED' && !tags.has(value)) {
         continue outer;
       }
-      if (tagFilter[tag] === 'EXCLUDED' && i.tags.includes(tag)) {
+      if (tagFilter.value[value] === 'EXCLUDED' && tags.has(value)) {
         continue outer;
       }
     }
@@ -153,8 +212,8 @@ onMounted(() => {
     }
   );
   watch(
-    () => searchText.value,
-    (value) => {
+    [searchText, showScale],
+    ([value]) => {
       nextTick(() => {
         if (!value) {
           CSS.highlights.set('search-results', new Highlight());
@@ -252,40 +311,41 @@ onMounted(() => {
       justify-content: center;
       align-items: stretch;
       border-radius: 0 0.5em 0.5em 0.5em;
-      width: 30em;
+      width: 26em;
       max-width: 90vw;
       height: 0;
       @include theme.use {
         background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
       }
-      .gap {
-        border: none;
-        border-right: 0.1em solid;
-        border-bottom: 0.1em solid;
-        margin: 1em;
-        @include theme.use {
-          border-color: theme.get('color');
-        }
+      & > .legend {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5em;
+        padding: 0.6em 0.5em 0;
+        font-size: 0.5em;
+        opacity: 0.6;
       }
-      & > .tag-list-outer {
-        padding: 0.5em;
-
-        .list-name {
-          text-align: center;
-          margin-bottom: 0.5em;
-        }
-        .tag-list {
-          padding: 0;
-          margin: 0;
-          list-style: none;
-          justify-content: center;
-          align-items: center;
-
-          display: flex;
-          flex-wrap: wrap;
-          & > li {
-            font-size: 0.5em;
-            padding: 0.2em 0.3em;
+      & > .tag-groups {
+        border-spacing: 0.1em 0.5em;
+        margin: 0 0.5em;
+        tr {
+          td.group-name {
+            font-size: 0.8em;
+            white-space: nowrap;
+            text-wrap: nowrap;
+            vertical-align: middle;
+            text-align: right;
+          }
+          td.tag-list {
+            ul {
+              padding: 0;
+              margin: 0;
+              list-style: none;
+              display: flex;
+              gap: 0.2em;
+              flex-wrap: wrap;
+            }
           }
         }
       }
@@ -334,64 +394,81 @@ onMounted(() => {
 }
 .scale-list {
   margin-top: 1.2em;
-  & > .scale-item {
-    margin: 1em 0;
-    padding: 1em;
-    border-radius: 1em;
-    @include motion.transition(background 0.3s);
-    break-inside: avoid;
-    flex: 1 1 auto;
-    @include theme.use {
-      background: color.mix(theme.get('active-color'), theme.get('background'), 10%);
-    }
-    &:focus-within {
+  overflow-y: hidden;
+  .scale-item-container {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: visible;
+    .scale-item {
+      margin: 1em 0;
+      padding: 1em;
+      border-radius: 1em;
+      @include motion.transition(background 0.3s);
+      break-inside: avoid;
+      flex: 1 1 auto;
+      width: 100%;
+      box-sizing: border-box;
       @include theme.use {
-        background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
+        background: color.mix(theme.get('active-color'), theme.get('background'), 10%);
+      }
+      &:focus-within {
+        @include theme.use {
+          background: color.mix(theme.get('strong-color'), theme.get('background'), 10%);
+        }
+      }
+      &:hover {
+        @include theme.use {
+          background: color.mix(theme.get('active-color'), theme.get('background'), 30%);
+        }
       }
     }
-    &:hover {
+    .no-result {
+      text-align: center;
+      font-size: 1.5em;
+
+      padding: 1em 0;
       @include theme.use {
-        background: color.mix(theme.get('active-color'), theme.get('background'), 30%);
+        color: theme.mix('color', 'background', 50%);
       }
     }
-  }
-  .no-result {
-    text-align: center;
-    font-size: 1.5em;
-    color: gray;
-    padding: 1em 0;
-  }
-  .scale-list-enter-active,
-  .scale-list-leave-active,
-  .scale-list-move {
-    @include motion.transition(all 0.5s ease);
-  }
-  .scale-list-leave-to {
-    z-index: -1;
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  .scale-list-enter-from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  .scale-list-leave-active {
-    position: absolute;
-  }
-}
-@media print {
-  .scale-item {
-    border: 0.2em solid;
-    @include theme.use {
-      border-color: rgba(theme.get('color'), 1);
+    .scale-list-enter-active,
+    .scale-list-leave-active,
+    .scale-list-move {
+      @include motion.transition(all 0.3s cubic-bezier(0.55, 0, 0.1, 1));
     }
-    .tag {
-      border: 0.1em solid;
+    .scale-list-leave-active {
+      position: absolute;
+    }
+    .scale-list-leave-to {
+      z-index: -1;
+      opacity: 0;
+      transform: translate(20%, 0);
+    }
+    .scale-list-enter-from {
+      opacity: 0;
+      transform: translate(-20%, 0);
+    }
+  }
+  @media print {
+    .scale-item {
+      border: 0.2em solid;
       @include theme.use {
         border-color: rgba(theme.get('color'), 1);
       }
-      &.tag-untrusted {
-        border: 0.2em solid;
+      .tag {
+        border: 0.1em solid;
+        @include theme.use {
+          border-color: rgba(theme.get('color'), 1);
+        }
+        &.tag-untrusted {
+          border: 0.2em solid;
+        }
+        &.tag-included {
+          border: 0.2em solid;
+          @include theme.use {
+            border-color: rgba(theme.get('strong-color'), 1);
+          }
+        }
       }
     }
   }
@@ -423,6 +500,7 @@ onMounted(() => {
     .tag {
       padding: 0.2em 0.5em;
       border-radius: 0.4em;
+      @include motion.transition(background 0.3s, color 0.3s);
 
       @include theme.use {
         background: color.mix(theme.get('active-color'), theme.get('background'), 50%);
@@ -430,6 +508,12 @@ onMounted(() => {
       &.tag-untrusted {
         @include theme.use {
           background: color.mix(theme.get('strong-color'), theme.get('background'), 30%);
+        }
+      }
+      &.tag-included {
+        font-weight: bold;
+        @include theme.use {
+          background: theme.mix('strong-color', 'background', 30%);
         }
       }
     }

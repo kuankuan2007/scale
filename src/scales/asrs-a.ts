@@ -1,4 +1,5 @@
 import type { Scale } from '@/types/form';
+import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 
 const globalChoices = ['从不', '很少', '有时', '经常', '总是'] as const;
 
@@ -116,6 +117,11 @@ export const asrsA: Scale = {
     };
   },
 
-  tags: ['自评', 'ADHD', '成人', '筛查'],
+  tags: {
+    rater: RaterTag.SELF,
+    population: [PopulationTag.ADULT],
+    purpose: [PurposeTag.SCREENING],
+    domain: [DomainTag.ADHD],
+  },
 };
 export default asrsA;
