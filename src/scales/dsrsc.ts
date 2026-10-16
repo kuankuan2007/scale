@@ -16,6 +16,7 @@ export const dsrsc: Scale = {
       url: 'https://doi.org/10.1111/j.1469-7610.1981.tb00533.x',
     },
   ],
+  guild: '请根据过去一周的感受，为每项选择最符合的答案。',
   questions: [
     {
       id: '1',

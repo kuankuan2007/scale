@@ -78,6 +78,7 @@ export type Scale = Readonly<{
   trusted?: boolean;
   name: string;
   description: string | (string | { type: 'link'; to: string; content: string })[];
+  guild?: string;
   questions: Question[];
   refer?: {
     title: string;

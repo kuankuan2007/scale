@@ -15,6 +15,7 @@ export const sds: Scale = {
       url: 'https://doi.org/10.1001/archpsyc.1965.01720310065008',
     },
   ],
+  guild: '请根据过去一周（包括今天）症状对你的困扰程度，选择相应选项。',
   questions: [
     {
       id: '1',

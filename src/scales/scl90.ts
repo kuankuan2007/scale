@@ -40,6 +40,8 @@ export const scl90: Scale = {
       url: 'https://pubmed.ncbi.nlm.nih.gov/4682398/',
     },
   ],
+  guild:
+    '以下列出了一些人有时会出现的问题和不适。请仔细阅读每项，并根据过去一周（包括今天）这些问题使你感到困扰的程度选择一个选项。',
   questions: [
     {
       id: '1',

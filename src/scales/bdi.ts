@@ -12,6 +12,7 @@ export const bdi: Scale = {
       url: 'https://www.guilford.com/books/Cognitive-Therapy-of-Depression/Beck-Rush-Shaw-Emery/9781572305823/prior-editions',
     },
   ],
+  guild: '请仔细阅读每组陈述，并从每组中选择一项最能描述你过去一周（包括今天）感受的陈述。',
   questions: [
     {
       id: '1',

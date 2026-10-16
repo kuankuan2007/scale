@@ -27,6 +27,7 @@ export const asrs: Scale = {
       url: 'https://doi.org/10.1017/S0033291704002892',
     },
   ],
+  guild: '请根据过去 6 个月的情况作答，选择最符合你感受和行为频率的选项。',
   questions: [
     ...asrsA.questions,
     {

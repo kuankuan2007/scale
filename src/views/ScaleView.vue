@@ -54,6 +54,7 @@
       </details>
       <form class="form" @submit.prevent="submit">
         <div class="question-list" ref="questionList">
+          <p class="guild" v-if="data!.guild">{{ data!.guild }}</p>
           <div
             class="question"
             v-for="question in data!.questions"
@@ -349,6 +350,11 @@ onMounted(() => {
 }
 .question-list {
   font-size: 1.2em;
+  .guild {
+    margin: 1em 0;
+    padding: 0 1em;
+    font-weight: bold;
+  }
   .question {
     border-radius: 0.8em;
     margin: 1em 0;

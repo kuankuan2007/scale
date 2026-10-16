@@ -18,6 +18,7 @@ export const gds: Scale = {
       url: 'https://doi.org/10.1016/0022-3956(82)90033-4',
     },
   ],
+  guild: '请选择最符合你过去一周感受的答案。',
   questions: [
     {
       id: '1',

@@ -14,6 +14,7 @@ export const sas: Scale = {
       url: 'https://doi.org/10.1016/S0033-3182(71)71479-0',
     },
   ],
+  guild: '请仔细阅读每项陈述，并选择最符合你过去一周感受的选项。',
   questions: [
     {
       id: '1',

@@ -48,15 +48,8 @@ export const bsds: Scale = {
       url: 'https://doi.org/10.1016/j.jad.2006.01.029',
     },
   ],
+  guild: '以下 19 句话出自同一段描述。若某句肯定符合你的情况，选「是」，否则选「否」',
   questions: [
-    {
-      id: '.guild',
-      form: {
-        type: 'subtitle',
-        title: '以下 19 句话出自同一段描述。若某句肯定符合你的情况，选「是」，否则选「否」',
-        level: 4,
-      },
-    },
     {
       id: '1',
       form: {

@@ -43,6 +43,7 @@ export const asrsA: Scale = {
       url: 'https://www.hcp.med.harvard.edu/ncs/ftpdir/adhd/6Q_ASRS_English.pdf',
     },
   ],
+  guild: '请根据过去 6 个月的情况作答，选择最符合你感受和行为频率的选项。',
   questions: [
     {
       id: '1',

@@ -41,16 +41,9 @@ export const ngasr: Scale = {
       url: 'https://doi.org/10.1708/3104.30938',
     },
   ],
+  guild:
+    '本量表由护士等医务人员根据对被评者的访谈、观察及病历信息评定；请针对被评者近期情况，对下列 15 项逐项选择「否」或「是」',
   questions: [
-    {
-      id: '.guild',
-      form: {
-        type: 'subtitle',
-        title:
-          '本量表由护士等医务人员根据对被评者的访谈、观察及病历信息评定；请针对被评者近期情况，对下列 15 项逐项选择「否」或「是」',
-        level: 4,
-      },
-    },
     {
       id: '1',
       form: { type: 'choice', question: '绝望感', choices: globalChoices },

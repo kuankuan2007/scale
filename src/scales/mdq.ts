@@ -40,15 +40,8 @@ export const mdq: Scale = {
     // 题目文字的直接来源：中华医学期刊网【世界双相障碍日】双相障碍筛查利器——心境障碍问卷（MDQ）
     // https://www.medjournals.cn/journalContribute/getContributeInfo.do?bizId=6726
   ],
+  guild: '您是否曾经有一段时间与平时不一样，并且在那段时间里有下列表现：',
   questions: [
-    {
-      id: '.guild',
-      form: {
-        type: 'subtitle',
-        title: '您是否曾经有一段时间与平时不一样，并且在那段时间里有下列表现：',
-        level: 4,
-      },
-    },
     {
       id: '1',
       form: {
