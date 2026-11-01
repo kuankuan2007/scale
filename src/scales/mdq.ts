@@ -145,17 +145,25 @@ export const mdq: Scale = {
     },
     {
       id: 'Q1',
+      show: (datas) =>
+        Array.from({ length: 13 }, (_, index) => datas[String(index + 1)]).filter(
+          (answer) => answer === 0
+        ).length > 1,
       form: {
         type: 'choice',
-        question: '如果有多条勾选“是”，这些症状是否在同一时间段内同时出现？(否则可不填）',
+        question: '如果有多条勾选“是”，这些症状是否在同一时间段内同时出现？',
         choices: globalChoices,
       },
     },
     {
       id: 'Q2',
+      show: (datas) =>
+        Array.from({ length: 13 }, (_, index) => datas[String(index + 1)]).filter(
+          (answer) => answer === 0
+        ).length > 1,
       form: {
         type: 'choice',
-        question: '如果有任意一条勾选“是”，这些问题给你造成了多大的困扰？(否则可不填）',
+        question: '如果有任意一条勾选“是”，这些问题给你造成了多大的困扰？',
         questionDescription: '如：无法工作，家庭矛盾，经济/法律纠纷等',
         choices: ['无', '轻微', '中等', '严重'],
       },

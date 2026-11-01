@@ -57,9 +57,10 @@
           <p class="guild" v-if="data!.guild">{{ data!.guild }}</p>
           <div
             class="question"
-            v-for="question in data!.questions"
+            v-for="question in visibleQuestions"
             :key="question.id"
             :class="{ required: question.id === requiredId }"
+            :style="{ marginInlineStart: `${(question.indent ?? 0) * 2}em` }"
             :data-id="question.id"
           >
             <form-config-view
@@ -168,19 +169,23 @@ const isOtherRater = computed(
   () => data.value !== undefined && data.value.tags.rater !== RaterTag.SELF
 );
 
+const visibleQuestions = computed(() =>
+  (data.value?.questions ?? []).filter((question) => question.show?.(formResult.value) ?? true)
+);
+
 const progress = computed(() => {
   const formData = formResult.value;
   if (!data.value?.questions) return;
   let now = 0,
     total = 0;
-  for (const i of data.value.questions) {
+  for (const i of visibleQuestions.value) {
     if (i.form.type === 'subtitle') continue;
     if (formData[i.id] !== void 0) {
       now++;
     }
     total++;
   }
-  return now / total;
+  return total ? now / total : 0;
 });
 function getUrlHost(url: string) {
   try {

@@ -152,12 +152,12 @@ function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Questio
         question: selfReport
           ? '概括而言，你认为自己在情绪、注意力、行为或与别人相处这些方面是否存在困难？'
           : '概括而言，你认为该儿童或青少年在情绪、注意力、行为或与别人相处这些方面是否存在困难？',
-        questionDescription: '如果本题选择“否”，则后续第27-32题可跳过。',
         choices: [...ask26Choices],
       },
     },
     {
       id: '27',
+      show: (datas) => Number(datas['26']) > 0,
       form: {
         type: 'choice',
         question: '这些困难持续了多久？',
@@ -166,6 +166,7 @@ function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Questio
     },
     {
       id: 'subtitle2',
+      show: (datas) => Number(datas['26']) > 0,
       form: {
         type: 'subtitle',
         title: '影响因子:',
@@ -173,6 +174,7 @@ function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Questio
     },
     {
       id: '28',
+      show: (datas) => Number(datas['26']) > 0,
       form: {
         type: 'choice',
         question: selfReport
@@ -183,6 +185,7 @@ function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Questio
     },
     {
       id: '29',
+      show: (datas) => Number(datas['26']) > 0 && (selfReport || datas['0'] === 0),
       form: {
         type: 'choice',
         question: selfReport
@@ -193,6 +196,7 @@ function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Questio
     },
     {
       id: '30',
+      show: (datas) => Number(datas['26']) > 0,
       form: {
         type: 'choice',
         question: selfReport
@@ -203,6 +207,7 @@ function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Questio
     },
     {
       id: '31',
+      show: (datas) => Number(datas['26']) > 0,
       form: {
         type: 'choice',
         question: selfReport
@@ -213,6 +218,7 @@ function buildSupplementQuestions(reportType: 'self' | 'parentTeacher'): Questio
     },
     {
       id: '32',
+      show: (datas) => Number(datas['26']) > 0 && (selfReport || datas['0'] === 0),
       form: {
         type: 'choice',
         question: selfReport

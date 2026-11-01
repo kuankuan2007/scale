@@ -22,7 +22,7 @@
           class="value"
           :style="{ left: `${((config.value - range.min) / (range.max - range.min)) * 100}%` }"
         >
-          {{ config.value }}
+          {{ config.valueLabel ?? config.value }}
         </div>
       </div>
     </div>

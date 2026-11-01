@@ -27,10 +27,13 @@ export type FormConfig = ChoiceFormConfig | ChkeckBoxFormConfig | SubTitleFormCo
 export type Question = Readonly<{
   id: string;
   form: FormConfig;
+  show?: (datas: Readonly<Record<string, unknown>>) => boolean;
+  indent?: number;
 }>;
 export type PointerScore = DeepReadonly<{
   type: 'pointer';
   value: number;
+  valueLabel?: string;
   part: {
     start: number;
     end: number;
