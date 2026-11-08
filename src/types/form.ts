@@ -87,7 +87,7 @@ export type Scale = Readonly<{
     title: string;
     url: string;
   }[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   result: (datas: { [key: string]: any }) => ScaleOKResult | ScaleErrorResult;
   tags: ScaleTags;
 }>;

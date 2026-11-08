@@ -23,7 +23,7 @@
 - **样式处理**: Sass + PostCSS
 - **路由管理**: Vue Router 4
 - **图标字体**: Fontello
-- **代码规范**: ESLint + Prettier
+- **代码规范**: Oxlint + Prettier
 
 ## 图标
 

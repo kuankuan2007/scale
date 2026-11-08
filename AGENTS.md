@@ -35,5 +35,5 @@
 ## 验证
 
 - 对修改的量表验证题号、题目数量、必答及非法输入、计分边界；条件题还需验证显示和隐藏时的计分行为。
-- 运行 `pnpm type-check`、`pnpm exec eslint <修改的文件>`，并在涉及量表索引或构建时运行 `pnpm build`。
-- `pnpm lint` 和 `pnpm format` 会自动修改文件；避免为了局部修改运行全仓自动修复或格式化。需要格式化时仅处理相关文件，例如 `pnpm exec prettier --write <修改的文件>`。
+- 运行 `pnpm type-check`、`pnpm exec oxlint <修改的文件>`，并在涉及量表索引或构建时运行 `pnpm build`。
+- `pnpm lint:fix` 和 `pnpm format` 会自动修改文件；避免为了局部修改运行全仓自动修复或格式化。需要格式化时仅处理相关文件，例如 `pnpm exec prettier --write <修改的文件>`。
