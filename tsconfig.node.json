@@ -7,8 +7,8 @@
     "nightwatch.conf.*",
     "playwright.config.*",
     "vite-plugin/**/*",
-    "eslint.config.*",
-    "src/types/**/*"
+    "src/types/**/*",
+    "oxlint.config.ts"
   ],
   "compilerOptions": {
     "composite": true,
