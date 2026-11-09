@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="text">
+        <main class="text">
           <h1 class="title">这是一个由宽宽编写的页面<br />用于提供简单的心理量表</h1>
           <p class="description">我们不创造量表，我们只是量表的搬运工</p>
           <p class="warn"><k-icon id="warn" inline /> 本页面所有量表仅供参考，不具有临床意义</p>
@@ -34,7 +34,7 @@
             <a href="/about">关于</a> | <a href="https://github.com/kuankuan2007/scale">仓库</a> |
             <a href="https://opensource.org/license/mpl-2-0">许可证</a>
           </p>
-        </div>
+        </main>
       </div>
     </div>
   </div>

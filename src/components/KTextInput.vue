@@ -13,6 +13,7 @@ const value = defineModel<string>();
   border: none;
   background: transparent;
   @include motion.transition(background 0.3s);
+  box-sizing: content-box;
 
   border-radius: 0.5em;
 

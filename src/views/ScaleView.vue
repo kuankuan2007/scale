@@ -1,6 +1,6 @@
 <template>
   <div class="scale-view">
-    <div class="scale" v-if="state === 'success'">
+    <main class="scale" v-if="state === 'success'">
       <h1>{{ data?.name }}</h1>
 
       <div class="warns">
@@ -117,7 +117,7 @@
         @click="resultElement?.scrollIntoView({ behavior: 'smooth', block: 'center' })"
         ><k-icon id="down" />查看结果</k-button
       >
-    </div>
+    </main>
     <div class="loading" v-if="state === 'loading'">
       <div class="content-box">
         <h1>加载中</h1>

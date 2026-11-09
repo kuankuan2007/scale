@@ -1,6 +1,6 @@
 <template>
   <div class="not-found">
-    <div class="content-box">
+    <main class="content-box">
       <div class="title">
         <span class="error-code">404</span><span class="error-message">Not Found</span>
       </div>
@@ -9,7 +9,7 @@
         <div class="url-tip">您当前访问的URL为:</div>
         <div class="page-url">{{ url }}</div>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 <script setup lang="ts">
