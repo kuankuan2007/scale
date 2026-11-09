@@ -1,5 +1,5 @@
 <template>
-  <div class="scale-index">
+  <main class="scale-index">
     <div class="title-line">
       <h2 class="title">量表</h2>
       <div class="tag-filter">
@@ -39,6 +39,7 @@
       <div class="search">
         <k-text-input
           placeholder="搜索"
+          type="search"
           :model-value="searchText"
           @update:model-value="onSearchInput"
         />
@@ -47,8 +48,8 @@
     </div>
     <hr />
     <div class="scale-list" ref="scaleList">
-      <transition-group name="scale-list" :duration="1000" tag="div" class="scale-item-container">
-        <div class="scale-item" v-for="scale in showScale" :key="scale.id">
+      <transition-group name="scale-list" :duration="1000" tag="ul" class="scale-item-container">
+        <li class="scale-item" v-for="scale in showScale" :key="scale.id">
           <router-link class="scale-link" :to="`/scale/${scale.id}`">
             <p class="scale-name">{{ scale.name }}</p>
             <p class="scale-desc">{{ scale.description }}</p>
@@ -65,11 +66,11 @@
             </div>
             <div class="id">{{ scale.id.toUpperCase() }}</div>
           </router-link>
-        </div>
-        <div class="no-result" v-show="!showScale.length" :key="'no-result'">暂无结果</div>
+        </li>
+        <li class="no-result" v-show="!showScale.length" :key="'no-result'">暂无结果</li>
       </transition-group>
     </div>
-  </div>
+  </main>
 </template>
 <script setup lang="ts">
 import _scaleIndexData from 'visual:scales-index';
@@ -396,6 +397,9 @@ onMounted(() => {
   margin-top: 1.2em;
   overflow-y: hidden;
   .scale-item-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
     position: relative;
     overflow-x: hidden;
     overflow-y: visible;
