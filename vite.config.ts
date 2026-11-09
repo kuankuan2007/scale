@@ -9,8 +9,9 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import postcssPresetEnv from 'postcss-preset-env';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import VitePluginScaleIndex from './vite-plugin/scales-index.js';
+import VitePluginScaleIndex, { getScaleIndex } from './vite-plugin/scales-index.js';
 import VitePluginBuildInfo from './vite-plugin/build-info.js';
+import Sitemap from 'vite-plugin-sitemap';
 
 const sassAddition = `
 @use '@/styles/theme.scss';
@@ -18,6 +19,8 @@ const sassAddition = `
 @use 'sass:math';
 @use 'sass:color';
 `;
+
+const scaleIndex = await getScaleIndex();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -38,6 +41,28 @@ export default defineConfig({
     }),
     VitePluginScaleIndex(),
     VitePluginBuildInfo(),
+    Sitemap({
+      hostname: 'https://scale.kuankuan.site',
+      dynamicRoutes: [
+        '/about',
+        '/scale',
+        '/research/gbsq',
+        ...Object.keys(scaleIndex).map((key) => `/scale/${key}`),
+      ],
+      generateRobotsTxt: true,
+      changefreq: {
+        '*': 'daily',
+        '/about': 'weekly',
+        '/scale': 'weekly',
+        '/research/gbsq': 'weekly',
+        '/': 'weekly',
+      },
+      priority: {
+        '*': 1.0,
+        '/about': 0.8,
+        '/research/gbsq': 0.8,
+      },
+    }),
   ],
   css: {
     postcss: {
