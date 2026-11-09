@@ -52,10 +52,18 @@ export const nameMap = {
   SUS: '怀疑',
 } as const;
 export const scoresKeys = [
-  'PPD', 'SPD', 'STPD',
-  'HPD', 'NPD', 'ASPD',
-  'BPD', 'AvPD', 'DPD',
-  'OCPD', 'DEPPD', 'PAPD',
+  'PPD',
+  'SPD',
+  'STPD',
+  'HPD',
+  'NPD',
+  'ASPD',
+  'BPD',
+  'AvPD',
+  'DPD',
+  'OCPD',
+  'DEPPD',
+  'PAPD',
 ] as const;
 export const allScoreKeys = [...scoresKeys, 'TG', 'SUS'] as const;
 export const thresholds = {
@@ -96,7 +104,11 @@ export const pdq4p: Scale = {
   questions: [
     {
       id: '1',
-      form: { type: 'choice', question: '我尽量避免与可能批评我的人一块工作。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我尽量避免与可能批评我的人一块工作。',
+        choices: globalChoices,
+      },
     },
     {
       id: '2',
@@ -117,7 +129,11 @@ export const pdq4p: Scale = {
     { id: '4', form: { type: 'choice', question: '我希望能引人注目。', choices: globalChoices } },
     {
       id: '5',
-      form: { type: 'choice', question: '我所作出的成绩远比别人所认为的要多。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我所作出的成绩远比别人所认为的要多。',
+        choices: globalChoices,
+      },
     },
     {
       id: '6',
@@ -195,7 +211,11 @@ export const pdq4p: Scale = {
     },
     {
       id: '17',
-      form: { type: 'choice', question: '我比一般人对于异性更具有吸引力。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我比一般人对于异性更具有吸引力。',
+        choices: globalChoices,
+      },
     },
     {
       id: '18',
@@ -213,14 +233,21 @@ export const pdq4p: Scale = {
         choices: globalChoices,
       },
     },
-    { id: '20', form: { type: 'choice', question: '我与别人打过许多次架。', choices: globalChoices } },
+    {
+      id: '20',
+      form: { type: 'choice', question: '我与别人打过许多次架。', choices: globalChoices },
+    },
     {
       id: '21',
       form: { type: 'choice', question: '我觉得别人并不理解和赏识我。', choices: globalChoices },
     },
     {
       id: '22',
-      form: { type: 'choice', question: '我宁可独自工作而不愿与他人一块工作。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我宁可独自工作而不愿与他人一块工作。',
+        choices: globalChoices,
+      },
     },
     {
       id: '23',
@@ -238,7 +265,10 @@ export const pdq4p: Scale = {
         choices: globalChoices,
       },
     },
-    { id: '25', form: { type: 'choice', question: '我偶尔在背后议论别人。', choices: globalChoices } },
+    {
+      id: '25',
+      form: { type: 'choice', question: '我偶尔在背后议论别人。', choices: globalChoices },
+    },
     {
       id: '26',
       form: {
@@ -264,7 +294,10 @@ export const pdq4p: Scale = {
         choices: globalChoices,
       },
     },
-    { id: '30', form: { type: 'choice', question: '我容易显露出自己的情绪。', choices: globalChoices } },
+    {
+      id: '30',
+      form: { type: 'choice', question: '我容易显露出自己的情绪。', choices: globalChoices },
+    },
     {
       id: '31',
       form: {
@@ -295,7 +328,11 @@ export const pdq4p: Scale = {
     },
     {
       id: '36',
-      form: { type: 'choice', question: '我常能觉察和感受别人感受不到的事情。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我常能觉察和感受别人感受不到的事情。',
+        choices: globalChoices,
+      },
     },
     {
       id: '37',
@@ -305,10 +342,17 @@ export const pdq4p: Scale = {
         choices: globalChoices,
       },
     },
-    { id: '38', form: { type: 'choice', question: '有一些人我不怎么喜欢。', choices: globalChoices } },
+    {
+      id: '38',
+      form: { type: 'choice', question: '有一些人我不怎么喜欢。', choices: globalChoices },
+    },
     {
       id: '39',
-      form: { type: 'choice', question: '我比大多数人对于批评或拒绝更敏感。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我比大多数人对于批评或拒绝更敏感。',
+        choices: globalChoices,
+      },
     },
     {
       id: '40',
@@ -328,13 +372,20 @@ export const pdq4p: Scale = {
     },
     {
       id: '43',
-      form: { type: 'choice', question: '我用自己外貌来得到我所需要的注意。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我用自己外貌来得到我所需要的注意。',
+        choices: globalChoices,
+      },
     },
     {
       id: '44',
       form: { type: 'choice', question: '我很需要别人注意我或称赞我。', choices: globalChoices },
     },
-    { id: '45', form: { type: 'choice', question: '我曾试过伤害自己或自杀。', choices: globalChoices } },
+    {
+      id: '45',
+      form: { type: 'choice', question: '我曾试过伤害自己或自杀。', choices: globalChoices },
+    },
     {
       id: '46',
       form: { type: 'choice', question: '我做过很多不考虑后果的事情。', choices: globalChoices },
@@ -345,7 +396,11 @@ export const pdq4p: Scale = {
     },
     {
       id: '48',
-      form: { type: 'choice', question: '人们常常难以理解我谈话中的内容。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '人们常常难以理解我谈话中的内容。',
+        choices: globalChoices,
+      },
     },
     {
       id: '49',
@@ -405,30 +460,57 @@ export const pdq4p: Scale = {
         choices: globalChoices,
       },
     },
-    { id: '58', form: { type: 'choice', question: '我是一个情绪不稳定的人。', choices: globalChoices } },
+    {
+      id: '58',
+      form: { type: 'choice', question: '我是一个情绪不稳定的人。', choices: globalChoices },
+    },
     {
       id: '59',
-      form: { type: 'choice', question: '对我来说说谎很容易，我常常这样做。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '对我来说说谎很容易，我常常这样做。',
+        choices: globalChoices,
+      },
     },
     {
       id: '60',
-      form: { type: 'choice', question: '我对于拥有亲密朋友没有什么兴趣。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我对于拥有亲密朋友没有什么兴趣。',
+        choices: globalChoices,
+      },
     },
     {
       id: '61',
-      form: { type: 'choice', question: '我常常保持警惕以防被别人乘机利用。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我常常保持警惕以防被别人乘机利用。',
+        choices: globalChoices,
+      },
     },
     {
       id: '62',
-      form: { type: 'choice', question: '我不会忘记和原谅那些待我不好的人。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我不会忘记和原谅那些待我不好的人。',
+        choices: globalChoices,
+      },
     },
     {
       id: '63',
-      form: { type: 'choice', question: '我对那些比我“走运”的人感到不满。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我对那些比我“走运”的人感到不满。',
+        choices: globalChoices,
+      },
     },
     {
       id: '64',
-      form: { type: 'choice', question: '核战争也许不是一个那么坏的想法。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '核战争也许不是一个那么坏的想法。',
+        choices: globalChoices,
+      },
     },
     {
       id: '65',
@@ -448,13 +530,22 @@ export const pdq4p: Scale = {
       },
     },
     { id: '67', form: { type: 'choice', question: '我有一种表演天赋。', choices: globalChoices } },
-    { id: '68', form: { type: 'choice', question: '有些人认为我利用别人。', choices: globalChoices } },
-    { id: '69', form: { type: 'choice', question: '我觉得我的生活乏味。', choices: globalChoices } },
+    {
+      id: '68',
+      form: { type: 'choice', question: '有些人认为我利用别人。', choices: globalChoices },
+    },
+    {
+      id: '69',
+      form: { type: 'choice', question: '我觉得我的生活乏味。', choices: globalChoices },
+    },
     {
       id: '70',
       form: { type: 'choice', question: '我对周围的人甚为挑剔与苛求。', choices: globalChoices },
     },
-    { id: '71', form: { type: 'choice', question: '我不在乎别人会怎么说我。', choices: globalChoices } },
+    {
+      id: '71',
+      form: { type: 'choice', question: '我不在乎别人会怎么说我。', choices: globalChoices },
+    },
     {
       id: '72',
       form: {
@@ -465,7 +556,11 @@ export const pdq4p: Scale = {
     },
     {
       id: '73',
-      form: { type: 'choice', question: '人们常怪我没能意识到他们心情不好。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '人们常怪我没能意识到他们心情不好。',
+        choices: globalChoices,
+      },
     },
     {
       id: '74',
@@ -478,18 +573,29 @@ export const pdq4p: Scale = {
     { id: '75', form: { type: 'choice', question: '我喜欢干冒险的事。', choices: globalChoices } },
     {
       id: '76',
-      form: { type: 'choice', question: '我在回答了这份问卷时说了不少谎。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我在回答了这份问卷时说了不少谎。',
+        choices: globalChoices,
+      },
     },
     {
       id: '77',
       form: { type: 'choice', question: '我诉说许多我的苦楚和不幸。', choices: globalChoices },
     },
-    { id: '78', form: { type: 'choice', question: '我难以控制恼怒或脾气。', choices: globalChoices } },
+    {
+      id: '78',
+      form: { type: 'choice', question: '我难以控制恼怒或脾气。', choices: globalChoices },
+    },
     { id: '79', form: { type: 'choice', question: '有的人嫉妒我。', choices: globalChoices } },
     { id: '80', form: { type: 'choice', question: '我易受别人的影响。', choices: globalChoices } },
     {
       id: '81',
-      form: { type: 'choice', question: '我认为自己节约，而别人认为我吝啬。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我认为自己节约，而别人认为我吝啬。',
+        choices: globalChoices,
+      },
     },
     {
       id: '82',
@@ -503,11 +609,19 @@ export const pdq4p: Scale = {
     { id: '84', form: { type: 'choice', question: '我是一个悲观的人。', choices: globalChoices } },
     {
       id: '85',
-      form: { type: 'choice', question: '当别人中伤我时，我毫不犹豫给予还击。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '当别人中伤我时，我毫不犹豫给予还击。',
+        choices: globalChoices,
+      },
     },
     {
       id: '86',
-      form: { type: 'choice', question: '别人围在我身旁会使我感到紧张不安。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '别人围在我身旁会使我感到紧张不安。',
+        choices: globalChoices,
+      },
     },
     {
       id: '87',
@@ -536,7 +650,11 @@ export const pdq4p: Scale = {
     },
     {
       id: '91',
-      form: { type: 'choice', question: '我能在对别人发火之后很快向他们道歉。', choices: globalChoices },
+      form: {
+        type: 'choice',
+        question: '我能在对别人发火之后很快向他们道歉。',
+        choices: globalChoices,
+      },
     },
     { id: '92', form: { type: 'choice', question: '别人觉得我傲慢。', choices: globalChoices } },
     {
@@ -555,7 +673,10 @@ export const pdq4p: Scale = {
         choices: globalChoices,
       },
     },
-    { id: '95', form: { type: 'choice', question: '我与别人保持相当的距离。', choices: globalChoices } },
+    {
+      id: '95',
+      form: { type: 'choice', question: '我与别人保持相当的距离。', choices: globalChoices },
+    },
     {
       id: '96',
       form: {
@@ -634,24 +755,23 @@ export const pdq4p: Scale = {
     {
       id: '106-subtitle',
       form: {
-        type: "subtitle",
-        title: "我凭一时冲动干过以下的事情以至给我带来麻烦",
-      }
+        type: 'subtitle',
+        title: '我凭一时冲动干过以下的事情以至给我带来麻烦',
+      },
     },
     {
       id: '106.1',
       form: {
         type: 'choice',
-        question:
-          '花费的金钱超前了我自己所容有的数额。',
+        question: '花费的金钱超前了我自己所容有的数额。',
         choices: globalChoices,
       },
-    }, {
+    },
+    {
       id: '106.2',
       form: {
         type: 'choice',
-        question:
-          '与我不熟悉的人发生性关系。',
+        question: '与我不熟悉的人发生性关系。',
         choices: globalChoices,
       },
     },
@@ -659,24 +779,23 @@ export const pdq4p: Scale = {
       id: '106.3',
       form: {
         type: 'choice',
-        question:
-          '喝酒过多。',
+        question: '喝酒过多。',
         choices: globalChoices,
       },
-    }, {
+    },
+    {
       id: '106.4',
       form: {
         type: 'choice',
-        question:
-          '服用成瘾药物。',
+        question: '服用成瘾药物。',
         choices: globalChoices,
       },
-    }, {
+    },
+    {
       id: '106.5',
       form: {
         type: 'choice',
-        question:
-          '无节制的大吃。',
+        question: '无节制的大吃。',
         choices: globalChoices,
       },
     },
@@ -684,23 +803,22 @@ export const pdq4p: Scale = {
       id: '106.6',
       form: {
         type: 'choice',
-        question:
-          '莽撞骑车或驾驶。',
+        question: '莽撞骑车或驾驶。',
         choices: globalChoices,
       },
-    }, {
-      id: "107.subtitle",
+    },
+    {
+      id: '107.subtitle',
       form: {
-        type: "subtitle",
-        title: "我小时候(15岁以前)干过以下事情："
-      }
+        type: 'subtitle',
+        title: '我小时候(15岁以前)干过以下事情：',
+      },
     },
     {
       id: '107.1',
       form: {
         type: 'choice',
-        question:
-          '我被认为是一个霸道的人。',
+        question: '我被认为是一个霸道的人。',
         choices: globalChoices,
       },
     },
@@ -708,8 +826,7 @@ export const pdq4p: Scale = {
       id: '107.2',
       form: {
         type: 'choice',
-        question:
-          '我曾先动手打别的小孩。',
+        question: '我曾先动手打别的小孩。',
         choices: globalChoices,
       },
     },
@@ -717,8 +834,7 @@ export const pdq4p: Scale = {
       id: '107.3',
       form: {
         type: 'choice',
-        question:
-          '我曾用我手头的武器打架。',
+        question: '我曾用我手头的武器打架。',
         choices: globalChoices,
       },
     },
@@ -726,8 +842,7 @@ export const pdq4p: Scale = {
       id: '107.4',
       form: {
         type: 'choice',
-        question:
-          '我曾对别人进行抢劫。',
+        question: '我曾对别人进行抢劫。',
         choices: globalChoices,
       },
     },
@@ -735,8 +850,7 @@ export const pdq4p: Scale = {
       id: '107.5',
       form: {
         type: 'choice',
-        question:
-          '我曾对别人进行身体上的虐待。',
+        question: '我曾对别人进行身体上的虐待。',
         choices: globalChoices,
       },
     },
@@ -744,8 +858,7 @@ export const pdq4p: Scale = {
       id: '107.6',
       form: {
         type: 'choice',
-        question:
-          '我曾虐待动物。',
+        question: '我曾虐待动物。',
         choices: globalChoices,
       },
     },
@@ -753,8 +866,7 @@ export const pdq4p: Scale = {
       id: '107.7',
       form: {
         type: 'choice',
-        question:
-          '我曾强迫别人与我发生性关系。',
+        question: '我曾强迫别人与我发生性关系。',
         choices: globalChoices,
       },
     },
@@ -762,8 +874,7 @@ export const pdq4p: Scale = {
       id: '107.8',
       form: {
         type: 'choice',
-        question:
-          '我曾多次说慌。',
+        question: '我曾多次说慌。',
         choices: globalChoices,
       },
     },
@@ -771,8 +882,7 @@ export const pdq4p: Scale = {
       id: '107.9',
       form: {
         type: 'choice',
-        question:
-          '我曾没经父母的允许而在外面过夜。',
+        question: '我曾没经父母的允许而在外面过夜。',
         choices: globalChoices,
       },
     },
@@ -780,8 +890,7 @@ export const pdq4p: Scale = {
       id: '107.10',
       form: {
         type: 'choice',
-        question:
-          '我偷过别人的东西。',
+        question: '我偷过别人的东西。',
         choices: globalChoices,
       },
     },
@@ -789,8 +898,7 @@ export const pdq4p: Scale = {
       id: '107.11',
       form: {
         type: 'choice',
-        question:
-          '我纵过火。',
+        question: '我纵过火。',
         choices: globalChoices,
       },
     },
@@ -798,8 +906,7 @@ export const pdq4p: Scale = {
       id: '107.12',
       form: {
         type: 'choice',
-        question:
-          '我曾打破窗户或捣坏财物。',
+        question: '我曾打破窗户或捣坏财物。',
         choices: globalChoices,
       },
     },
@@ -807,8 +914,7 @@ export const pdq4p: Scale = {
       id: '107.13',
       form: {
         type: 'choice',
-        question:
-          '我曾不止一次离家在外过夜。',
+        question: '我曾不止一次离家在外过夜。',
         choices: globalChoices,
       },
     },
@@ -816,8 +922,7 @@ export const pdq4p: Scale = {
       id: '107.14',
       form: {
         type: 'choice',
-        question:
-          '我在13岁之前经常逃学。',
+        question: '我在13岁之前经常逃学。',
         choices: globalChoices,
       },
     },
@@ -825,32 +930,31 @@ export const pdq4p: Scale = {
       id: '107.15',
       form: {
         type: 'choice',
-        question:
-          '我曾撬门窗而入别人的家，房子或汽车。',
+        question: '我曾撬门窗而入别人的家，房子或汽车。',
         choices: globalChoices,
       },
     },
   ],
   result: (datas) => {
-    const _data = [NaN,]
+    const _data = [NaN];
     for (let i = 1; i <= 105; i++) {
       if (datas[i] === void 0) {
         return {
           ok: false,
           require: String(i),
-        }
+        };
       }
       _data[i] = datas[i];
     }
     const data106 = [NaN];
     let sum106 = 0;
     for (let i = 1; i <= 6; i++) {
-      const id = `106.${i}`
+      const id = `106.${i}`;
       if (datas[id] === void 0) {
         return {
           ok: false,
           require: id,
-        }
+        };
       }
       data106[i] = datas[id];
       sum106 += datas[id];
@@ -860,25 +964,24 @@ export const pdq4p: Scale = {
     const data107 = [NaN];
     let sum107 = 0;
     for (let i = 1; i <= 15; i++) {
-      const id = `107.${i}`
+      const id = `107.${i}`;
       if (datas[id] === void 0) {
         return {
           ok: false,
           require: id,
-        }
+        };
       }
       data107[i] = datas[id];
       sum107 += datas[id];
     }
     _data['107'] = sum107 >= 2 ? 1 : 0;
 
-
     const getValue = (id: number): number => {
       if (reverse.includes(id as never)) {
         return 1 - _data[id];
       }
       return _data[id];
-    }
+    };
     const results = {} as Record<keyof typeof resultMap, number>;
 
     for (const key in resultMap) {
@@ -887,7 +990,10 @@ export const pdq4p: Scale = {
         results[key as keyof typeof resultMap] += getValue(id);
       }
     }
-    const sum = scoresKeys.map((key) => results[key as keyof typeof resultMap] || 0).reduce((a, b) => a + b, 0) - _data[60];
+    const sum =
+      scoresKeys
+        .map((key) => results[key as keyof typeof resultMap] || 0)
+        .reduce((a, b) => a + b, 0) - _data[60];
     const getThreshold = (key: keyof typeof nameMap) => {
       if (key === 'TG' || key === 'SUS') {
         return extraThresholds[key];
@@ -905,8 +1011,12 @@ export const pdq4p: Scale = {
     const description = [
       `总分：${sum}分`,
       ...detailLines,
-      tgScore >= extraThresholds.TG ? `掩饰分：${tgScore}分，达到或超过阈值≥${extraThresholds.TG}，量表结果可信度低。` : `掩饰分：${tgScore}分，未达到阈值≥${extraThresholds.TG}。`,
-      susScore >= extraThresholds.SUS ? `怀疑分：${susScore}分，达到或超过阈值≥${extraThresholds.SUS}。` : `怀疑分：${susScore}分，未达到阈值≥${extraThresholds.SUS}。`,
+      tgScore >= extraThresholds.TG
+        ? `掩饰分：${tgScore}分，达到或超过阈值≥${extraThresholds.TG}，量表结果可信度低。`
+        : `掩饰分：${tgScore}分，未达到阈值≥${extraThresholds.TG}。`,
+      susScore >= extraThresholds.SUS
+        ? `怀疑分：${susScore}分，达到或超过阈值≥${extraThresholds.SUS}。`
+        : `怀疑分：${susScore}分，未达到阈值≥${extraThresholds.SUS}。`,
     ].join('\n');
     return {
       ok: true,
@@ -914,16 +1024,18 @@ export const pdq4p: Scale = {
       description,
       score: [
         {
-          type: "lines",
+          type: 'lines',
           min: 0,
           max: 9,
           splitLinesData: scoresKeys.map(
             (key) => `${nameMap[key as keyof typeof resultMap]}\n${results[key]! || 0}`
           ),
-          values: [{
-            values: scoresKeys.map((key) => results[key as keyof typeof resultMap] || 0),
-          }],
-        }
+          values: [
+            {
+              values: scoresKeys.map((key) => results[key as keyof typeof resultMap] || 0),
+            },
+          ],
+        },
       ],
     };
   },

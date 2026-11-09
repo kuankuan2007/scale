@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "sortPackageJson": false,
+  "associations": [
+    {
+      "files": ["*.vue"],
+      "language": "vue"
+    }
+  ],
+  "ignorePatterns": ["src/types/auto-imports.d.ts", "src/assets/fontello/config.json"]
+}

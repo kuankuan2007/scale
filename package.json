@@ -14,7 +14,7 @@
     "type-check": "vue-tsc --build",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "format": "prettier --write src/",
+    "format": "oxfmt --write src/",
     "load-fontello": "load-fontello"
   },
   "dependencies": {
@@ -34,9 +34,9 @@
     "esbuild": "^0.28.2",
     "jiti": "^2.7.0",
     "npm-run-all2": "^9.0.3",
+    "oxfmt": "^0.77.0",
     "oxlint": "^1.92.0",
     "postcss-preset-env": "^11.5.4",
-    "prettier": "3.8.3",
     "rollup-plugin-visualizer": "^7.1.1",
     "sass": "^1.105.0",
     "typescript": "~6.0.3",

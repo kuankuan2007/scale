@@ -43,8 +43,7 @@ export const panss: Scale = {
       url: 'https://doi.org/10.1093/schbul/13.2.261',
     },
     {
-      title:
-        '阳性和阴性症状量表（PANSS，中文版）的信、效度研究（司天梅等，中国心理卫生杂志 2004）',
+      title: '阳性和阴性症状量表（PANSS，中文版）的信、效度研究（司天梅等，中国心理卫生杂志 2004）',
       url: 'https://doi.org/10.3321/j.issn.1000-6729.2004.01.016',
     },
     {
