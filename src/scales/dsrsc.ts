@@ -7,6 +7,7 @@ const reverse = [1, 2, 4, 7, 8, 9, 11, 12, 13, 16] as const;
 export const dsrsc: Scale = {
   id: 'dsrsc',
   name: '儿童抑郁障碍自评量表 (DSRS-C)',
+  summary: '用于儿童自评抑郁相关情绪与行为表现，辅助筛查抑郁症状。',
   description:
     '儿童抑郁障碍自评量表（Depression Self-Rating Scale for Children，DSRS-C）由 Peter Birleson 于1981年编制，含18个条目，用于了解学龄儿童过去一周的抑郁相关表现。适用年龄应依据具体版本及本地验证资料确定，不宜断言唯一年龄范围。该量表用于筛查，不能单独诊断抑郁障碍。',
   refer: [

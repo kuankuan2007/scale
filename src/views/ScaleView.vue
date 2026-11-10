@@ -144,6 +144,7 @@ import intersectionRef, { type intersectionData } from '@kuankuan/assist-2026/re
 import { formatTimeDiff } from '@/scripts/util';
 import { RaterTag, tagLabelsOf } from '@/types/scaleTags';
 import { getScale } from '@/scripts/scaleLoader';
+import { useHead } from '@unhead/vue';
 
 const props = defineProps<{
   id: string;
@@ -158,6 +159,16 @@ const requiredId = ref<string>();
 const readonly = ref(false);
 const resultElement = useTemplateRef('resultElement');
 const resultIntersectionData = ref<intersectionData>({});
+const summary = computed(() => data.value?.summary ?? '在线心理量表评估');
+
+useHead({
+  meta: [
+    { name: 'description', content: summary },
+    { property: 'og:description', content: summary },
+    { name: 'twitter:description', content: summary },
+    { name: 'twitter:title', content: title },
+  ],
+});
 
 const scaleTags = computed(() => (data.value ? tagLabelsOf(data.value.tags) : []));
 const isOtherRater = computed(

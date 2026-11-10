@@ -69,6 +69,7 @@ const resultMap: [number, number, number, number, number][] = [
 export const abc: Scale = {
   id: 'abc',
   name: '孤独症行为量表 (ABC)',
+  summary: '用于筛查儿童孤独症相关行为特征，涵盖感觉、交往、运动、语言与自理领域。',
   description:
     '孤独症行为量表（Autism Behavior Checklist，ABC）由 Krug、Arick、Almond 于 1980 年编制，包含 57 项加权条目，评估感觉、交往、运动（躯体与物体使用）、语言和自理 5 个领域，由熟悉儿童日常表现的家长、教师或照护者填写。本页面采用的中文版参考标准以 31 分为筛查阳性界值、62 分及以上为高度疑似；本量表仅用于辅助筛查，不能单独诊断孤独症，结果阳性或对儿童发育有疑虑时应咨询专业人员。',
   refer: [

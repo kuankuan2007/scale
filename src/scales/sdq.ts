@@ -375,6 +375,7 @@ export function calcSdqResult(
 export const sdq: Scale = {
   id: 'sdq',
   name: '长处和困难问卷家长／教师版 (SDQ)',
+  summary: '供家长或教师评估儿童青少年的情绪、行为、人际交往与亲社会表现。',
   description: [
     '长处和困难问卷（Strengths and Difficulties Questionnaire，SDQ）由 Robert N. Goodman 编制，1997 年发表主量表。量表含 25 项，涵盖情绪症状、品行问题、多动、同伴交往问题和亲社会行为五个维度，并附影响补充题，用于儿童青少年情绪与行为问题筛查。当前页面为家长／教师版，结果采用各版本的传统阈值；量表结果不能替代临床诊断。如需约 11—17 岁青少年的学生自评版，请使用',
     {

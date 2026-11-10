@@ -11,6 +11,7 @@ const groups = [
 export const rgpts: Scale = {
   id: 'rgpts',
   name: '修订 Green 偏执想法量表 (R-GPTS)',
+  summary: '用于评估偏执想法及相关信念的程度，区分想法内容与困扰影响。',
   description:
     '修订 Green 偏执想法量表（Revised Green et al. Paranoid Thoughts Scale，R-GPTS）由 Freeman 等人于 2021 年修订，用于自评过去一个月对他人的偏执想法，共 18 题（关系观念 8 题、被害观念 10 题），每项按 0～4 分计分，分数越高表示相应观念越强。本页译自原版附录，未经本地验证。',
   refer: [

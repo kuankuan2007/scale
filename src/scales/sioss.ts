@@ -22,6 +22,7 @@ const nameMap = {
 export const sioss: Scale = {
   id: 'sioss',
   name: '自杀意念自评量表 (SIOSS)',
+  summary: '用于筛查自杀意念相关表现与风险线索，结果不能替代专业风险评估。',
   description:
     '自杀意念自评量表（Self-rating Idea of Suicide Scale，SIOSS）由夏朝云、王东波、吴素琴、叶剑辉编制，2002 年发表，共 26 项，包含绝望、乐观、睡眠和掩饰四个因子；前三个因子相加形成自杀意念总分，掩饰因子用于判断结果效度。本量表仅用于自杀意念筛查，不是完整的自杀风险评估，不能替代专业人员对当前意念、计划、手段、既往行为及保护因素的综合评估。',
   refer: [

@@ -6,6 +6,7 @@ const globalChoices = ['无', '轻度', '中度，尚能忍受', '重度，勉�
 export const bai: Scale = {
   id: 'bai',
   name: '贝克焦虑量表 (BAI)',
+  summary: '用于自评焦虑相关症状及其严重程度，常用于焦虑症状筛查与评估。',
   description:
     '贝克焦虑量表（Beck Anxiety Inventory，BAI）由 Aaron T. Beck、Norman Epstein、Gary Brown、Robert A. Steer 于 1988 年编制，包含 21 项，评估过去一周焦虑症状的严重程度，总分为 0—63 分，较侧重躯体和惊恐样症状。结果不能独立诊断焦虑障碍，应结合临床情况解释。',
   refer: [

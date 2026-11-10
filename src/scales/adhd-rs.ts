@@ -13,6 +13,7 @@ const symptomGroups = {
 export const adhdRs: Scale = {
   id: 'adhd-rs',
   name: 'ADHD 评定量表第 5 版',
+  summary: '用于评估儿童青少年注意缺陷、多动与冲动症状，辅助了解 ADHD 症状表现。',
   trusted: true,
   description:
     'ADHD 评定量表第 5 版（ADHD Rating Scale–5，ADHD-RS-5）由 DuPaul 等人于 2016 年编制，依据 DSM-5 由家长或教师评定 5～17 岁儿童青少年的注意缺陷、多动/冲动症状及相关功能影响，用于筛查和疗效观察。本页题干为自行翻译，未经中文版验证，结果不能单独用于诊断。',

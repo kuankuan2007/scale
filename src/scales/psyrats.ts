@@ -17,6 +17,7 @@ export const psyrats: Scale = {
   id: 'psyrats',
   trusted: false,
   name: '精神病性症状评定量表参考记录 (PSYRATS)',
+  summary: '用于评估幻听与妄想体验的特征、频率及困扰程度，辅助症状追踪。',
   description:
     '精神病性症状评定量表（Psychotic Symptom Rating Scales，PSYRATS）由 Haddock 等人于 1999 年编制，用于由专业人员评定听幻觉和妄想的多个维度。本页题目为自行概括、未经本地验证，结果仅供记录参考，请以原版量表为准。',
   refer: [

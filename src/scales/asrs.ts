@@ -7,6 +7,7 @@ const globalChoices = ['从不', '很少', '有时', '经常', '总是'] as cons
 export const asrs: Scale = {
   id: 'asrs',
   name: '成人ADHD自评量表 (ASRS)',
+  summary: '成人 ADHD 症状自评筛查工具，用于了解注意缺陷、多动与冲动表现。',
   description: [
     '成人 ADHD 自评量表（ASRS）由世界卫生组织（WHO）成人 ADHD 工作组与 Adler、Kessler、Spencer 等于 2005 年制定，依据 DSM-IV 回顾过去 6 个月的 18 项症状；前 6 项为',
     {

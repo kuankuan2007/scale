@@ -13,6 +13,7 @@ const dimensions = {
 export const pdi: Scale = {
   id: 'pdi',
   name: '彼得斯妄想问卷 21 项版 (PDI-21)',
+  summary: '用于自评妄想相关体验及其困扰程度，了解异常信念与感知体验。',
   description:
     '彼得斯妄想问卷（Peters et al. Delusions Inventory，PDI-21）由 Peters 等人编制，21 项版于 2004 年发表，用于评估一般人群中的妄想样观念，共 21 个是／否条目，并对认可的项目评定困扰、先占和确信程度。本页为英文原版自行翻译、未经本地验证，结果仅供了解自身观念倾向，不能用于诊断。',
   refer: [

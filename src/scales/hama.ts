@@ -13,6 +13,7 @@ const nameMap = {
 export const hama: Scale = {
   id: 'hama',
   name: '汉密尔顿焦虑量表 (HAMA)',
+  summary: '由评定者评估焦虑症状及严重程度，涵盖精神性与躯体性焦虑表现。',
   description:
     '汉密尔顿焦虑量表（Hamilton Anxiety Rating Scale，HAMA）由 Max R. Hamilton 于1959年编制，是含14项的临床他评量表，总分0—56分，可归纳为精神性焦虑与躯体性焦虑两个因子，主要用于评估焦虑症状严重度及疗效变化。量表通常由受过训练的专业人员结合访谈与观察评分，不能作为独立诊断依据。',
   refer: [

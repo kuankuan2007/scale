@@ -23,6 +23,7 @@ export function calcApart(values: number[]) {
 export const asrsA: Scale = {
   id: 'asrs-a',
   name: '成人ADHD自评量表 (ASRS) - A部分',
+  summary: '成人 ADHD 自评筛查工具 A 部分，用于识别近期注意缺陷与多动冲动症状。',
   description: [
     '成人 ADHD 自填量表症状检核表（ASRS-v1.1）由世界卫生组织（WHO）成人 ADHD 工作组与 Adler、Kessler、Spencer 等于 2005 年制定。A 部分依据 DSM-IV，回顾过去 6 个月的 6 项症状，可用于成人 ADHD 快速筛查，但不能独立诊断；筛查阳性或症状持续影响生活时，建议接受专业评估。其他部分参见',
     {
