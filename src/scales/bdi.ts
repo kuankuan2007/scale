@@ -4,6 +4,10 @@ import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 export const bdi: Scale = {
   id: 'bdi',
   name: '贝克抑郁量表 (BDI)',
+  seo: {
+    summary: '用于自评抑郁症状及其严重程度，可辅助观察症状变化。',
+    keywords: ['贝克抑郁量表', 'BDI量表', '抑郁自测', '抑郁症状评估', '抑郁筛查'],
+  },
   description:
     '贝克抑郁量表（Beck Depression Inventory，BDI）由 Aaron T. Beck 等于 1961 年编制，1978 年修订为 BDI-IA。当前 21 项内容与计分更接近 BDI-IA，用于自评抑郁症状严重程度及观察变化；结果不能独立诊断抑郁障碍，应结合专业评估解释。',
   refer: [

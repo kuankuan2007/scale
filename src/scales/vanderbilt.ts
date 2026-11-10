@@ -15,6 +15,16 @@ const symptomGroups = {
 export const vanderbilt: Scale = {
   id: 'vanderbilt',
   name: '范德比尔特 ADHD 家长评定量表 (VADPRS)',
+  seo: {
+    summary: '供家长评估儿童 ADHD 症状及相关行为表现，辅助筛查与临床访谈。',
+    keywords: [
+      '范德比尔特ADHD家长评定量表',
+      'VADPRS',
+      '儿童ADHD家长量表',
+      '儿童注意缺陷筛查',
+      '多动冲动评估',
+    ],
+  },
   trusted: true,
   description:
     '范德比尔特 ADHD 家长评定量表（Vanderbilt ADHD Diagnostic Parent Rating Scale，VADPRS）由美国国家儿童健康质量研究所（NICHQ）于 2002 年发布，供家长评定 6～12 岁儿童近 6 个月的 ADHD 症状及相关行为、情绪问题和功能表现，用于辅助筛查与评估。已有中文版家长量表的信效度研究；本页为依据英文版独立简译，未与研究译本逐题校订，结果不能单独用于诊断。',

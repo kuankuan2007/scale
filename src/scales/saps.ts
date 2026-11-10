@@ -23,6 +23,16 @@ export const saps: Scale = {
   id: 'saps',
   trusted: false,
   name: '阳性症状评定量表参考记录 (SAPS)',
+  seo: {
+    summary: '用于评定精神病性阳性症状，包括幻觉、妄想、怪异行为与思维障碍。',
+    keywords: [
+      '阳性症状评定量表',
+      'SAPS量表',
+      '精神病性阳性症状评估',
+      '幻觉妄想评定',
+      '思维障碍评估',
+    ],
+  },
   description:
     '阳性症状评定量表（Scale for the Assessment of Positive Symptoms，SAPS）由 Andreasen 于 1984 年编制，用于由专业人员评定精神分裂症患者的幻觉、妄想、怪异行为和阳性思维形式障碍。本页症状描述为自行概括、未经本地验证，结果仅供记录参考，请以原版量表为准。',
   refer: [

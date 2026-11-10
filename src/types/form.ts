@@ -80,6 +80,7 @@ export type Scale = Readonly<{
   id: string;
   trusted?: boolean;
   name: string;
+  seo: { summary: string; keywords: string[] };
   description: string | (string | { type: 'link'; to: string; content: string })[];
   guild?: string;
   questions: Question[];

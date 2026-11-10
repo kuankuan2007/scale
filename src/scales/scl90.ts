@@ -32,6 +32,10 @@ const nameMap = {
 export const scl90: Scale = {
   id: 'scl90',
   name: '90 项症状清单 (SCL-90)',
+  seo: {
+    summary: '用于评估多方面心理症状与困扰程度，涵盖情绪、人际及躯体表现。',
+    keywords: ['90项症状清单', 'SCL-90', '心理健康测评', '心理症状筛查', '综合心理评估'],
+  },
   description:
     '90项症状清单（Symptom Checklist-90，SCL-90）由 Leonard R. Derogatis、Ronald S. Lipman、Lino Covi 于1973年编制，共90项，包括躯体化、强迫症状、人际关系敏感、抑郁、焦虑、敌对、恐怖、偏执、精神病性9个正式症状维度及7个附加项目。中国常用版本采用1～5级计分，用于心理症状筛查、严重度评估及疗效观察；结果不能作为独立诊断，须结合临床访谈和专业评估解释。',
   refer: [

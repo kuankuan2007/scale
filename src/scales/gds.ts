@@ -9,6 +9,10 @@ const reverse = [
 export const gds: Scale = {
   id: 'gds',
   name: '老年抑郁量表 (GDS-30)',
+  seo: {
+    summary: '用于筛查老年人抑郁症状，关注老年阶段的情绪与兴趣变化。',
+    keywords: ['老年抑郁量表', 'GDS-30', '老年人抑郁筛查', '老年抑郁自测', '老年心理评估'],
+  },
   description:
     '老年抑郁量表30项长版（GDS-30）由 Jerome A. Yesavage、T. L. Brink、Terrence L. Rose 等于1982年开发，并于1982—1983年发表。量表含30个是非题，评估过去一周的抑郁相关表现，设计上减少躯体症状对老年人筛查的干扰。该量表用于筛查及严重度参考，不能单独诊断抑郁障碍。',
   refer: [

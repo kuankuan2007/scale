@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
-    "build-only": "vite build",
+    "build-only": "vite-ssg build",
     "type-check": "vue-tsc --build",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@kuankuan/assist-2026": "^0.1.18",
+    "@unhead/vue": "^2.0.0",
     "color": "^5.0.3",
     "vue": "^3.5.43",
     "vue-router": "^5.3.1"
@@ -46,6 +47,7 @@
     "vite-plugin-inspect": "12.1.0",
     "vite-plugin-sitemap": "^0.8.2",
     "vite-plugin-vue-devtools": "^8.2.1",
+    "vite-ssg": "^28.3.0",
     "vue-tsc": "^3.3.11"
   },
   "packageManager": "pnpm@12.6.0"

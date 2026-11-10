@@ -13,7 +13,10 @@
   </div>
 </template>
 <script setup lang="ts">
-const url = ref(location.href);
+const url = ref('');
+onMounted(() => {
+  url.value = location.href;
+});
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;

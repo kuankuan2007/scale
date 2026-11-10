@@ -6,6 +6,10 @@ const globalChoices = ['是', '否'] as const;
 export const hcl32: Scale = {
   id: 'hcl32',
   name: '轻躁狂症状清单 (HCL-32)',
+  seo: {
+    summary: '用于筛查轻躁狂相关经历，了解情绪高涨阶段的行为与精力变化。',
+    keywords: ['轻躁狂症状清单', 'HCL-32', '轻躁狂筛查', '双相障碍筛查', '情绪高涨评估'],
+  },
   description:
     '轻躁狂症状清单（Hypomania Checklist-32，HCL-32）由 Jules Angst、Thomas D. Meyer 等于2005年编制，共32项，用于筛查既往轻躁狂症状，辅助识别双相谱系障碍。筛查结果不能单独用于诊断，须结合情绪发作史、持续时间、功能变化及专业评估综合判断。',
   refer: [

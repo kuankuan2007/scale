@@ -13,6 +13,16 @@ function sumAnswers(datas: { [key: string]: unknown }, itemIds: readonly string[
 export const asrsR: Scale = {
   id: 'asrs-r',
   name: '儿童青少年 ADHD 自评量表修订版 (ASRS-R)',
+  seo: {
+    summary: '用于儿童青少年自评注意缺陷与多动冲动表现，辅助筛查 ADHD 相关症状。',
+    keywords: [
+      '儿童青少年ADHD自评量表',
+      'ASRS-R',
+      '青少年多动症筛查',
+      '注意缺陷自评',
+      'ADHD症状评估',
+    ],
+  },
   trusted: true,
   description:
     '儿童青少年 ADHD 自评量表修订版（ASRS-R）由吴红梅团队依据 WHO 成人 ADHD 自评量表（Kessler 等，2005）修订，供 8～16 岁儿童青少年自评近 6 个月的注意缺陷和多动/冲动症状，用于初步筛查。已有中国儿童青少年样本的信效度验证；本页题目为自行翻译，结果仅作筛查参考，不能用于诊断。',

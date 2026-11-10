@@ -6,6 +6,16 @@ const globalChoices = ['是', '否'] as const;
 export const bsds: Scale = {
   id: 'bsds',
   name: '双相谱系诊断量表 (BSDS)',
+  seo: {
+    summary: '用于筛查双相谱系相关特征，辅助识别情绪高涨与抑郁交替表现。',
+    keywords: [
+      '双相谱系诊断量表',
+      'BSDS量表',
+      '双相情感障碍筛查',
+      '双相谱系自测',
+      '情绪高涨与抑郁评估',
+    ],
+  },
   description: [
     '双相谱系诊断量表（Bipolar Spectrum Diagnostic Scale，BSDS）由美国精神科医生 Ronald W. Pies 创制，Ghaemi 等于 2005 年完成首个验证，用于筛查双相谱系障碍（含双相 II 型等较轻亚型）。阴性结果基本可排除双相谱系障碍，阳性结果则不能确诊，须结合情绪发作史及专业评估综合判断。可与',
     {

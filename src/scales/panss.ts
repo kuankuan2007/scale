@@ -35,6 +35,10 @@ const nameMap = {
 export const panss: Scale = {
   id: 'panss',
   name: '阳性与阴性症状量表 (PANSS)',
+  seo: {
+    summary: '用于评定精神分裂症阳性、阴性及一般精神病理症状的严重程度。',
+    keywords: ['阳性与阴性症状量表', 'PANSS量表', '精神分裂症评估', '阳性症状评定', '阴性症状评定'],
+  },
   description:
     '阳性与阴性症状量表（Positive and Negative Syndrome Scale，PANSS）由 Kay 等人于 1987 年编制，共 30 项，每项按 1～7 分计分，用于评估精神分裂症患者近一周的阳性症状、阴性症状与一般精神病理症状的严重程度；中文版由司天梅等翻译并验证信效度。本量表为临床他评量表，需由受过训练的专业人员结合访谈、观察和临床资料完成，结果不能单独用于诊断。',
   refer: [

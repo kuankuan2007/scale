@@ -5,6 +5,10 @@ const globalChoices = ['是', '否'] as const;
 export const mdq: Scale = {
   id: 'mdq',
   name: '心境障碍问卷 (MDQ)',
+  seo: {
+    summary: '用于筛查双相障碍相关情绪发作史，关注躁狂或轻躁狂症状及影响。',
+    keywords: ['心境障碍问卷', 'MDQ量表', '双相障碍筛查', '躁狂轻躁狂筛查', '双相情绪自测'],
+  },
   description:
     '心境障碍问卷（Mood Disorder Questionnaire，MDQ）由 Robert M.A. Hirschfeld 等于 2000 年编制，含 13 项躁狂／轻躁狂症状是／否条目及“是否同期出现”“困扰程度”两问，用于筛查双相障碍；中文版由杨海晨、刘铁榜等翻译验证（α=0.79，界值 7 分）。筛查结果不能单独用于诊断，须结合情绪发作史及专业评估综合判断。',
   refer: [
