@@ -8,7 +8,7 @@
             auto: 'os-follow',
             light: 'light',
             dark: 'night',
-          }[themeValue]!
+          }[displayTheme]!
         "
         class="theme-button-icon"
       />
@@ -19,6 +19,12 @@
 import { title } from '@/router';
 import KIcon from './KIcon.vue';
 import { themeValue, themeValueList } from '@/scripts/theme';
+
+const mounted = ref(false);
+const displayTheme = computed(() => (mounted.value ? themeValue.value : 'auto'));
+onMounted(() => {
+  mounted.value = true;
+});
 
 function changeToNextTheme() {
   themeValue.value =

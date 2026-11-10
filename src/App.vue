@@ -13,6 +13,13 @@
 <script setup lang="ts">
 import { title, fullscreen, hideHeader } from './router';
 import PageHeader from '@/components/PageHeader.vue';
+import { useHead } from '@unhead/vue';
+
+useHead({
+  title,
+  htmlAttrs: { lang: 'zh-CN' },
+  meta: [{ property: 'og:title', content: title }],
+});
 </script>
 <style scoped lang="scss">
 .app-root {

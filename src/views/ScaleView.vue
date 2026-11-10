@@ -6,7 +6,7 @@
       <div class="warns">
         <div class="warn print-hide">
           <k-icon id="info" inline />
-          测试全程离线进行，页面不会上报任何数据，请放心填写
+          作答和计分在本地进行，不会上传填写内容
         </div>
         <div class="warn print-only">
           <k-icon id="info" inline />
@@ -143,6 +143,7 @@ import { RouterLink } from 'vue-router';
 import intersectionRef, { type intersectionData } from '@kuankuan/assist-2026/ref/intersectionRef';
 import { formatTimeDiff } from '@/scripts/util';
 import { RaterTag, tagLabelsOf } from '@/types/scaleTags';
+import { getScale } from '@/scripts/scaleLoader';
 
 const props = defineProps<{
   id: string;
@@ -157,12 +158,6 @@ const requiredId = ref<string>();
 const readonly = ref(false);
 const resultElement = useTemplateRef('resultElement');
 const resultIntersectionData = ref<intersectionData>({});
-
-watch(data, (newValue) => {
-  if (newValue !== void 0) {
-    formResult.value = {};
-  }
-});
 
 const scaleTags = computed(() => (data.value ? tagLabelsOf(data.value.tags) : []));
 const isOtherRater = computed(
@@ -219,13 +214,6 @@ if (import.meta.env.DEV) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   // @ts-expect-error DEV
-  window.loadTestData = (data: string) => {
-    fetch(`/temp/test-datas/${data}.json`)
-      .then((res) => res.json())
-      .then((data) => (formResult.value = data))
-      .then(() => console.log('test data loaded:', data), console.error);
-  };
-  // @ts-expect-error DEV
   window.randomTestData = () => {
     for (const i of data.value!.questions) {
       if (i.form.type === 'choice') {
@@ -245,17 +233,16 @@ function showRequired(id: string) {
   }
 }
 function updateData() {
-  state.value = 'loading';
-  import(`../scales/${props.id.toLowerCase()}.ts`).then(
-    (scale) => {
-      data.value = scale.default;
-      state.value = 'success';
-    },
-    () => {
-      state.value = 'error';
-      title.value = '量表加载失败';
-    }
-  );
+  const scale = getScale(props.id);
+  data.value = scale;
+  state.value = scale ? 'success' : 'error';
+  title.value = scale?.name ?? '量表加载失败';
+  formResult.value = {};
+  result.value = undefined;
+  requiredId.value = undefined;
+  readonly.value = false;
+  startTime.value = 0;
+  finishTime.value = 0;
 }
 async function submit() {
   let res: ScaleOKResult | ScaleErrorResult;
@@ -286,8 +273,9 @@ function printPage() {
   window.print();
 }
 
+watch(() => props.id, updateData, { immediate: true });
+
 onMounted(() => {
-  watch(() => props.id, updateData, { immediate: true });
   watch(
     data,
     () => {

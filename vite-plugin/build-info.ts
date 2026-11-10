@@ -31,6 +31,7 @@ async function getGitInfo() {
 }
 
 export default function VitePluginBuildInfo(): Plugin {
+  const buildTime = Number((process.env.SCALE_BUILD_TIME ??= String(Date.now())));
   return {
     name: 'vite-plugin-build-info',
 
@@ -42,7 +43,7 @@ export default function VitePluginBuildInfo(): Plugin {
     async load(id) {
       if (id === '\0' + MODULE_ID) {
         const res = {
-          buildTime: Date.now(),
+          buildTime,
           meta: this.meta,
           mode: this.environment.mode,
           git: await getGitInfo(),

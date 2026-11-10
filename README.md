@@ -19,15 +19,19 @@
 
 - **前端框架**: Vue 3 (Composition API)
 - **类型系统**: TypeScript
-- **构建工具**: Vite
+- **构建工具**: Vite + ViteSSG
 - **样式处理**: Sass + PostCSS
-- **路由管理**: Vue Router 4
+- **路由管理**: Vue Router
 - **图标字体**: Fontello
 - **代码规范**: Oxlint + Prettier
 
 ## 图标
 
 现在全部是宽宽手绘了，之前版本使用过[Font Awesome](https://fontawesome.com/)
+
+## 构建和部署
+
+使用 `pnpm install` 安装依赖，使用 `pnpm build` 将所有页面预渲染到 `dist/`，再将该目录部署到静态托管服务。量表列表和量表详情均生成对应目录下的 `index.html`；将静态托管的 404 页面设置为 `404.html`。填写和计分在浏览器本地完成，网站保留百度统计脚本。
 
 ## 贡献新量表
 

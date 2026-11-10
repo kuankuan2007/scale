@@ -65,7 +65,7 @@
           <div class="repo-link">
             <a href="https://github.com/kuankuan2007/scale" class="github">
               <img
-                v-if="theme === 'dark'"
+                v-if="displayTheme === 'dark'"
                 src="@/assets/third-party-logo/github-mark-white.svg"
                 alt="GitHub"
               />
@@ -105,6 +105,12 @@
 import KIcon from '@/components/KIcon.vue';
 import { theme } from '@/scripts/theme';
 import { show as showBuildInfo } from 'visual:k-build-info';
+
+const mounted = ref(false);
+const displayTheme = computed(() => (mounted.value ? theme.value : 'light'));
+onMounted(() => {
+  mounted.value = true;
+});
 </script>
 <style scoped lang="scss">
 @use '@/styles/theme.scss' as *;
