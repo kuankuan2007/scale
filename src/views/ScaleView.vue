@@ -159,11 +159,13 @@ const requiredId = ref<string>();
 const readonly = ref(false);
 const resultElement = useTemplateRef('resultElement');
 const resultIntersectionData = ref<intersectionData>({});
-const summary = computed(() => data.value?.summary ?? '在线心理量表评估');
+const summary = computed(() => data.value?.seo.summary ?? '在线心理量表评估');
+const keywords = computed(() => data.value?.seo.keywords.join(', ') ?? '');
 
 useHead({
   meta: [
     { name: 'description', content: summary },
+    { name: 'keywords', content: keywords },
     { property: 'og:description', content: summary },
     { name: 'twitter:description', content: summary },
     { name: 'twitter:title', content: title },

@@ -4,7 +4,10 @@ import { DomainTag, PurposeTag, RaterTag } from '@/types/scaleTags';
 export const hamd: Scale = {
   id: 'hamd',
   name: '汉密尔顿抑郁量表 (HAMD)',
-  summary: '由评定者评估抑郁症状及严重程度，常用于临床评估与疗效观察。',
+  seo: {
+    summary: '由评定者评估抑郁症状及严重程度，常用于临床评估与疗效观察。',
+    keywords: ['汉密尔顿抑郁量表', 'HAMD量表', '抑郁症状评定', '临床抑郁评估', '抑郁疗效观察'],
+  },
   description:
     '汉密尔顿抑郁量表（Hamilton Depression Rating Scale，HAMD）由 Max Hamilton 于1960年编制，原版为17项，后有21项、24项等扩展版本；本表采用24项版。量表由经过训练的临床评定者通过访谈与观察评分，用于评估抑郁症状严重度及疗效变化。结果须结合临床访谈、病史和功能受损情况判断，不能单独用于诊断。',
   refer: [

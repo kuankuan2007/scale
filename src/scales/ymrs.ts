@@ -6,7 +6,16 @@ const doubles = [5, 6, 8, 9] as const;
 export const ymrs: Scale = {
   id: 'ymrs',
   name: '杨氏躁狂状态评定量表 (YMRS)',
-  summary: '由评定者评估躁狂症状严重程度，常用于临床状态评定与变化追踪。',
+  seo: {
+    summary: '由评定者评估躁狂症状严重程度，常用于临床状态评定与变化追踪。',
+    keywords: [
+      '杨氏躁狂状态评定量表',
+      'YMRS量表',
+      '躁狂症状评估',
+      '躁狂严重程度评定',
+      '双相障碍临床评估',
+    ],
+  },
   description:
     '杨氏躁狂状态评定量表（Young Mania Rating Scale，YMRS）由 Young、Biggs、Ziegler、Meyer 于 1978 年编制，共 11 项，是结合半结构访谈与临床观察完成的临床他评量表，用于评估躁狂症状严重度及疗效变化。量表结果不能单独用于诊断，应由受过训练的专业人员结合病史、功能损害及其他临床资料解释。',
   refer: [

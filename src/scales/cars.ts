@@ -4,7 +4,16 @@ import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTag
 export const cars: Scale = {
   id: 'cars',
   name: '儿童孤独症评定量表 (CARS)',
-  summary: '用于评定儿童孤独症相关行为特征及其程度，需结合专业观察与评估。',
+  seo: {
+    summary: '用于评定儿童孤独症相关行为特征及其程度，需结合专业观察与评估。',
+    keywords: [
+      '儿童孤独症评定量表',
+      'CARS量表',
+      '儿童自闭症评估',
+      '孤独症行为评定',
+      '儿童孤独症筛查',
+    ],
+  },
   description: [
     '儿童孤独症评定量表（CARS）由 Eric Schopler、Robert J. Reichler、Robert F. DeVellis 与 Kenneth Daly 编制，于1980年发表。量表含15项，由受过训练的专业人员综合直接观察、访谈及既有资料评分，用于辅助评估孤独症相关表现及严重程度，不能单独用于诊断。经典评分允许0.5分，本界面当前仅提供整数评分。必要时可结合',
     { type: 'link', to: '/scale/abc', content: '儿童孤独症家长评定量表(ABC)' },

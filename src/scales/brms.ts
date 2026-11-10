@@ -4,7 +4,16 @@ import { DomainTag, PopulationTag, PurposeTag, RaterTag } from '@/types/scaleTag
 export const brms: Scale = {
   id: 'brms',
   name: '贝克－拉范森躁狂量表 (BRMS)',
-  summary: '用于评定躁狂相关症状的严重程度，辅助观察躁狂状态变化。',
+  seo: {
+    summary: '用于评定躁狂相关症状的严重程度，辅助观察躁狂状态变化。',
+    keywords: [
+      '贝克拉范森躁狂量表',
+      'BRMS量表',
+      '躁狂症状评估',
+      '躁狂状态评定',
+      '双相情感障碍评估',
+    ],
+  },
   description:
     '贝克－拉范森躁狂量表（Bech-Rafaelsen Mania Rating Scale，BRMS）由 Per Bech、Tom G. Bolwig、Peter Kramp、Ole J. Rafaelsen 于 1978 年编制。原版含 11 项，中国临床常用版增加幻觉和妄想 2 项，共 13 项，由临床人员对成人进行祂评，用于评定躁狂症状严重度和疗效；结果不能独立诊断。',
   refer: [

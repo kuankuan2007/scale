@@ -55,7 +55,16 @@ const subscales = [
 export const crsR: Scale = {
   id: 'crs-r',
   name: '昏迷恢复量表修订版 (CRS-R)',
-  summary: '用于评估意识障碍者的听觉、视觉、运动、沟通与觉醒反应。',
+  seo: {
+    summary: '用于评估意识障碍者的听觉、视觉、运动、沟通与觉醒反应。',
+    keywords: [
+      '昏迷恢复量表修订版',
+      'CRS-R量表',
+      '意识障碍评估',
+      '昏迷患者意识评定',
+      '意识恢复评估',
+    ],
+  },
   trusted: true,
   description:
     '昏迷恢复量表修订版（Coma Recovery Scale–Revised，CRS-R）由 Giacino 等人于 2004 年修订，用于对意识障碍者进行标准化行为评估，辅助判断意识水平及其变化，适用于 6 岁及以上人群（1～5 岁请用儿科版 CRS-P）。本页供专业人员在完成正式评定后录入六个分量表得分，不替代正式手册和施测流程。',
