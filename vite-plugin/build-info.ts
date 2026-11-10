@@ -1,5 +1,7 @@
 import type { Plugin } from 'vite';
 import child_process from 'child_process';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import os from 'os';
 
 const MODULE_ID = 'visual:k-build-info';
@@ -30,8 +32,13 @@ async function getGitInfo() {
   };
 }
 
-export default function VitePluginBuildInfo(): Plugin {
+export default function VitePluginBuildInfo(isSSG: boolean): Plugin {
   const buildTime = Number((process.env.SCALE_BUILD_TIME ??= String(Date.now())));
+  const viteSsgVersion = (
+    JSON.parse(
+      readFileSync(resolve(process.cwd(), 'node_modules/vite-ssg/package.json'), 'utf8')
+    ) as { version: string }
+  ).version;
   return {
     name: 'vite-plugin-build-info',
 
@@ -46,6 +53,8 @@ export default function VitePluginBuildInfo(): Plugin {
           buildTime,
           meta: this.meta,
           mode: this.environment.mode,
+          isSSG,
+          viteSsgVersion,
           git: await getGitInfo(),
           os: {
             platform: os.platform(),
@@ -64,6 +73,15 @@ export default function VitePluginBuildInfo(): Plugin {
               {
                 title: '环境',
                 content: async () => res.mode.toUpperCase(),
+              },
+              {
+                title: 'SSG 渲染',
+                content: async () => (res.isSSG ? '是' : '否'),
+              },
+              {
+                title: 'vite-ssg',
+                content: async () => res.viteSsgVersion,
+                url: 'https://github.com/antfu-collective/vite-ssg',
               },
               {
                 title: '分支',

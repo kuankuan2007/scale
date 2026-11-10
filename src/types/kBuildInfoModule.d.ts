@@ -7,6 +7,8 @@ declare module 'visual:k-build-info' {
       rolldownVersion?: string;
     };
     mode: string;
+    isSSG: boolean;
+    viteSsgVersion: string;
     git: {
       branch: string;
       lastCommit: {

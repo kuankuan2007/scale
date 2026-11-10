@@ -24,7 +24,7 @@ const sassAddition = `
 const scaleIndex = await getScaleIndex();
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   ssgOptions: {
     dirStyle: 'nested',
     includedRoutes: () => [
@@ -75,7 +75,7 @@ export default defineConfig({
       open: true,
     }),
     VitePluginScaleIndex(),
-    VitePluginBuildInfo(),
+    VitePluginBuildInfo(command === 'build'),
     Sitemap({
       hostname: 'https://scale.kuankuan.site',
       dynamicRoutes: [
@@ -144,4 +144,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
