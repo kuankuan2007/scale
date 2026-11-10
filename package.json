@@ -15,6 +15,7 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt --write src/",
+    "format:check": "oxfmt --check src/",
     "load-fontello": "load-fontello"
   },
   "dependencies": {
@@ -34,7 +35,7 @@
     "esbuild": "^0.28.2",
     "jiti": "^2.7.0",
     "npm-run-all2": "^9.0.3",
-    "oxfmt": "^0.77.0",
+    "oxfmt": "^0.78.0",
     "oxlint": "^1.92.0",
     "postcss-preset-env": "^11.5.4",
     "rollup-plugin-visualizer": "^7.1.1",
