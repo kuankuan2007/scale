@@ -11,7 +11,7 @@ import postcssPresetEnv from 'postcss-preset-env';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import VitePluginScaleIndex, { getScaleIndex } from './vite-plugin/scales-index.js';
-import VitePluginBuildInfo from './vite-plugin/build-info.js';
+import VitePluginBuildInfo from '@kuankuan/assist-2026/plugins/buildInfo';
 import Sitemap from 'vite-plugin-sitemap';
 import VitePluginInlineThemeInit from '@kuankuan/assist-2026/plugins/inlineThemeInit';
 
@@ -56,7 +56,7 @@ export default defineConfig(({ command }) => ({
       open: true,
     }),
     VitePluginScaleIndex(),
-    VitePluginBuildInfo(command === 'build'),
+    VitePluginBuildInfo(true, command === 'build'),
     Sitemap({
       hostname: 'https://scale.kuankuan.site',
       dynamicRoutes: [
