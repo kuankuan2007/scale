@@ -103,13 +103,12 @@
 </template>
 <script setup lang="ts">
 import KIcon from '@/components/KIcon.vue';
-import { theme } from '@/scripts/theme';
 import { show as showBuildInfo } from 'visual:k-build-info';
 
-const mounted = ref(false);
-const displayTheme = computed(() => (mounted.value ? theme.value : 'light'));
-onMounted(() => {
-  mounted.value = true;
+const themeModule = shallowRef<typeof import('@/scripts/theme')>();
+const displayTheme = computed(() => themeModule.value?.theme.value ?? 'light');
+onMounted(async () => {
+  themeModule.value = await import('@/scripts/theme');
 });
 </script>
 <style scoped lang="scss">

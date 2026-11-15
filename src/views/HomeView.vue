@@ -40,14 +40,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import { windowSize as browserWindowSize } from '@kuankuan/assist-2026/ref/sizeRef';
 import KIcon from '@/components/KIcon.vue';
 
 const hideHeader = defineModel<boolean>('hideHeader');
 const fullscreen = defineModel<boolean>('fullscreen');
-const mounted = ref(false);
-const windowSize = computed(() =>
-  mounted.value ? browserWindowSize.value : { width: 0, height: 0, min: 0, max: 0 }
+const browserWindowSize =
+  shallowRef<typeof import('@kuankuan/assist-2026/ref/sizeRef').windowSize>();
+const windowSize = computed(
+  () => browserWindowSize.value?.value ?? { width: 0, height: 0, min: 0, max: 0 }
 );
 
 fullscreen.value = true;
@@ -115,7 +115,9 @@ function startFramCallback(
   }
 }
 onMounted(() => {
-  mounted.value = true;
+  import('@kuankuan/assist-2026/ref/sizeRef').then(({ windowSize }) => {
+    browserWindowSize.value = windowSize;
+  });
   startFramCallback(canvasRef1, 200, 40, 300, 0);
   startFramCallback(canvasRef2, 240, 30, 300, 200);
   startFramCallback(canvasRef3, 250, 80, 300, 200);

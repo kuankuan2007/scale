@@ -18,17 +18,21 @@
 <script setup lang="ts">
 import { title } from '@/router';
 import KIcon from './KIcon.vue';
-import { themeValue, themeValueList } from '@/scripts/theme';
+import type * as ThemeModule from '@/scripts/theme';
 
-const mounted = ref(false);
-const displayTheme = computed(() => (mounted.value ? themeValue.value : 'auto'));
-onMounted(() => {
-  mounted.value = true;
+const themeModule = shallowRef<typeof ThemeModule>();
+const displayTheme = computed(() => themeModule.value?.themeValue.value ?? 'auto');
+onMounted(async () => {
+  themeModule.value = await import('@/scripts/theme');
 });
 
 function changeToNextTheme() {
-  themeValue.value =
-    themeValueList[(themeValueList.indexOf(themeValue.value) + 1) % themeValueList.length]!;
+  const module = themeModule.value;
+  if (!module) return;
+  module.themeValue.value =
+    module.themeValueList[
+      (module.themeValueList.indexOf(module.themeValue.value) + 1) % module.themeValueList.length
+    ]!;
 }
 
 defineProps<{

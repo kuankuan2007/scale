@@ -13,6 +13,7 @@ import cssnano from 'cssnano';
 import VitePluginScaleIndex, { getScaleIndex } from './vite-plugin/scales-index.js';
 import VitePluginBuildInfo from './vite-plugin/build-info.js';
 import Sitemap from 'vite-plugin-sitemap';
+import VitePluginInlineThemeInit from '@kuankuan/assist-2026/plugins/inlineThemeInit';
 
 const sassAddition = `
 @use '@/styles/theme.scss';
@@ -39,27 +40,7 @@ export default defineConfig(({ command }) => ({
     concurrency: 1,
   },
   plugins: [
-    {
-      name: 'assist-ssr',
-      enforce: 'pre',
-      resolveId(id) {
-        if (
-          this.environment.config.consumer === 'server' &&
-          (id === '@kuankuan/assist-2026/theme' || id === '@kuankuan/assist-2026/ref/sizeRef')
-        ) {
-          return `\0ssr:${id}`;
-        }
-      },
-      load(id) {
-        if (id === '\0ssr:@kuankuan/assist-2026/theme') {
-          return `import { ref } from 'vue'; export const themeValue = ref('auto'); export const themeValueList = ['auto', 'light', 'dark']; export const theme = ref('light');`;
-        }
-        if (id === '\0ssr:@kuankuan/assist-2026/ref/sizeRef') {
-          return `import { ref } from 'vue'; export const windowSize = ref({ width: 0, height: 0, min: 0, max: 0 }); export const devicePixelRatioRef = ref(1); export const computedSizeRef = () => ref({ width: 0, height: 0 });`;
-        }
-      },
-    },
-
+    VitePluginInlineThemeInit(),
     vue(),
     vueDevTools(),
     Inspect(),

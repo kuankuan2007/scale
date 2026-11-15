@@ -1,6 +1,8 @@
 import ScorePointer from './ScorePointer.vue';
-import ScoreRadar from './ScoreRadar.vue';
-import ScoreLines from './ScoreLines.vue';
+import { defineAsyncComponent } from 'vue';
+
+const ScoreRadar = defineAsyncComponent(() => import('./ScoreRadar.vue'));
+const ScoreLines = defineAsyncComponent(() => import('./ScoreLines.vue'));
 
 export default {
   pointer: ScorePointer,

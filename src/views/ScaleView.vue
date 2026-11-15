@@ -223,9 +223,24 @@ const completionTime = computed(() => {
 });
 
 if (import.meta.env.DEV) {
+  const testData = import.meta.glob<{ default: Record<string, unknown> }>(
+    '/temp/test-datas/*.json'
+  );
   function randomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+  // @ts-expect-error DEV
+  window.loadTestData = (name: string) => {
+    const load = testData[`/temp/test-datas/${name}.json`];
+    if (!load) {
+      console.error('test data not found:', name);
+      return;
+    }
+    load().then(({ default: values }) => {
+      formResult.value = values;
+      console.log('test data loaded:', name);
+    }, console.error);
+  };
   // @ts-expect-error DEV
   window.randomTestData = () => {
     for (const i of data.value!.questions) {

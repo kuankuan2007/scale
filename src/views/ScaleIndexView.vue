@@ -78,7 +78,6 @@ import KIcon from '@/components/KIcon.vue';
 import KTextInput from '@/components/KTextInput.vue';
 import CheckButton from '@/components/CheckButton.vue';
 import { RouterLink } from 'vue-router';
-import { windowSize } from '@kuankuan/assist-2026/ref/sizeRef';
 import vTabGroup from '@/scripts/vTabGroup';
 import { ALL_TAG_VALUES, TAG_GROUP_VIEWS, tagEntriesOf, tagValuesOf } from '@/types/scaleTags';
 import type { TagFilterState } from '@/types/scaleTags';
@@ -96,6 +95,8 @@ const tagListBox = useTemplateRef('tagListBox');
 const scaleIndexData = reactive(_scaleIndexData);
 const searchText = ref(props.q);
 const scaleList = useTemplateRef('scaleList');
+const browserWindowSize =
+  shallowRef<typeof import('@kuankuan/assist-2026/ref/sizeRef').windowSize>();
 
 const scaleTags = (scale: ScaleIndexItem) => tagEntriesOf(scale.tags);
 
@@ -195,16 +196,19 @@ const showScale = computed(() => {
   return res;
 });
 onMounted(() => {
+  import('@kuankuan/assist-2026/ref/sizeRef').then(({ windowSize }) => {
+    browserWindowSize.value = windowSize;
+  });
   watch(
-    windowSize,
-    () => {
-      if (!tagListBox.value) return;
+    () => browserWindowSize.value?.value,
+    (windowSize) => {
+      if (!tagListBox.value || !windowSize) return;
 
       tagListBox.value.style.left = 'auto';
 
       const rects = tagListBox.value.getBoundingClientRect();
-      if (rects.left + rects.width > windowSize.value.width) {
-        tagListBox.value.style.left = `${(windowSize.value.width * 0.9 - rects.left - rects.width).toFixed(2)}px`;
+      if (rects.left + rects.width > windowSize.width) {
+        tagListBox.value.style.left = `${(windowSize.width * 0.9 - rects.left - rects.width).toFixed(2)}px`;
       }
     },
     {
