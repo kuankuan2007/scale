@@ -405,8 +405,8 @@ onMounted(() => {
     margin: 0;
     list-style: none;
     position: relative;
-    overflow-x: hidden;
-    overflow-y: visible;
+    min-height: 20vh;
+    overflow: hidden;
     .scale-item {
       margin: 1em 0;
       padding: 1em;
@@ -450,11 +450,11 @@ onMounted(() => {
     .scale-list-leave-to {
       z-index: -1;
       opacity: 0;
-      transform: translate(20%, 0);
+      transform: scale(0.9);
     }
     .scale-list-enter-from {
       opacity: 0;
-      transform: translate(-20%, 0);
+      transform: scale(1.1);
     }
   }
   @media print {
